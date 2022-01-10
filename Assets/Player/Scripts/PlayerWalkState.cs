@@ -16,6 +16,8 @@ public class PlayerWalkState : PlayerBaseState
             SwitchState(_manager.GetIdleState());
         else if (_context.IsInputActiveRun)
             SwitchState(_manager.GetRunState());
+        else if (_context.IsInputActiveDodge)
+            SwitchState(_manager.GetDodgeState());
     }
 
     private bool HasWalkVelocity()

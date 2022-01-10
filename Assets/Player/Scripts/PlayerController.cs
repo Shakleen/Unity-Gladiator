@@ -124,7 +124,11 @@ public class PlayerController : MonoBehaviour
         _isInputActiveMovement = _inputMovementVector != Vector2.zero;
     }
 
-    private void InputCallbackRun(InputAction.CallbackContext context) { _isInputActiveRun = context.ReadValueAsButton(); }
+    private void InputCallbackRun(InputAction.CallbackContext context) 
+    { 
+        _isInputActiveRun = context.ReadValueAsButton(); 
+        _animator.SetBool(_animatorHashIsRunning, _isInputActiveRun);
+    }
 
     private void InputCallbackDodge(InputAction.CallbackContext context) { _isInputActiveDodge = context.ReadValueAsButton(); }
 
