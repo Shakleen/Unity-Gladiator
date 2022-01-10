@@ -151,7 +151,7 @@ Transform:
   m_GameObject: {fileID: 566287389}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 1481338482}
   m_RootOrder: 0
@@ -480,6 +480,18 @@ PrefabInstance:
     - target: {fileID: 652279947045414225, guid: f9bccb44d71d1894094c9030b8227ba1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1047056516126720679, guid: f9bccb44d71d1894094c9030b8227ba1, type: 3}
+      propertyPath: _maxVelocityRun
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1047056516126720679, guid: f9bccb44d71d1894094c9030b8227ba1, type: 3}
+      propertyPath: _accelarationWalk
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1047056516126720679, guid: f9bccb44d71d1894094c9030b8227ba1, type: 3}
+      propertyPath: _decelarationWalk
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1047056516126720679, guid: f9bccb44d71d1894094c9030b8227ba1, type: 3}
       propertyPath: _maxBackwardWalkVelocity
