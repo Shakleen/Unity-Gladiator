@@ -33,13 +33,13 @@ public class PlayerWalkState : PlayerBaseState
         {
             // Player pressed button to move in the positive direction of axis
             velocity = currentVelocity + ApplyFrameIndependentAccelaration(inputVelocity);
-            velocity = Mathf.Clamp(velocity, 0, MaxAllowablePositiveVelocity(inputVelocity));
+            velocity = Mathf.Clamp(velocity, 0, _context.MaxForwardWalkVelocity);
         }
         else if (inputVelocity < 0)
         {
             // Player pressed button to move in the negative direction of axis
             velocity = currentVelocity - ApplyFrameIndependentAccelaration(inputVelocity);
-            velocity = Mathf.Clamp(velocity, MaxAllowableNegativeVelocity(inputVelocity), 0);
+            velocity = Mathf.Clamp(velocity, _context.MaxBackwardWalkVelocity, 0);
         }
         else
         {
@@ -56,20 +56,13 @@ public class PlayerWalkState : PlayerBaseState
                 velocity = Mathf.Clamp(velocity, _context.MaxBackwardWalkVelocity, 0);
             }
         }
-        
 
         return velocity;
     }
 
-    private float MaxAllowableNegativeVelocity(float inputVelocity) { return _context.MaxBackwardWalkVelocity * Mathf.Abs(inputVelocity); }
-
-    private float MaxAllowablePositiveVelocity(float inputVelocity) { return _context.MaxForwardWalkVelocity * Mathf.Abs(inputVelocity); }
-
     private float ApplyFrameIndependentAccelaration(float inputVelocity) { return _context.AccelarationWalk * Mathf.Abs(inputVelocity) * Time.deltaTime; }
 
     private float ApplyFrameIndependentDecelaration() { return _context.DecelarationWalk * Time.deltaTime; }
-
-    private static bool IsVelocityZero(float inputVelocity) { return (inputVelocity > -THRESH) || (inputVelocity < THRESH); }
 
     public override string GetName()
     {
