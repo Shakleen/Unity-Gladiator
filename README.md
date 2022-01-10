@@ -24,3 +24,6 @@ A 3rd person action game where the player goes through hordes of enemies in a gl
 1. Fluid character movement
 2. Challenging enemies and boss
 3. Visual indications of health 
+
+# Acknowledgements
+1. Y-Bot Model and animations: Adobe Mixamo
