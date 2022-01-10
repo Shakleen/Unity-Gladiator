@@ -27,22 +27,11 @@ public class PlayerRunState : PlayerBaseState
     { 
         CheckSwitchState();
 
-        _context.CurrentMovementVelocityX = ChangeAxisVelocity(
-            _context.InputMovementVector.x, 
-            _context.CurrentMovementVelocityX,
-            -_context.MaxVelocityRun,
-            _context.MaxVelocityRun
-        );
-
-        _context.CurrentMovementVelocityZ = ChangeAxisVelocity(
-            _context.InputMovementVector.y, 
-            _context.CurrentMovementVelocityZ,
-            -_context.MaxForwardWalkVelocity,
-            _context.MaxVelocityRun
-        );
+        _context.CurrentMovementVelocityX = ChangeAxisVelocity(_context.InputMovementVector.x, _context.CurrentMovementVelocityX);
+        _context.CurrentMovementVelocityZ = ChangeAxisVelocity(_context.InputMovementVector.y, _context.CurrentMovementVelocityZ);
     }
 
-    private float ChangeAxisVelocity(float inputVelocity, float currentVelocity, float minValue, float maxValue)
+    private float ChangeAxisVelocity(float inputVelocity, float currentVelocity)
     {
         float velocity = currentVelocity;
 
@@ -65,7 +54,7 @@ public class PlayerRunState : PlayerBaseState
         else
             velocity = 0;
 
-        velocity = Mathf.Clamp(velocity, minValue, maxValue);
+        velocity = Mathf.Clamp(velocity, -_context.MaxVelocityRun, _context.MaxVelocityRun);
         return velocity;
     }
 
