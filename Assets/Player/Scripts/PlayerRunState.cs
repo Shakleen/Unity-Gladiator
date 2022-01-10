@@ -1,6 +1,6 @@
-public class PlayerIdleState : PlayerBaseState
+public class PlayerRunState : PlayerBaseState
 {
-    public PlayerIdleState(PlayerController context, PlayerStateManager manager) : base(context, manager) {}
+    public PlayerRunState(PlayerController context, PlayerStateManager manager) : base(context, manager) {}
 
     public override void OnEnterState() { hasPrint = false; }
 
@@ -8,7 +8,7 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void CheckSwitchState() 
     {
-        if (_context.IsInputActiveMovement)
+        if (!_context.IsInputActiveRun)
             SwitchState(_manager.GetWalkState());
     }
 
@@ -17,6 +17,6 @@ public class PlayerIdleState : PlayerBaseState
     public override string GetName()
     {
         hasPrint = true;
-        return "Idle";
+        return "Run";
     }
 }
