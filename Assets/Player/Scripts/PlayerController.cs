@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
         set 
         { 
             _currentMovementVelocity.x = value; 
-            _animator.SetFloat("velocityX", value);
+            _animator.SetFloat(_animatorHashVelocityX, value);
         } 
     }
     public float CurrentMovementVelocityZ 
@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
         set 
         { 
             _currentMovementVelocity.z = value; 
-            _animator.SetFloat("velocityZ", value);
+            _animator.SetFloat(_animatorHashVelocityZ, value);
         } 
     }
 
@@ -87,6 +87,10 @@ public class PlayerController : MonoBehaviour
         _inputActions = new InputActions();
         _stateManager = new PlayerStateManager(this);
         _currentState = _stateManager.GetIdleState();
+
+        // Setting animation hashes
+        _animatorHashVelocityX = Animator.StringToHash("velocityX");
+        _animatorHashVelocityZ = Animator.StringToHash("velocityZ");
     }
 
     private void OnEnable() 
@@ -112,13 +116,6 @@ public class PlayerController : MonoBehaviour
     private void InputCallbackRun(InputAction.CallbackContext context)
     {
         _isInputActiveRun = context.ReadValueAsButton();
-    }
-
-    private void Start() 
-    {
-        // Setting animation hashes
-        _animatorHashVelocityX = Animator.StringToHash("velocityX");
-        _animatorHashVelocityX = Animator.StringToHash("velocityZ");
     }
 
     private void Update() 
