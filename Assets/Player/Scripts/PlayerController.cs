@@ -12,8 +12,6 @@ public class PlayerController : MonoBehaviour
     [Header("Walk Variables")]
     [Tooltip("Maximum forward veloctiy the player can walk")] [SerializeField] [Range(0.5f, 5.0f)] private float _maxForwardWalkVelocity = 1.0f;
     public float MaxForwardWalkVelocity { get { return _maxForwardWalkVelocity; } }
-    [Tooltip("Maximum backward veloctiy the player can walk")] [SerializeField] [Range(-5f, -0.5f)] private float _maxBackwardWalkVelocity = -1.0f;
-    public float MaxBackwardWalkVelocity { get { return _maxBackwardWalkVelocity; } }
     [Tooltip("Accelaration used to go towards maximum walk velocity")] [SerializeField] [Range(0.5f, 5.0f)] private float _accelarationWalk = 2.0f;
     public float AccelarationWalk { get { return _accelarationWalk; } }
     [Tooltip("Deceleration used to go towards idle or zero velocity")] [SerializeField] [Range(0.5f, 5.0f)] private float _decelarationWalk = 2.0f;

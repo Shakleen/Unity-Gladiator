@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerWalkState : PlayerBaseState
 {
-    private const float THRESH = 1e-5f;
+    protected const float THRESH = 1e-3f;
 
     public PlayerWalkState(PlayerController context, PlayerStateManager manager) : base(context, manager) {}
 
@@ -29,38 +29,30 @@ public class PlayerWalkState : PlayerBaseState
     {
         float velocity = currentVelocity;
 
+        // Player pressed button to move in the positive direction of axis
         if (inputVelocity > 0)
-        {
-            // Player pressed button to move in the positive direction of axis
-            velocity = currentVelocity + ApplyFrameIndependentAccelaration(inputVelocity);
-            velocity = Mathf.Clamp(velocity, 0, _context.MaxForwardWalkVelocity);
-        }
+            velocity = currentVelocity + ApplyFrameIndependentAccelaration();
+        
+        // Player pressed button to move in the negative direction of axis
         else if (inputVelocity < 0)
-        {
-            // Player pressed button to move in the negative direction of axis
-            velocity = currentVelocity - ApplyFrameIndependentAccelaration(inputVelocity);
-            velocity = Mathf.Clamp(velocity, _context.MaxBackwardWalkVelocity, 0);
-        }
+            velocity = currentVelocity - ApplyFrameIndependentAccelaration();
+        
+        // Player hasn't pressed any button for this axis but was moving in the positive direction.
+        else if (currentVelocity > THRESH)
+            velocity = currentVelocity - ApplyFrameIndependentDecelaration();
+        
+        // Player hasn't pressed any button for this axis but was moving in the negative direction.
+        else if (currentVelocity < -THRESH)
+            velocity = currentVelocity + ApplyFrameIndependentDecelaration();
+        
         else
-        {
-            if (currentVelocity > 0)
-            {
-                // Player hasn't pressed any button for this axis but was moving in the positive direction.
-                velocity = currentVelocity - ApplyFrameIndependentDecelaration();
-                velocity = Mathf.Clamp(velocity, 0, _context.MaxForwardWalkVelocity);
-            }
-            else if (currentVelocity < 0)
-            {
-                // Player hasn't pressed any button for this axis but was moving in the negative direction.
-                velocity = currentVelocity + ApplyFrameIndependentDecelaration();
-                velocity = Mathf.Clamp(velocity, _context.MaxBackwardWalkVelocity, 0);
-            }
-        }
+            velocity = 0;
 
+        velocity = Mathf.Clamp(velocity, -_context.MaxForwardWalkVelocity, _context.MaxForwardWalkVelocity);
         return velocity;
     }
 
-    private float ApplyFrameIndependentAccelaration(float inputVelocity) { return _context.AccelarationWalk * Mathf.Abs(inputVelocity) * Time.deltaTime; }
+    private float ApplyFrameIndependentAccelaration() { return _context.AccelarationWalk * Time.deltaTime; }
 
     private float ApplyFrameIndependentDecelaration() { return _context.DecelarationWalk * Time.deltaTime; }
 
