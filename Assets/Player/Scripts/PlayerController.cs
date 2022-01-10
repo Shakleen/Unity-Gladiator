@@ -43,9 +43,10 @@ public class PlayerController : MonoBehaviour
 
     // Animator hashes
     private int _animatorHashVelocityX;
-    public int AnimatorHashVelocityX { get { return _animatorHashVelocityX; } }
     private int _animatorHashVelocityZ;
-    public int AnimatorHashVelocityZ { get { return _animatorHashVelocityZ; } }
+    private int _animatorHashIsRunning;
+    private int _animatorHashIsDodging;
+    public int AnimatorHashIsDodging { get { return _animatorHashIsDodging; } }
 
     // Movement variables
     [SerializeField] private Vector3 _currentMovementVelocity = Vector3.zero;
@@ -68,12 +69,18 @@ public class PlayerController : MonoBehaviour
             _animator.SetFloat(_animatorHashVelocityZ, value);
         } 
     }
+    private bool _isDodging = false;
+    public bool IsDodging { get { return _isDodging; } }
 
+    // Input variables
     [SerializeField] private bool _isInputActiveMovement = false;
     public bool IsInputActiveMovement { get { return _isInputActiveMovement; } }
 
     [SerializeField] private bool _isInputActiveRun = false;
     public bool IsInputActiveRun { get { return _isInputActiveRun; } }
+
+    [SerializeField] private bool _isInputActiveDodge = false;
+    public bool IsInputActiveDodge { get { return _isInputActiveDodge; } }
     
     [SerializeField] private Vector2 _inputMovementVector = Vector2.zero;
     public Vector2 InputMovementVector { get { return _inputMovementVector; } }
@@ -89,6 +96,8 @@ public class PlayerController : MonoBehaviour
         // Setting animation hashes
         _animatorHashVelocityX = Animator.StringToHash("velocityX");
         _animatorHashVelocityZ = Animator.StringToHash("velocityZ");
+        _animatorHashIsRunning = Animator.StringToHash("isRunning");
+        _animatorHashIsDodging = Animator.StringToHash("isDodging");
     }
 
     private void OnEnable() 
@@ -103,6 +112,10 @@ public class PlayerController : MonoBehaviour
         // Setup run callbacks
         _inputActions.Player.Run.started += InputCallbackRun;
         _inputActions.Player.Run.canceled += InputCallbackRun;
+
+        // Setup dodge callbacks
+        _inputActions.Player.Dodge.started += InputCallbackDodge;
+        _inputActions.Player.Dodge.canceled += InputCallbackDodge;
     }
 
     private void InputCallbackMovement(InputAction.CallbackContext context)
@@ -111,17 +124,32 @@ public class PlayerController : MonoBehaviour
         _isInputActiveMovement = _inputMovementVector != Vector2.zero;
     }
 
-    private void InputCallbackRun(InputAction.CallbackContext context)
-    {
-        _isInputActiveRun = context.ReadValueAsButton();
-    }
+    private void InputCallbackRun(InputAction.CallbackContext context) { _isInputActiveRun = context.ReadValueAsButton(); }
+
+    private void InputCallbackDodge(InputAction.CallbackContext context) { _isInputActiveDodge = context.ReadValueAsButton(); }
 
     private void Update() 
     {
         _currentState.ExecuteState();
         if (!_currentState.hasPrint) Debug.Log($"Player in state: {_currentState.GetName()}");
         _controller.Move(_currentMovementVelocity * Time.deltaTime);
+        ApplyGravity();
+    }
+
+    private void ApplyGravity()
+    {
+        if (_controller.isGrounded)
+            _currentMovementVelocity.y = -0.05f;
+        else
+            _currentMovementVelocity.y = -9.81f;
     }
 
     private void OnDisable() { _inputActions.Disable(); }
+
+    // -------------------------------------------------------------------------------------------------------------------------------------------------
+    //                                                                  Animation Events
+    private void AnimationEventDodgeStart() { _isDodging = true; }
+
+    private void AnimationEventDodgeEnd() { _isDodging = false; }
+    // -------------------------------------------------------------------------------------------------------------------------------------------------
 }

@@ -10,6 +10,8 @@ public class PlayerIdleState : PlayerBaseState
     {
         if (_context.IsInputActiveMovement)
             SwitchState(_manager.GetWalkState());
+        else if (_context.IsInputActiveDodge)
+            SwitchState(_manager.GetDodgeState());
     }
 
     public override void ExecuteState() { CheckSwitchState(); }

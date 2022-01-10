@@ -12,15 +12,15 @@ public class PlayerRunState : PlayerBaseState
 
     public override void CheckSwitchState()
     {
-        if (!_context.IsInputActiveRun && IsVelocityLow())
+        if (!_context.IsInputActiveRun && !HasRunVelocity())
             SwitchState(_manager.GetWalkState());
     }
 
-    private bool IsVelocityLow()
+    private bool HasRunVelocity()
     {
-        bool isVeloctyXLow = Mathf.Abs(_context.CurrentMovementVelocityX) <= _context.MaxForwardWalkVelocity;
-        bool isVeloctyZLow = Mathf.Abs(_context.CurrentMovementVelocityZ) <= _context.MaxForwardWalkVelocity;
-        return isVeloctyXLow && isVeloctyZLow;
+        bool hasRunVelocityX = Mathf.Abs(_context.CurrentMovementVelocityX) > _context.MaxForwardWalkVelocity;
+        bool hasRunVelocityZ = Mathf.Abs(_context.CurrentMovementVelocityZ) > _context.MaxForwardWalkVelocity;
+        return hasRunVelocityX || hasRunVelocityZ;
     }
 
     public override void ExecuteState() 

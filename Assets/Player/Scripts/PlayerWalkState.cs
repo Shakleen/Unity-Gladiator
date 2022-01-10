@@ -12,10 +12,17 @@ public class PlayerWalkState : PlayerBaseState
 
     public override void CheckSwitchState() 
     {
-        if (!_context.IsInputActiveMovement && _context.CurrentMovementVelocity == Vector3.zero)
+        if (!_context.IsInputActiveMovement && !HasWalkVelocity())
             SwitchState(_manager.GetIdleState());
         else if (_context.IsInputActiveRun)
             SwitchState(_manager.GetRunState());
+    }
+
+    private bool HasWalkVelocity()
+    {
+        bool hasRunVelocityX = Mathf.Abs(_context.CurrentMovementVelocityX) > THRESH;
+        bool hasRunVelocityZ = Mathf.Abs(_context.CurrentMovementVelocityZ) > THRESH;
+        return hasRunVelocityX || hasRunVelocityZ;
     }
 
     public override void ExecuteState() 

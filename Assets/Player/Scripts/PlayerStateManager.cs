@@ -36,4 +36,12 @@ public class PlayerStateManager
 
         return _stateDict[State.run];
     }
+
+    public PlayerBaseState GetDodgeState()
+    {
+        if (!_stateDict.ContainsKey(State.dodge))
+            _stateDict.Add(State.dodge, new PlayerDodgeState(_context, this));
+
+        return _stateDict[State.dodge];
+    }
 }
