@@ -1,6 +1,6 @@
 public class PlayerIdleState : PlayerBaseState
 {
-    public PlayerIdleState(PlayerController context, PlayerStateManager manager) : base(context, manager) {}
+    public PlayerIdleState(Player context, PlayerStateManager manager) : base(context, manager) {}
 
     public override void OnEnterState() { hasPrint = false; }
 
@@ -8,9 +8,9 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void CheckSwitchState() 
     {
-        if (_context.IsInputActiveMovement)
+        if (_context.InputHandler.IsInputActiveMovement)
             SwitchState(_manager.GetWalkState());
-        else if (_context.IsInputActiveDodge)
+        else if (_context.InputHandler.IsInputActiveDodge)
             SwitchState(_manager.GetDodgeState());
     }
 

@@ -4,10 +4,10 @@ public class PlayerStateManager
 {
     enum State {idle, walk, run, dodge}
 
-    private PlayerController _context;
+    private Player _context;
     private Dictionary<State, PlayerBaseState> _stateDict;
 
-    public PlayerStateManager(PlayerController context) 
+    public PlayerStateManager(Player context)
     {
         _context = context;
         _stateDict = new Dictionary<State, PlayerBaseState>();

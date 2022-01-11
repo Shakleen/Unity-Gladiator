@@ -1,10 +1,10 @@
 public abstract class PlayerBaseState
 {
-    protected PlayerController _context;
+    protected Player _context;
     protected PlayerStateManager _manager;
     public bool hasPrint; //TODO: Remove when done
 
-    protected PlayerBaseState(PlayerController context, PlayerStateManager manager)
+    protected PlayerBaseState(Player context, PlayerStateManager manager)
     {
         _context = context;
         _manager = manager;
@@ -24,6 +24,6 @@ public abstract class PlayerBaseState
     {
         OnExitState();
         newState.OnEnterState();
-        _context.CurrentState = newState;
+        _context.MovementHandler.CurrentState = newState;
     }
 }

@@ -4,24 +4,31 @@ public class PlayerRunState : PlayerBaseState
 {
     protected const float THRESH = 1e-3f;
     
-    public PlayerRunState(PlayerController context, PlayerStateManager manager) : base(context, manager) {}
+    public PlayerRunState(Player context, PlayerStateManager manager) : base(context, manager) {}
 
-    public override void OnEnterState() { hasPrint = false; }
+    public override void OnEnterState() 
+    { 
+        hasPrint = false; 
+        _context.AnimatorHandler.SetAnimationValueIsRunning(true);
+    }
 
     public override void OnExitState() { hasPrint = false; }
 
     public override void CheckSwitchState()
     {
-        if (!_context.IsInputActiveRun && !HasRunVelocity())
+        if (!_context.InputHandler.IsInputActiveRun && !HasRunVelocity())
+        {
+            _context.AnimatorHandler.SetAnimationValueIsRunning(false);
             SwitchState(_manager.GetWalkState());
-        else if (_context.IsInputActiveDodge)
+        }
+        else if (_context.InputHandler.IsInputActiveDodge)
             SwitchState(_manager.GetDodgeState());
     }
 
     private bool HasRunVelocity()
     {
-        bool hasRunVelocityX = Mathf.Abs(_context.CurrentMovementVelocityX) > _context.MaxForwardWalkVelocity;
-        bool hasRunVelocityZ = Mathf.Abs(_context.CurrentMovementVelocityZ) > _context.MaxForwardWalkVelocity;
+        bool hasRunVelocityX = Mathf.Abs(_context.MovementHandler.CurrentMovementVelocityX) > _context.MovementHandler.MaxForwardWalkVelocity;
+        bool hasRunVelocityZ = Mathf.Abs(_context.MovementHandler.CurrentMovementVelocityZ) > _context.MovementHandler.MaxForwardWalkVelocity;
         return hasRunVelocityX || hasRunVelocityZ;
     }
 
@@ -29,8 +36,11 @@ public class PlayerRunState : PlayerBaseState
     { 
         CheckSwitchState();
 
-        _context.CurrentMovementVelocityX = ChangeAxisVelocity(_context.InputMovementVector.x, _context.CurrentMovementVelocityX);
-        _context.CurrentMovementVelocityZ = ChangeAxisVelocity(_context.InputMovementVector.y, _context.CurrentMovementVelocityZ);
+        float velocityX = ChangeAxisVelocity(_context.InputHandler.InputMoveVector.x, _context.MovementHandler.CurrentMovementVelocityX);
+        _context.MovementHandler.CurrentMovementVelocityX = velocityX;
+
+        float velocityZ = ChangeAxisVelocity(_context.InputHandler.InputMoveVector.y, _context.MovementHandler.CurrentMovementVelocityZ);
+        _context.MovementHandler.CurrentMovementVelocityZ = velocityZ;
     }
 
     private float ChangeAxisVelocity(float inputVelocity, float currentVelocity)
@@ -56,13 +66,13 @@ public class PlayerRunState : PlayerBaseState
         else
             velocity = 0;
 
-        velocity = Mathf.Clamp(velocity, -_context.MaxVelocityRun, _context.MaxVelocityRun);
+        velocity = Mathf.Clamp(velocity, -_context.MovementHandler.MaxVelocityRun, _context.MovementHandler.MaxVelocityRun);
         return velocity;
     }
 
-    private float ApplyFrameIndependentAccelaration() { return _context.AccelarationRun * Time.deltaTime; }
+    private float ApplyFrameIndependentAccelaration() { return _context.MovementHandler.AccelarationRun * Time.deltaTime; }
 
-    private float ApplyFrameIndependentDecelaration() { return _context.DecelarationRun * Time.deltaTime; }
+    private float ApplyFrameIndependentDecelaration() { return _context.MovementHandler.DecelarationRun * Time.deltaTime; }
 
     public override string GetName()
     {
