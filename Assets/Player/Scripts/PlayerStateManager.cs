@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class PlayerStateManager
 {
-    enum State {idle, walk, run, dodge}
+    enum State {idle, walk, run, dodge, melee}
 
     private Player _context;
     private Dictionary<State, PlayerBaseState> _stateDict;
@@ -43,5 +43,13 @@ public class PlayerStateManager
             _stateDict.Add(State.dodge, new PlayerDodgeState(_context, this));
 
         return _stateDict[State.dodge];
+    }
+
+    public PlayerBaseState GetMeleeAttackState()
+    {
+        if (!_stateDict.ContainsKey(State.melee))
+            _stateDict.Add(State.melee, new PlayerMeleeAttackState(_context, this));
+
+        return _stateDict[State.melee];
     }
 }

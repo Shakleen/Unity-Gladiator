@@ -14,6 +14,8 @@ public class PlayerIdleState : PlayerBaseState
             SwitchState(_manager.GetWalkState());
         else if (_context.InputHandler.IsInputActiveDodge)
             SwitchState(_manager.GetDodgeState());
+        else if (_context.InputHandler.IsInputActiveAttack)
+            SwitchState(_manager.GetMeleeAttackState());
     }
 
     public override void ExecuteState() 
