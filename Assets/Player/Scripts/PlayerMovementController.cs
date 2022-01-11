@@ -3,6 +3,8 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController), typeof(Player))]
 public class PlayerMovementController : MonoBehaviour
 {
+    private const float MOVEMENT_TRHESH = 1e-3f;
+
     // =================================================================================================================================================
     //                                                          Editor tunable variables
     // =================================================================================================================================================
@@ -76,6 +78,7 @@ public class PlayerMovementController : MonoBehaviour
     // =================================================================================================================================================
     //                                                              Getters and Setters
     // =================================================================================================================================================
+    public float THRESH { get { return MOVEMENT_TRHESH; } }
     public float MaxForwardWalkVelocity { get { return _maxForwardWalkVelocity; } }
     public float AccelarationWalk { get { return _accelarationWalk; } }
     public float DecelarationWalk { get { return _decelarationWalk; } }

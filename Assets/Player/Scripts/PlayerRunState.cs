@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class PlayerRunState : PlayerBaseState
 {
-    protected const float THRESH = 1e-3f;
-    
     public PlayerRunState(Player context, PlayerStateManager manager) : base(context, manager) {}
 
     public override void OnEnterState() 
@@ -56,11 +54,11 @@ public class PlayerRunState : PlayerBaseState
             velocity = currentVelocity - ApplyFrameIndependentAccelaration();
         
         // Player hasn't pressed any button for this axis but was moving in the positive direction.
-        else if (currentVelocity > THRESH)
+        else if (currentVelocity > _context.MovementHandler.THRESH)
             velocity = currentVelocity - ApplyFrameIndependentDecelaration();
         
         // Player hasn't pressed any button for this axis but was moving in the negative direction.
-        else if (currentVelocity < -THRESH)
+        else if (currentVelocity < -_context.MovementHandler.THRESH)
             velocity = currentVelocity + ApplyFrameIndependentDecelaration();
         
         else
