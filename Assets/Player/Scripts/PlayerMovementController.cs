@@ -47,12 +47,25 @@ public class PlayerMovementController : MonoBehaviour
     // State veriables
     // -------------------------------------------------------------------------------------------------------------------------------------------------
     private PlayerBaseState _currentState;
-    public PlayerBaseState CurrentState { get { return _currentState; } set { _currentState = value; } }
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------
     // Movement variables
     // -------------------------------------------------------------------------------------------------------------------------------------------------
     [SerializeField] private Vector3 _currentMovementVelocity = Vector3.zero;
+    // -------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+    // =================================================================================================================================================
+    //                                                              Getters and Setters
+    // =================================================================================================================================================
+    public float THRESH { get { return MOVEMENT_TRHESH; } }
+    public float MaxForwardWalkVelocity { get { return _maxForwardWalkVelocity; } }
+    public float AccelarationWalk { get { return _accelarationWalk; } }
+    public float DecelarationWalk { get { return _decelarationWalk; } }
+    public float MaxVelocityRun { get { return _maxVelocityRun; } }
+    public float AccelarationRun { get { return _accelarationRun; } }
+    public float DecelarationRun { get { return _decelarationRun; } }
+    public PlayerBaseState CurrentState { get { return _currentState; } set { _currentState = value; } }
     public Vector3 CurrentMovementVelocity { get { return _currentMovementVelocity; } set { _currentMovementVelocity = value; } }
     public float CurrentMovementVelocityX 
     { 
@@ -72,19 +85,7 @@ public class PlayerMovementController : MonoBehaviour
             _player.AnimatorHandler.SetAnimationValueVelocityZ(value);
         } 
     }
-    // -------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-    // =================================================================================================================================================
-    //                                                              Getters and Setters
-    // =================================================================================================================================================
-    public float THRESH { get { return MOVEMENT_TRHESH; } }
-    public float MaxForwardWalkVelocity { get { return _maxForwardWalkVelocity; } }
-    public float AccelarationWalk { get { return _accelarationWalk; } }
-    public float DecelarationWalk { get { return _decelarationWalk; } }
-    public float MaxVelocityRun { get { return _maxVelocityRun; } }
-    public float AccelarationRun { get { return _accelarationRun; } }
-    public float DecelarationRun { get { return _decelarationRun; } }
+    public float CameraSensitivity { get { return _cameraSensitivity; } }
 
 
     // =================================================================================================================================================
@@ -112,7 +113,7 @@ public class PlayerMovementController : MonoBehaviour
 
     private void RotateTowardsCameraDirection()
     {
-        if (_player.InputHandler.IsInputActiveMovement)
+        if (_player.InputHandler.IsInputActiveMovement && !_player.AnimatorHandler.IsDodging)
         {
             float targetAngle = _cameraTranform.eulerAngles.y;
             Quaternion rotation = Quaternion.Euler(0, targetAngle, 0);

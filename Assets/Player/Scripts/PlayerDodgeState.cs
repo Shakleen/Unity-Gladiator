@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class PlayerDodgeState : PlayerBaseState
 {
     public PlayerDodgeState(Player context, PlayerStateManager manager) : base(context, manager) {}
@@ -26,7 +28,22 @@ public class PlayerDodgeState : PlayerBaseState
             SwitchState(_manager.GetWalkState());
     }
 
-    public override void ExecuteState() { CheckSwitchState(); }
+    public override void ExecuteState()
+    {
+        CheckSwitchState();
+        FaceDodgeDirection();
+    }
+
+    private void FaceDodgeDirection()
+    {
+        Vector2 movementVector = _context.InputHandler.InputMoveVector;
+        Quaternion movementDirection = Quaternion.LookRotation(new Vector3(movementVector.x, 0, movementVector.y));
+        _context.transform.rotation = Quaternion.Slerp(
+            _context.transform.rotation,
+            movementDirection,
+            _context.MovementHandler.CameraSensitivity * Time.deltaTime
+        );
+    }
 
     public override string GetName()
     {
