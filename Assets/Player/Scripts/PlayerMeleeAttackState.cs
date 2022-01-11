@@ -2,11 +2,16 @@ using UnityEngine;
 
 public class PlayerMeleeAttackState : PlayerBaseState
 {
+    float _lastAttackTime;
+    int _attackNumber;
+
     public PlayerMeleeAttackState(Player context, PlayerStateManager manager) : base(context, manager) {}
 
     public override void OnEnterState() 
     { 
         hasPrint = false; 
+        _lastAttackTime = Time.time;
+        _attackNumber = 1;
         _context.AnimatorHandler.SetAnimationValueIsMeleeAttacking(true);
         _context.AnimatorHandler.IncrementMeleeAttackNumber();
     }
@@ -16,23 +21,35 @@ public class PlayerMeleeAttackState : PlayerBaseState
         hasPrint = false; 
         _context.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false);
         _context.AnimatorHandler.ResetMeleeAttackNumber();
+        _lastAttackTime = 0f;
+        _attackNumber = 0;
     }
 
     public override void CheckSwitchState() 
     {
-        if (!_context.AnimatorHandler.IsMeleeAttacking)
-        {
-            if (!_context.InputHandler.IsInputActiveAttack)
-                SwitchState(_manager.GetIdleState());
-            else if (_context.InputHandler.IsInputActiveDodge)
-                SwitchState(_manager.GetDodgeState());
-        }
+        if (_context.InputHandler.IsInputActiveDodge && !_context.AnimatorHandler.IsMeleeAttacking)
+            SwitchState(_manager.GetDodgeState());
+        else if (_context.AnimatorHandler.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+            SwitchState(_manager.GetIdleState());
     }
 
     public override void ExecuteState() 
     { 
         CheckSwitchState(); 
+        
+        if (_context.AnimatorHandler.IsMeleeAttacking)
+        {
+            if (IsAttackNumberEqual()) _attackNumber++;
+        }
+        else if (!IsAttackNumberEqual())
+        {
+            _context.AnimatorHandler.IncrementMeleeAttackNumber();
+        }
     }
+
+    private bool IsAttackNumberEqual() { return _attackNumber == _context.AnimatorHandler.MeleeAttackNumber; }
+
+    private bool isWithInComboTime(float attackTime)  { return (attackTime - _lastAttackTime) <= _context.MovementHandler.MeleeAttackComboTimeLimit; }
 
     public override string GetName()
     {

@@ -14,13 +14,13 @@ public class PlayerRunState : PlayerBaseState
 
     public override void CheckSwitchState()
     {
-        if (!_context.InputHandler.IsInputActiveRun && !HasRunVelocity())
+        if (_context.InputHandler.IsInputActiveDodge)
+            SwitchState(_manager.GetDodgeState());
+        else if (!_context.InputHandler.IsInputActiveRun && !HasRunVelocity())
         {
             _context.AnimatorHandler.SetAnimationValueIsRunning(false);
             SwitchState(_manager.GetWalkState());
         }
-        else if (_context.InputHandler.IsInputActiveDodge)
-            SwitchState(_manager.GetDodgeState());
     }
 
     private bool HasRunVelocity()

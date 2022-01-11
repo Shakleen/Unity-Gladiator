@@ -30,7 +30,12 @@ public class PlayerMovementController : MonoBehaviour
     [Tooltip("Camera movement sensitivity")] [SerializeField] [Range(1f, 10.0f)] private float _cameraSensitivity = 5.0f;
     // -------------------------------------------------------------------------------------------------------------------------------------------------
 
+    // -------------------------------------------------------------------------------------------------------------------------------------------------
+    [Header("Player attack variables")]
+    [Tooltip("Melee attack combo time limit")] [SerializeField] [Range(1f, 10.0f)] private float _meleeAttackComboTimeLimit = 2.0f;
+    // -------------------------------------------------------------------------------------------------------------------------------------------------
 
+    
     // =================================================================================================================================================
     //                                                          References and Variables
     // =================================================================================================================================================
@@ -65,6 +70,7 @@ public class PlayerMovementController : MonoBehaviour
     public float MaxVelocityRun { get { return _maxVelocityRun; } }
     public float AccelarationRun { get { return _accelarationRun; } }
     public float DecelarationRun { get { return _decelarationRun; } }
+    public float MeleeAttackComboTimeLimit { get { return _meleeAttackComboTimeLimit; } }
     public PlayerBaseState CurrentState { get { return _currentState; } set { _currentState = value; } }
     public Vector3 CurrentMovementVelocity { get { return _currentMovementVelocity; } set { _currentMovementVelocity = value; } }
     public float CurrentMovementVelocityX 

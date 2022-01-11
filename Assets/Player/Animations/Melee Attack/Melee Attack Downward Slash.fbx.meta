@@ -62,14 +62,14 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.3236715
+      - time: 0.29851428
         functionName: AnimationEventMeleeAttackStart
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.6811594
+      - time: 0.84782606
         functionName: AnimationEventMeleeAttackEnd
         data: 
         objectReferenceParameter: {instanceID: 0}

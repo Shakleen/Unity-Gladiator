@@ -3,7 +3,6 @@ using UnityEngine;
 [RequireComponent(typeof(Animator), typeof(Player))]
 public class PlayerAnimationHandler : MonoBehaviour
 {
-
     // =================================================================================================================================================
     //                                                                  Constants
     // =================================================================================================================================================
@@ -38,8 +37,8 @@ public class PlayerAnimationHandler : MonoBehaviour
     // Variables
     // -------------------------------------------------------------------------------------------------------------------------------------------------
     private bool _isDodging = false;
-    private int _meleeAttackNumber = 0;
-    private bool _isMeleeAttacking = false;
+    [SerializeField] private int _meleeAttackNumber = 0;
+    [SerializeField] private bool _isMeleeAttacking = false;
 
     // =================================================================================================================================================
     //                                                              Getters and Setters
@@ -47,6 +46,7 @@ public class PlayerAnimationHandler : MonoBehaviour
     public Animator Animator { get { return _animator; } }
     public bool IsDodging { get { return _isDodging; } }
     public bool IsMeleeAttacking { get { return _isMeleeAttacking; } }
+    public int MeleeAttackNumber { get { return _meleeAttackNumber; } }
 
 
     // =================================================================================================================================================
