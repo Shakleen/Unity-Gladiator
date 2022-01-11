@@ -16,6 +16,7 @@ public class PlayerInputHandler : MonoBehaviour
     private const string _ACTION_NAME_RUN = "Run";
     private const string _ACTION_NAME_DODGE = "Dodge";
     private const string _ACTION_NAME_LOOK = "Look";
+    private const string _ACTION_NAME_ATTACK = "Attack";
     
     // -------------------------------------------------------------------------------------------------------------------------------------------------
     // Componenet References
@@ -25,6 +26,7 @@ public class PlayerInputHandler : MonoBehaviour
     private InputAction _inputActionRun;
     private InputAction _inputActionDodge;
     private InputAction _inputActionLook;
+    private InputAction _inputActionAttack;
     
     // -------------------------------------------------------------------------------------------------------------------------------------------------
     // Input variables
@@ -34,6 +36,7 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] private bool _isInputActiveMovement = false;
     [SerializeField] private bool _isInputActiveRun = false;
     [SerializeField] private bool _isInputActiveDodge = false;
+    [SerializeField] private bool _isInputActiveAttack = false;
     // -------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -45,6 +48,7 @@ public class PlayerInputHandler : MonoBehaviour
     public bool IsInputActiveMovement { get { return _isInputActiveMovement; } }
     public bool IsInputActiveRun { get { return _isInputActiveRun; } }
     public bool IsInputActiveDodge { get { return _isInputActiveDodge; } }
+    public bool IsInputActiveAttack { get { return _isInputActiveAttack; } }
     // -------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -59,6 +63,7 @@ public class PlayerInputHandler : MonoBehaviour
         _inputActionRun = _playerInput.actions[_ACTION_NAME_RUN];
         _inputActionDodge = _playerInput.actions[_ACTION_NAME_DODGE];
         _inputActionLook = _playerInput.actions[_ACTION_NAME_LOOK];
+        _inputActionAttack = _playerInput.actions[_ACTION_NAME_ATTACK];
     }
 
     private void OnEnable() 
@@ -78,6 +83,10 @@ public class PlayerInputHandler : MonoBehaviour
         // Setup dodge callbacks
         _inputActionDodge.started += InputCallbackDodge;
         _inputActionDodge.canceled += InputCallbackDodge;
+
+        // Setup attack callbacks
+        _inputActionAttack.started += InputCallbackAttack;
+        _inputActionAttack.canceled += InputCallbackAttack;
     }
 
     private void InputCallbackMovement(InputAction.CallbackContext context)
@@ -91,4 +100,6 @@ public class PlayerInputHandler : MonoBehaviour
     private void InputCallbackRun(InputAction.CallbackContext context) { _isInputActiveRun = context.ReadValueAsButton(); }
 
     private void InputCallbackDodge(InputAction.CallbackContext context) { _isInputActiveDodge = context.ReadValueAsButton(); }
+
+    private void InputCallbackAttack(InputAction.CallbackContext context) { _isInputActiveAttack = context.ReadValueAsButton(); }
 }

@@ -59,4 +59,4 @@ sysinfo.txt
 crashlytics-build.properties
 
 # Model and animation files
-*.fbx
+/Assets/Player/Models
