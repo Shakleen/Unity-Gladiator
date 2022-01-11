@@ -27,6 +27,10 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Deceleration used to go towards max walk velocity")] [SerializeField] [Range(0.5f, 5.0f)] private float _decelarationRun = 1.0f;
     public float DecelarationRun { get { return _decelarationRun; } }
     // -------------------------------------------------------------------------------------------------------------------------------------------------
+    
+    [Header("Camera variables")]
+    [Tooltip("Camera movement sensitivity")] [SerializeField] [Range(1f, 10.0f)] private float _cameraSensitivity = 5.0f;
+
 
     // Component references
     private Animator _animator;
@@ -34,6 +38,7 @@ public class PlayerController : MonoBehaviour
     private CharacterController _controller;
     private InputActions _inputActions;
     private PlayerStateManager _stateManager;
+    private Transform _cameraTranform;
 
     // Variables
     
@@ -132,12 +137,33 @@ public class PlayerController : MonoBehaviour
 
     private void InputCallbackDodge(InputAction.CallbackContext context) { _isInputActiveDodge = context.ReadValueAsButton(); }
 
-    private void Update() 
+    private void Start() { _cameraTranform = Camera.main.transform; }
+
+    private void Update()
     {
         _currentState.ExecuteState();
         if (!_currentState.hasPrint) Debug.Log($"Player in state: {_currentState.GetName()}");
-        _controller.Move(_currentMovementVelocity * Time.deltaTime);
+        RotateTowardsCameraDirection();
+        _controller.Move(GetMoveVectorTowardsCameraDirection() * Time.deltaTime);
         ApplyGravity();
+    }
+
+    private Vector3 GetMoveVectorTowardsCameraDirection()
+    {
+        Vector3 appliedMove = _currentMovementVelocity;
+        appliedMove = appliedMove.x * _cameraTranform.right.normalized + appliedMove.z * _cameraTranform.forward.normalized;
+        appliedMove.y = 0f;
+        return appliedMove;
+    }
+
+    private void RotateTowardsCameraDirection()
+    {
+        if (_isInputActiveMovement)
+        {
+            float targetAngle = _cameraTranform.eulerAngles.y;
+            Quaternion rotation = Quaternion.Euler(0, targetAngle, 0);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, _cameraSensitivity * Time.deltaTime);
+        }
     }
 
     private void ApplyGravity()
