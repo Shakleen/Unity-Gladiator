@@ -72,7 +72,6 @@ public class PlayerMovementController : MonoBehaviour
     public float DecelarationRun { get { return _decelarationRun; } }
     public float MeleeAttackComboTimeLimit { get { return _meleeAttackComboTimeLimit; } }
     public PlayerBaseState CurrentState { get { return _currentState; } set { _currentState = value; } }
-    public Vector3 CurrentMovementVelocity { get { return _currentMovementVelocity; } set { _currentMovementVelocity = value; } }
     public float CurrentMovementVelocityX 
     { 
         get { return _currentMovementVelocity.x; } 
@@ -141,5 +140,11 @@ public class PlayerMovementController : MonoBehaviour
             _currentMovementVelocity.y = -0.05f;
         else
             _currentMovementVelocity.y = -9.81f;
+    }
+
+    public void StopMovement() 
+    { 
+        CurrentMovementVelocityX = 0; 
+        CurrentMovementVelocityZ = 0; 
     }
 }
