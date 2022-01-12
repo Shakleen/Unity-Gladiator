@@ -10,6 +10,8 @@ public class PlayerIdleState : PlayerBaseState
         _context.AnimatorHandler.SetAnimationValueIsMoving(false);
         _context.AnimatorHandler.SetAnimationValueIsRunning(false);
         _context.AnimatorHandler.SetAnimationValueIsDodging(false);
+        _context.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false);
+        _context.AnimatorHandler.ResetMeleeAttackNumber();
     }
 
     public override void OnExitState() { hasPrint = false; }

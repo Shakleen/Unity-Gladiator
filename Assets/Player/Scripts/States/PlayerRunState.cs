@@ -36,11 +36,19 @@ public class PlayerRunState : PlayerBaseState
     { 
         CheckSwitchState();
         _context.MovementHandler.RotateTowardsCameraDirection();
+        UpdateRunVelocity();
+    }
 
-        float velocityX = ChangeAxisVelocity(_context.InputHandler.InputMoveVector.x, _context.MovementHandler.CurrentMovementVelocityX);
+    private void UpdateRunVelocity()
+    {
+        Vector2 inputMoveVector = _context.InputHandler.InputMoveVector;
+
+        float velocityX = _context.MovementHandler.CurrentMovementVelocityX;
+        velocityX = ChangeAxisVelocity(inputMoveVector.x, velocityX);
         _context.MovementHandler.CurrentMovementVelocityX = velocityX;
 
-        float velocityZ = ChangeAxisVelocity(_context.InputHandler.InputMoveVector.y, _context.MovementHandler.CurrentMovementVelocityZ);
+        float velocityZ = _context.MovementHandler.CurrentMovementVelocityZ;
+        velocityZ = ChangeAxisVelocity(inputMoveVector.y, velocityZ);
         _context.MovementHandler.CurrentMovementVelocityZ = velocityZ;
     }
 
@@ -49,11 +57,11 @@ public class PlayerRunState : PlayerBaseState
         float velocity = currentVelocity;
 
         // Player pressed button to move in the positive direction of axis
-        if (inputVelocity > 0)
+        if (inputVelocity > 0 && _context.InputHandler.IsInputActiveRun)
             velocity = currentVelocity + ApplyFrameIndependentAccelaration();
         
         // Player pressed button to move in the negative direction of axis
-        else if (inputVelocity < 0)
+        else if (inputVelocity < 0 && _context.InputHandler.IsInputActiveRun)
             velocity = currentVelocity - ApplyFrameIndependentAccelaration();
         
         // Player hasn't pressed any button for this axis but was moving in the positive direction.

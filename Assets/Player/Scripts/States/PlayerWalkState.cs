@@ -11,6 +11,8 @@ public class PlayerWalkState : PlayerBaseState
         hasPrint = false; 
         _context.AnimatorHandler.SetAnimationValueIsMoving(true);
         _context.AnimatorHandler.SetAnimationValueIsRunning(false);
+        _context.AnimatorHandler.SetAnimationValueIsDodging(false);
+        _context.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false);
     }
 
     public override void OnExitState() { hasPrint = false; }
@@ -21,24 +23,32 @@ public class PlayerWalkState : PlayerBaseState
             SwitchState(_manager.GetDodgeState());
         else if (_context.InputHandler.IsInputActiveMeleeAttack)
             SwitchState(_manager.GetWalkingMeleeAttackState());
-        else if (_context.InputHandler.IsInputActiveRun)
-            SwitchState(_manager.GetRunState());
         else if (!_context.InputHandler.IsInputActiveMovement)
         {
             SwitchState(_manager.GetIdleState());
             _context.AnimatorHandler.SetAnimationValueIsMoving(false);
         }
+        else if (_context.InputHandler.IsInputActiveRun)
+            SwitchState(_manager.GetRunState());
     }
 
-    public override void ExecuteState() 
-    { 
+    public override void ExecuteState()
+    {
         CheckSwitchState();
-        _context.MovementHandler.RotateTowardsCameraDirection(); 
+        _context.MovementHandler.RotateTowardsCameraDirection();
+        UpdateWalkVelocity();
+    }
 
-        float velocityX = ChangeAxisVelocity(_context.InputHandler.InputMoveVector.x, _context.MovementHandler.CurrentMovementVelocityX);
+    private void UpdateWalkVelocity()
+    {
+        Vector2 inputMoveVector = _context.InputHandler.InputMoveVector;
+
+        float velocityX = _context.MovementHandler.CurrentMovementVelocityX;
+        velocityX = ChangeAxisVelocity(inputMoveVector.x, velocityX);
         _context.MovementHandler.CurrentMovementVelocityX = velocityX;
 
-        float velocityZ = ChangeAxisVelocity(_context.InputHandler.InputMoveVector.y, _context.MovementHandler.CurrentMovementVelocityZ);
+        float velocityZ = _context.MovementHandler.CurrentMovementVelocityZ;
+        velocityZ = ChangeAxisVelocity(inputMoveVector.y, velocityZ);
         _context.MovementHandler.CurrentMovementVelocityZ = velocityZ;
     }
 
