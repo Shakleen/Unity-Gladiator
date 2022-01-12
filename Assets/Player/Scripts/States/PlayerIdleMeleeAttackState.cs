@@ -28,6 +28,13 @@ public class PlayerIdleMeleeAttackState : PlayerBaseState
         {
             if (_context.InputHandler.IsInputActiveDodge)
                 SwitchState(_manager.GetDodgeState());
+            else if (_context.InputHandler.IsInputActiveMovement)
+            {
+                if (_context.InputHandler.IsInputActiveRun)
+                    SwitchState(_manager.GetRunState());
+                else
+                    SwitchState(_manager.GetWalkState());
+            }
             else if (!_context.AnimatorHandler.IsAnimationPlaying())
                 SwitchState(_manager.GetIdleState());
         }

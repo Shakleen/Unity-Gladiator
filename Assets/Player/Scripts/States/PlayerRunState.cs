@@ -16,13 +16,20 @@ public class PlayerRunState : PlayerBaseState
     {
         if (_context.InputHandler.IsInputActiveDodge)
             SwitchState(_manager.GetDodgeState());
-        else if (_context.InputHandler.IsInputActiveMeleeAttack)
+        else if (_context.InputHandler.IsInputActiveMeleeAttack && HasReachedMaxVelocity())
             SwitchState(_manager.GetRunningMeleeAttackState());
         else if (!_context.InputHandler.IsInputActiveRun && !HasRunVelocity())
         {
             _context.AnimatorHandler.SetAnimationValueIsRunning(false);
             SwitchState(_manager.GetWalkState());
         }
+    }
+
+    private bool HasReachedMaxVelocity()
+    {
+        bool hasRunVelocityX = Mathf.Abs(_context.MovementHandler.CurrentMovementVelocityX) == _context.MovementHandler.MaxVelocityRun;
+        bool hasRunVelocityZ = Mathf.Abs(_context.MovementHandler.CurrentMovementVelocityZ) == _context.MovementHandler.MaxVelocityRun;
+        return hasRunVelocityX || hasRunVelocityZ;
     }
 
     private bool HasRunVelocity()

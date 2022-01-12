@@ -2,11 +2,13 @@ using UnityEngine;
 
 public class PlayerDodgeState : PlayerBaseState
 {
+    private Vector2 _dodgeDirection;
     public PlayerDodgeState(Player context, PlayerStateManager manager) : base(context, manager) {}
 
     public override void OnEnterState() 
     { 
         hasPrint = false;
+        _dodgeDirection = _context.InputHandler.InputMoveVector;
         _context.AnimatorHandler.SetAnimationValueIsDodging(true);
     }
 
@@ -42,8 +44,7 @@ public class PlayerDodgeState : PlayerBaseState
 
     private void FaceDodgeDirection()
     {
-        Vector2 movementInput = _context.InputHandler.InputMoveVector;
-        Vector3 movementVector = new Vector3(movementInput.x, 0, movementInput.y);
+        Vector3 movementVector = new Vector3(_dodgeDirection.x, 0, _dodgeDirection.y);
         movementVector = _context.MovementHandler.GetMoveVectorTowardsCameraDirection(movementVector);
         Quaternion movementDirection = Quaternion.LookRotation(new Vector3(movementVector.x, 0, movementVector.z));
         _context.transform.rotation = Quaternion.Slerp(

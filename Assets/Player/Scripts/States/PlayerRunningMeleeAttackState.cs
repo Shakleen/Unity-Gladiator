@@ -19,10 +19,20 @@ public class PlayerRunningMeleeAttackState : PlayerBaseState
 
     public override void CheckSwitchState() 
     {
-        if (!_context.AnimatorHandler.IsAnimationPlaying())
+        if (!_context.AnimatorHandler.IsMeleeAttacking && !_context.InputHandler.IsInputActiveMeleeAttack)
         {
-            _context.MovementHandler.StopMovement();
-            SwitchState(_manager.GetIdleState());
+            if (_context.InputHandler.IsInputActiveMovement)
+            {
+                if (_context.InputHandler.IsInputActiveRun)
+                    SwitchState(_manager.GetRunState());
+                else
+                    SwitchState(_manager.GetWalkState());
+            }
+            else if (!_context.AnimatorHandler.IsAnimationPlaying())
+            {
+                _context.MovementHandler.StopMovement();
+                SwitchState(_manager.GetIdleState());
+            }
         }
     }
 
