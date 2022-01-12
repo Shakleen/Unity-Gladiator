@@ -6,18 +6,27 @@ public class PlayerWalkState : PlayerBaseState
 
     public PlayerWalkState(Player context, PlayerStateManager manager) : base(context, manager) {}
 
-    public override void OnEnterState() { hasPrint = false; }
+    public override void OnEnterState() 
+    { 
+        hasPrint = false; 
+        _context.AnimatorHandler.SetAnimationValueIsMoving(true);
+    }
 
     public override void OnExitState() { hasPrint = false; }
 
     public override void CheckSwitchState() 
     {
-        if (!_context.InputHandler.IsInputActiveMovement && !HasWalkVelocity())
-            SwitchState(_manager.GetIdleState());
+        if (_context.InputHandler.IsInputActiveDodge)
+            SwitchState(_manager.GetDodgeState());
+        else if (_context.InputHandler.IsInputActiveAttack)
+            SwitchState(_manager.GetMeleeAttackState());
         else if (_context.InputHandler.IsInputActiveRun)
             SwitchState(_manager.GetRunState());
-        else if (_context.InputHandler.IsInputActiveDodge)
-            SwitchState(_manager.GetDodgeState());
+        else if (!_context.InputHandler.IsInputActiveMovement && !HasWalkVelocity())
+        {
+            SwitchState(_manager.GetIdleState());
+            _context.AnimatorHandler.SetAnimationValueIsMoving(false);
+        }
     }
 
     private bool HasWalkVelocity()

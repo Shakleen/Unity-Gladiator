@@ -16,6 +16,8 @@ public class PlayerRunState : PlayerBaseState
     {
         if (_context.InputHandler.IsInputActiveDodge)
             SwitchState(_manager.GetDodgeState());
+        else if (_context.InputHandler.IsInputActiveAttack)
+            SwitchState(_manager.GetMeleeAttackState());
         else if (!_context.InputHandler.IsInputActiveRun && !HasRunVelocity())
         {
             _context.AnimatorHandler.SetAnimationValueIsRunning(false);

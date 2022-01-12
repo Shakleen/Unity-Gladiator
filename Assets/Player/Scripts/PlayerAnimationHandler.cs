@@ -8,6 +8,7 @@ public class PlayerAnimationHandler : MonoBehaviour
     // =================================================================================================================================================
     private const string _ANIMATION_PARAMETER_VELOCITY_X = "velocityX";
     private const string _ANIMATION_PARAMETER_VELOCITY_Z = "velocityZ";
+    private const string _ANIMATION_PARAMETER_IS_MOVING = "isMoving";
     private const string _ANIMATION_PARAMETER_IS_RUNNING = "isRunning";
     private const string _ANIMATION_PARAMETER_IS_DODGING = "isDodging";
     private const string _ANIMATION_PARAMETER_IS_MELEE_ATTACKING = "isMeleeAttacking";
@@ -28,6 +29,7 @@ public class PlayerAnimationHandler : MonoBehaviour
     // -------------------------------------------------------------------------------------------------------------------------------------------------
     private int _animatorHashVelocityX;
     private int _animatorHashVelocityZ;
+    private int _animatorHashIsMoving;
     private int _animatorHashIsRunning;
     private int _animatorHashIsDodging;
     private int _animatorHashIsMeleeAttacking;
@@ -58,6 +60,7 @@ public class PlayerAnimationHandler : MonoBehaviour
         _player = GetComponent<Player>();
         _animatorHashVelocityX = Animator.StringToHash(_ANIMATION_PARAMETER_VELOCITY_X);
         _animatorHashVelocityZ = Animator.StringToHash(_ANIMATION_PARAMETER_VELOCITY_Z);
+        _animatorHashIsMoving = Animator.StringToHash(_ANIMATION_PARAMETER_IS_MOVING);
         _animatorHashIsRunning = Animator.StringToHash(_ANIMATION_PARAMETER_IS_RUNNING);
         _animatorHashIsDodging = Animator.StringToHash(_ANIMATION_PARAMETER_IS_DODGING);
         _animatorHashIsMeleeAttacking = Animator.StringToHash(_ANIMATION_PARAMETER_IS_MELEE_ATTACKING);
@@ -67,6 +70,8 @@ public class PlayerAnimationHandler : MonoBehaviour
     public void SetAnimationValueVelocityX(float value) { _animator.SetFloat(_animatorHashVelocityX, value); }
 
     public void SetAnimationValueVelocityZ(float value) { _animator.SetFloat(_animatorHashVelocityZ, value); }
+
+    public void SetAnimationValueIsMoving(bool value) { _animator.SetBool(_animatorHashIsMoving, value); }
 
     public void SetAnimationValueIsRunning(bool value) { _animator.SetBool(_animatorHashIsRunning, value); }
 

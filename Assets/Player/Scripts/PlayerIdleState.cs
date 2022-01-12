@@ -4,7 +4,13 @@ public class PlayerIdleState : PlayerBaseState
 {
     public PlayerIdleState(Player context, PlayerStateManager manager) : base(context, manager) {}
 
-    public override void OnEnterState() { hasPrint = false; }
+    public override void OnEnterState() 
+    { 
+        hasPrint = false; 
+        _context.AnimatorHandler.SetAnimationValueIsMoving(false);
+        _context.AnimatorHandler.SetAnimationValueIsRunning(false);
+        _context.AnimatorHandler.SetAnimationValueIsDodging(false);
+    }
 
     public override void OnExitState() { hasPrint = false; }
 
