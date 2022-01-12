@@ -28,4 +28,6 @@ public class Player : MonoBehaviour
         _animationHandler = GetComponent<PlayerAnimationHandler>();
     }
 
+    private void Start() { Cursor.lockState = CursorLockMode.Locked; }
+
 }

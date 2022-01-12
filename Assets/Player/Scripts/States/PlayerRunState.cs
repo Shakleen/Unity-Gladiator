@@ -35,6 +35,7 @@ public class PlayerRunState : PlayerBaseState
     public override void ExecuteState() 
     { 
         CheckSwitchState();
+        _context.MovementHandler.RotateTowardsCameraDirection();
 
         float velocityX = ChangeAxisVelocity(_context.InputHandler.InputMoveVector.x, _context.MovementHandler.CurrentMovementVelocityX);
         _context.MovementHandler.CurrentMovementVelocityX = velocityX;

@@ -18,14 +18,20 @@ public class PlayerDodgeState : PlayerBaseState
 
     public override void CheckSwitchState() 
     {
-        if (_context.InputHandler.IsInputActiveDodge || _context.AnimatorHandler.IsDodging)
-            return;
-        else if (!_context.InputHandler.IsInputActiveMovement)
-            SwitchState(_manager.GetIdleState());
-        else if (_context.InputHandler.IsInputActiveRun)
-            SwitchState(_manager.GetRunState());
-        else
-            SwitchState(_manager.GetWalkState());
+        if (!_context.AnimatorHandler.IsDodging)
+        {
+            if (_context.InputHandler.IsInputActiveMovement)
+            {
+                if (_context.InputHandler.IsInputActiveRun)
+                    SwitchState(_manager.GetRunState());
+                else
+                    SwitchState(_manager.GetWalkState());
+            }
+            else if (!_context.AnimatorHandler.IsAnimationPlaying())
+            {
+                SwitchState(_manager.GetIdleState());
+            }
+        }
     }
 
     public override void ExecuteState()
@@ -36,8 +42,10 @@ public class PlayerDodgeState : PlayerBaseState
 
     private void FaceDodgeDirection()
     {
-        Vector2 movementVector = _context.InputHandler.InputMoveVector;
-        Quaternion movementDirection = Quaternion.LookRotation(new Vector3(movementVector.x, 0, movementVector.y));
+        Vector2 movementInput = _context.InputHandler.InputMoveVector;
+        Vector3 movementVector = new Vector3(movementInput.x, 0, movementInput.y);
+        movementVector = _context.MovementHandler.GetMoveVectorTowardsCameraDirection(movementVector);
+        Quaternion movementDirection = Quaternion.LookRotation(new Vector3(movementVector.x, 0, movementVector.z));
         _context.transform.rotation = Quaternion.Slerp(
             _context.transform.rotation,
             movementDirection,

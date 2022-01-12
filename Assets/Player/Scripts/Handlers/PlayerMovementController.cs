@@ -45,7 +45,7 @@ public class PlayerMovementController : MonoBehaviour
     // -------------------------------------------------------------------------------------------------------------------------------------------------
     private CharacterController _controller;
     private PlayerStateManager _stateManager;
-    private Transform _cameraTranform;
+    private Transform _cameraTransform;
     private Player _player;
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------
@@ -64,6 +64,7 @@ public class PlayerMovementController : MonoBehaviour
     //                                                              Getters and Setters
     // =================================================================================================================================================
     public float THRESH { get { return MOVEMENT_TRHESH; } }
+    public Transform CameraTransform { get { return _cameraTransform; } }
     public float MaxForwardWalkVelocity { get { return _maxForwardWalkVelocity; } }
     public float AccelarationWalk { get { return _accelarationWalk; } }
     public float DecelarationWalk { get { return _decelarationWalk; } }
@@ -105,33 +106,31 @@ public class PlayerMovementController : MonoBehaviour
         _currentState = _stateManager.GetIdleState();
     }
 
-    private void Start() { _cameraTranform = Camera.main.transform; }
+    private void Start() { _cameraTransform = Camera.main.transform; }
 
     private void Update()
     {
         _currentState.ExecuteState();
         if (!_currentState.hasPrint) Debug.Log($"Player in state: {_currentState.GetName()}");
-        RotateTowardsCameraDirection();
-        _controller.Move(GetMoveVectorTowardsCameraDirection() * Time.deltaTime);
+        _controller.Move(GetMoveVectorTowardsCameraDirection(_currentMovementVelocity) * Time.deltaTime);
         ApplyGravity();
     }
 
-    private void RotateTowardsCameraDirection()
+    public void RotateTowardsCameraDirection()
     {
         if (_player.InputHandler.IsInputActiveMovement && !_player.AnimatorHandler.IsDodging)
         {
-            float targetAngle = _cameraTranform.eulerAngles.y;
+            float targetAngle = _cameraTransform.eulerAngles.y;
             Quaternion rotation = Quaternion.Euler(0, targetAngle, 0);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, _cameraSensitivity * Time.deltaTime);
         }
     }
 
-    private Vector3 GetMoveVectorTowardsCameraDirection()
+    public Vector3 GetMoveVectorTowardsCameraDirection(Vector3 movementInput)
     {
-        Vector3 appliedMove = _currentMovementVelocity;
-        appliedMove = appliedMove.x * _cameraTranform.right.normalized + appliedMove.z * _cameraTranform.forward.normalized;
-        appliedMove.y = 0f;
-        return appliedMove;
+        movementInput = movementInput.x * _cameraTransform.right.normalized + movementInput.z * _cameraTransform.forward.normalized;
+        movementInput.y = 0f;
+        return movementInput;
     }
 
     private void ApplyGravity()
