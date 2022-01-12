@@ -10,6 +10,7 @@ public class PlayerWalkState : PlayerBaseState
     { 
         hasPrint = false; 
         _context.AnimatorHandler.SetAnimationValueIsMoving(true);
+        _context.AnimatorHandler.SetAnimationValueIsRunning(false);
     }
 
     public override void OnExitState() { hasPrint = false; }
@@ -18,22 +19,15 @@ public class PlayerWalkState : PlayerBaseState
     {
         if (_context.InputHandler.IsInputActiveDodge)
             SwitchState(_manager.GetDodgeState());
-        else if (_context.InputHandler.IsInputActiveAttack)
-            SwitchState(_manager.GetMeleeAttackState());
+        else if (_context.InputHandler.IsInputActiveMeleeAttack)
+            SwitchState(_manager.GetWalkingMeleeAttackState());
         else if (_context.InputHandler.IsInputActiveRun)
             SwitchState(_manager.GetRunState());
-        else if (!_context.InputHandler.IsInputActiveMovement && !HasWalkVelocity())
+        else if (!_context.InputHandler.IsInputActiveMovement)
         {
             SwitchState(_manager.GetIdleState());
             _context.AnimatorHandler.SetAnimationValueIsMoving(false);
         }
-    }
-
-    private bool HasWalkVelocity()
-    {
-        bool hasRunVelocityX = Mathf.Abs(_context.MovementHandler.CurrentMovementVelocityX) > THRESH;
-        bool hasRunVelocityZ = Mathf.Abs(_context.MovementHandler.CurrentMovementVelocityZ) > THRESH;
-        return hasRunVelocityX || hasRunVelocityZ;
     }
 
     public override void ExecuteState() 

@@ -16,12 +16,12 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void CheckSwitchState() 
     {
-        if (_context.InputHandler.IsInputActiveMovement)
-            SwitchState(_manager.GetWalkState());
-        else if (_context.InputHandler.IsInputActiveDodge)
+        if (_context.InputHandler.IsInputActiveDodge)
             SwitchState(_manager.GetDodgeState());
-        else if (_context.InputHandler.IsInputActiveAttack)
-            SwitchState(_manager.GetMeleeAttackState());
+        else if (_context.InputHandler.IsInputActiveMeleeAttack)
+            SwitchState(_manager.GetIdleMeleeAttackState());
+        else if (_context.InputHandler.IsInputActiveMovement)
+            SwitchState(_manager.GetWalkState());
     }
 
     public override void ExecuteState() 

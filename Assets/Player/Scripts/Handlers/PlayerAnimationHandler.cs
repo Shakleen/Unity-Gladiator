@@ -45,7 +45,6 @@ public class PlayerAnimationHandler : MonoBehaviour
     // =================================================================================================================================================
     //                                                              Getters and Setters
     // =================================================================================================================================================
-    public Animator Animator { get { return _animator; } }
     public bool IsDodging { get { return _isDodging; } }
     public bool IsMeleeAttacking { get { return _isMeleeAttacking; } }
     public int MeleeAttackNumber { get { return _meleeAttackNumber; } }
@@ -90,6 +89,8 @@ public class PlayerAnimationHandler : MonoBehaviour
         _meleeAttackNumber = 0; 
         _animator.SetInteger(_animatorHashMeleeAttackNumber, _meleeAttackNumber);
     }
+
+    public bool IsAnimationPlaying() {return _animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f;}
 
 
     // =================================================================================================================================================

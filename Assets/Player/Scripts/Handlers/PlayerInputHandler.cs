@@ -48,7 +48,7 @@ public class PlayerInputHandler : MonoBehaviour
     public bool IsInputActiveMovement { get { return _isInputActiveMovement; } }
     public bool IsInputActiveRun { get { return _isInputActiveRun; } }
     public bool IsInputActiveDodge { get { return _isInputActiveDodge; } }
-    public bool IsInputActiveAttack { get { return _isInputActiveAttack; } }
+    public bool IsInputActiveMeleeAttack { get { return _isInputActiveAttack; } }
     // -------------------------------------------------------------------------------------------------------------------------------------------------
 
 

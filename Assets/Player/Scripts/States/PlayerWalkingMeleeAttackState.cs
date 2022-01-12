@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class PlayerMeleeAttackState : PlayerBaseState
+public class PlayerWalkingMeleeAttackState : PlayerBaseState
 {
     float _lastAttackTime;
     int _attackNumber;
 
-    public PlayerMeleeAttackState(Player context, PlayerStateManager manager) : base(context, manager) {}
+    public PlayerWalkingMeleeAttackState(Player context, PlayerStateManager manager) : base(context, manager) {}
 
     public override void OnEnterState() 
     { 
@@ -29,7 +29,7 @@ public class PlayerMeleeAttackState : PlayerBaseState
     {
         if (_context.InputHandler.IsInputActiveDodge && !_context.AnimatorHandler.IsMeleeAttacking)
             SwitchState(_manager.GetDodgeState());
-        else if (_context.AnimatorHandler.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        else if (!_context.AnimatorHandler.IsAnimationPlaying())
             SwitchState(_manager.GetIdleState());
     }
 

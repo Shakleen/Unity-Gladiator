@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class PlayerStateManager
 {
-    enum State {idle, walk, run, dodge, melee}
+    enum State {idle, walk, run, dodge, melee_idle, melee_walking, melee_running}
 
     private Player _context;
     private Dictionary<State, PlayerBaseState> _stateDict;
@@ -45,11 +45,27 @@ public class PlayerStateManager
         return _stateDict[State.dodge];
     }
 
-    public PlayerBaseState GetMeleeAttackState()
+    public PlayerBaseState GetIdleMeleeAttackState()
     {
-        if (!_stateDict.ContainsKey(State.melee))
-            _stateDict.Add(State.melee, new PlayerMeleeAttackState(_context, this));
+        if (!_stateDict.ContainsKey(State.melee_idle))
+            _stateDict.Add(State.melee_idle, new PlayerIdleMeleeAttackState(_context, this));
 
-        return _stateDict[State.melee];
+        return _stateDict[State.melee_idle];
+    }
+
+    public PlayerBaseState GetWalkingMeleeAttackState()
+    {
+        if (!_stateDict.ContainsKey(State.melee_walking))
+            _stateDict.Add(State.melee_walking, new PlayerWalkingMeleeAttackState(_context, this));
+
+        return _stateDict[State.melee_walking];
+    }
+
+    public PlayerBaseState GetRunningMeleeAttackState()
+    {
+        if (!_stateDict.ContainsKey(State.melee_running))
+            _stateDict.Add(State.melee_running, new PlayerRunningMeleeAttackState(_context, this));
+
+        return _stateDict[State.melee_running];
     }
 }
