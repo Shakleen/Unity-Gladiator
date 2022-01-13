@@ -20,7 +20,7 @@ public class PlayerDodgeState : PlayerBaseState
 
     public override void CheckSwitchState() 
     {
-        if (!_context.AnimatorHandler.IsDodging)
+        if (!_context.AnimatorHandler.IsDodging && !_context.InputHandler.IsInputActiveDodge)
         {
             if (_context.InputHandler.IsInputActiveMovement)
             {

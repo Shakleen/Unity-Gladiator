@@ -60,3 +60,4 @@ crashlytics-build.properties
 
 # Model and animation files
 /Assets/Player/Models
+/Assets/Third Party

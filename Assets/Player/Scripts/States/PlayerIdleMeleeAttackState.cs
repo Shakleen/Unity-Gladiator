@@ -24,7 +24,7 @@ public class PlayerIdleMeleeAttackState : PlayerBaseState
 
     public override void CheckSwitchState() 
     {
-        if (!_context.AnimatorHandler.IsMeleeAttacking)
+        if (!_context.AnimatorHandler.IsMeleeAttacking && !_context.InputHandler.IsInputActiveMeleeAttack)
         {
             if (_context.InputHandler.IsInputActiveDodge)
                 SwitchState(_manager.GetDodgeState());
