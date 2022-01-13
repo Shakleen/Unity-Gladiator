@@ -59,5 +59,6 @@ sysinfo.txt
 crashlytics-build.properties
 
 # Model and animation files
-/Assets/Player/Models
+/Assets/Player/Model
+/Assets/Enemy/Model
 /Assets/Third Party
