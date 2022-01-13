@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(PlayerInput))]
 public class PlayerInputHandler : MonoBehaviour
 {
     // =================================================================================================================================================
@@ -21,7 +20,7 @@ public class PlayerInputHandler : MonoBehaviour
     // -------------------------------------------------------------------------------------------------------------------------------------------------
     // Componenet References
     // -------------------------------------------------------------------------------------------------------------------------------------------------
-    private PlayerInput _playerInput;
+    [SerializeField] private PlayerInput _playerInput;
     private InputAction _inputActionMove;
     private InputAction _inputActionRun;
     private InputAction _inputActionDodge;
@@ -58,7 +57,6 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void Awake() 
     {
-        _playerInput = GetComponent<PlayerInput>(); 
         _inputActionMove = _playerInput.actions[_ACTION_NAME_MOVE];
         _inputActionRun = _playerInput.actions[_ACTION_NAME_RUN];
         _inputActionDodge = _playerInput.actions[_ACTION_NAME_DODGE];

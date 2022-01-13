@@ -40,8 +40,8 @@ public class PlayerAnimationHandler : MonoBehaviour
     // -------------------------------------------------------------------------------------------------------------------------------------------------
     // Componenet References
     // -------------------------------------------------------------------------------------------------------------------------------------------------
-    private Animator _animator;
-    private Player _player;
+    [SerializeField] private Animator _animator;
+    [SerializeField] private Player _player;
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------
     // Animation Hash Variables
@@ -72,8 +72,6 @@ public class PlayerAnimationHandler : MonoBehaviour
     // =================================================================================================================================================
     private void Awake() 
     {
-        _animator = GetComponent<Animator>();    
-        _player = GetComponent<Player>();
         _animatorHashVelocityX = Animator.StringToHash(_ANIMATION_PARAMETER_VELOCITY_X);
         _animatorHashVelocityZ = Animator.StringToHash(_ANIMATION_PARAMETER_VELOCITY_Z);
         _animatorHashIsMoving = Animator.StringToHash(_ANIMATION_PARAMETER_IS_MOVING);

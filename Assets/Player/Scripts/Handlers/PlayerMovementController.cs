@@ -1,6 +1,5 @@
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterController), typeof(Player))]
 public class PlayerMovementController : MonoBehaviour
 {
     private const float MOVEMENT_TRHESH = 1e-3f;
@@ -8,6 +7,9 @@ public class PlayerMovementController : MonoBehaviour
     // =================================================================================================================================================
     //                                                          Editor tunable variables
     // =================================================================================================================================================
+    [SerializeField] private Player _player;
+    [SerializeField] private CharacterController _controller;
+
     // -------------------------------------------------------------------------------------------------------------------------------------------------
     [Header("Walk Variables")]
     [Tooltip("Maximum forward veloctiy the player can walk")] [SerializeField] [Range(0.5f, 10.0f)] private float _maxForwardWalkVelocity = 1.0f;
@@ -40,10 +42,8 @@ public class PlayerMovementController : MonoBehaviour
     // -------------------------------------------------------------------------------------------------------------------------------------------------
     // Componenet References
     // -------------------------------------------------------------------------------------------------------------------------------------------------
-    private CharacterController _controller;
     private PlayerStateManager _stateManager;
     private Transform _cameraTransform;
-    private Player _player;
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------
     // State veriables
@@ -97,8 +97,6 @@ public class PlayerMovementController : MonoBehaviour
 
     private void Awake() 
     {    
-        _controller = GetComponent<CharacterController>();
-        _player = GetComponent<Player>();
         _stateManager = new PlayerStateManager(_player);
         _currentState = _stateManager.GetIdleState();
     }

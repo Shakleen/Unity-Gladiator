@@ -1,14 +1,13 @@
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerMovementController), typeof(PlayerInputHandler), typeof(PlayerAnimationHandler))]
 public class Player : MonoBehaviour
 {
     // =================================================================================================================================================
     //                                                          References and Variables
     // =================================================================================================================================================
-    private PlayerMovementController _movementController;
-    private PlayerInputHandler _inputHandler;
-    private PlayerAnimationHandler _animationHandler;
+    [SerializeField] private PlayerMovementController _movementController;
+    [SerializeField] private PlayerInputHandler _inputHandler;
+    [SerializeField] private PlayerAnimationHandler _animationHandler;
 
 
     // =================================================================================================================================================
@@ -21,13 +20,6 @@ public class Player : MonoBehaviour
     // =================================================================================================================================================
     //                                                                  Functions
     // =================================================================================================================================================
-    private void Awake() 
-    {
-        _movementController = GetComponent<PlayerMovementController>();
-        _inputHandler = GetComponent<PlayerInputHandler>();
-        _animationHandler = GetComponent<PlayerAnimationHandler>();
-    }
-
-    private void Start() { Cursor.lockState = CursorLockMode.Locked; }
+    private void Awake() { Cursor.lockState = CursorLockMode.Locked; }
 
 }
