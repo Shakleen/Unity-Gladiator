@@ -44,6 +44,7 @@ public class PlayerRunState : PlayerBaseState
         CheckSwitchState();
         _context.MovementHandler.RotateTowardsCameraDirection();
         UpdateRunVelocity();
+        _context.MovementHandler.MoveCharacter();
     }
 
     private void UpdateRunVelocity()

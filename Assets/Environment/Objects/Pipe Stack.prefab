@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 379938193725713596}
   - component: {fileID: 379938193725713599}
   - component: {fileID: 379938193725713598}
-  - component: {fileID: 379938193725713597}
   m_Layer: 0
   m_Name: Pipe (3)
   m_TagString: Untagged
@@ -27,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 379938193725713587}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 2.973, y: 0.674, z: -0.047}
+  m_LocalPosition: {x: 0.25, y: 0.679, z: 0}
   m_LocalScale: {x: 0.5, y: 2, z: 0.5}
   m_Children: []
   m_Father: {fileID: 379938194223521775}
@@ -82,20 +81,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &379938193725713597
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 379938193725713587}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &379938193909547506
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,7 +92,6 @@ GameObject:
   - component: {fileID: 379938193909547507}
   - component: {fileID: 379938193909547518}
   - component: {fileID: 379938193909547517}
-  - component: {fileID: 379938193909547516}
   m_Layer: 0
   m_Name: Pipe
   m_TagString: Untagged
@@ -123,7 +107,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 379938193909547506}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 2.7, y: 0.25, z: 0}
+  m_LocalPosition: {x: 0, y: 0.25, z: 0}
   m_LocalScale: {x: 0.5, y: 2, z: 0.5}
   m_Children: []
   m_Father: {fileID: 379938194223521775}
@@ -178,20 +162,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &379938193909547516
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 379938193909547506}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &379938194223521774
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,6 +171,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 379938194223521775}
+  - component: {fileID: 9056156800857333467}
   m_Layer: 0
   m_Name: Pipe Stack
   m_TagString: Untagged
@@ -228,6 +199,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &9056156800857333467
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379938194223521774}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.48, y: 1.5, z: 4.44}
+  m_Center: {x: 0, y: 0.75, z: 0}
 --- !u!1 &379938194276854206
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,7 +223,6 @@ GameObject:
   - component: {fileID: 379938194276854207}
   - component: {fileID: 379938194276854202}
   - component: {fileID: 379938194276854201}
-  - component: {fileID: 379938194276854200}
   m_Layer: 0
   m_Name: Pipe (4)
   m_TagString: Untagged
@@ -255,7 +238,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 379938194276854206}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 3.48, y: 0.674, z: 0.085}
+  m_LocalPosition: {x: -0.25, y: 0.674, z: 0.236}
   m_LocalScale: {x: 0.5, y: 2, z: 0.5}
   m_Children: []
   m_Father: {fileID: 379938194223521775}
@@ -310,20 +293,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &379938194276854200
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 379938194276854206}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &379938194456774408
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,7 +304,6 @@ GameObject:
   - component: {fileID: 379938194456774409}
   - component: {fileID: 379938194456774452}
   - component: {fileID: 379938194456774411}
-  - component: {fileID: 379938194456774410}
   m_Layer: 0
   m_Name: Pipe (2)
   m_TagString: Untagged
@@ -351,7 +319,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 379938194456774408}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 3.721, y: 0.25, z: -0.0789}
+  m_LocalPosition: {x: 0.5, y: 0.25, z: 0}
   m_LocalScale: {x: 0.5, y: 2.1228, z: 0.5}
   m_Children: []
   m_Father: {fileID: 379938194223521775}
@@ -406,20 +374,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &379938194456774410
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 379938194456774408}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &379938194521486739
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,7 +385,6 @@ GameObject:
   - component: {fileID: 379938194521486748}
   - component: {fileID: 379938194521486751}
   - component: {fileID: 379938194521486750}
-  - component: {fileID: 379938194521486749}
   m_Layer: 0
   m_Name: Pipe (1)
   m_TagString: Untagged
@@ -447,7 +400,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 379938194521486739}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 3.207, y: 0.25, z: 0.0639}
+  m_LocalPosition: {x: -0.5, y: 0.25, z: 0}
   m_LocalScale: {x: 0.5, y: 1.8142, z: 0.5}
   m_Children: []
   m_Father: {fileID: 379938194223521775}
@@ -502,20 +455,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &379938194521486749
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 379938194521486739}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &379938194555372799
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,7 +466,6 @@ GameObject:
   - component: {fileID: 379938194555372792}
   - component: {fileID: 379938194555372795}
   - component: {fileID: 379938194555372794}
-  - component: {fileID: 379938194555372793}
   m_Layer: 0
   m_Name: Pipe (5)
   m_TagString: Untagged
@@ -543,7 +481,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 379938194555372799}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 3.207, y: 1.091, z: 0.1484}
+  m_LocalPosition: {x: 0, y: 1.1, z: -0.108}
   m_LocalScale: {x: 0.5, y: 1.9226, z: 0.5}
   m_Children: []
   m_Father: {fileID: 379938194223521775}
@@ -598,17 +536,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &379938194555372793
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 379938194555372799}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}

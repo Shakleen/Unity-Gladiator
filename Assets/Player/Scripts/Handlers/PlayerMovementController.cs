@@ -10,16 +10,16 @@ public class PlayerMovementController : MonoBehaviour
     // =================================================================================================================================================
     // -------------------------------------------------------------------------------------------------------------------------------------------------
     [Header("Walk Variables")]
-    [Tooltip("Maximum forward veloctiy the player can walk")] [SerializeField] [Range(0.5f, 5.0f)] private float _maxForwardWalkVelocity = 1.0f;
-    [Tooltip("Accelaration used to go towards maximum walk velocity")] [SerializeField] [Range(0.5f, 5.0f)] private float _accelarationWalk = 2.0f;
-    [Tooltip("Deceleration used to go towards idle or zero velocity")] [SerializeField] [Range(0.5f, 5.0f)] private float _decelarationWalk = 2.0f;
+    [Tooltip("Maximum forward veloctiy the player can walk")] [SerializeField] [Range(0.5f, 10.0f)] private float _maxForwardWalkVelocity = 1.0f;
+    [Tooltip("Accelaration used to go towards maximum walk velocity")] [SerializeField] [Range(0.5f, 10.0f)] private float _accelarationWalk = 2.0f;
+    [Tooltip("Deceleration used to go towards idle or zero velocity")] [SerializeField] [Range(0.5f, 10.0f)] private float _decelarationWalk = 2.0f;
     // -------------------------------------------------------------------------------------------------------------------------------------------------
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------
     [Header("Run Variables")]
-    [Tooltip("Maximum veloctiy the player can run")] [SerializeField] [Range(0.5f, 5.0f)] private float _maxVelocityRun = 2.0f;
-    [Tooltip("Accelaration used to go towards maximum run velocity")] [SerializeField] [Range(0.5f, 5.0f)] private float _accelarationRun = 2.0f;
-    [Tooltip("Deceleration used to go towards max walk velocity")] [SerializeField] [Range(0.5f, 5.0f)] private float _decelarationRun = 1.0f;
+    [Tooltip("Maximum veloctiy the player can run")] [SerializeField] [Range(0.5f, 20.0f)] private float _maxVelocityRun = 2.0f;
+    [Tooltip("Accelaration used to go towards maximum run velocity")] [SerializeField] [Range(0.5f, 20.0f)] private float _accelarationRun = 2.0f;
+    [Tooltip("Deceleration used to go towards max walk velocity")] [SerializeField] [Range(0.5f, 20.0f)] private float _decelarationRun = 1.0f;
     // -------------------------------------------------------------------------------------------------------------------------------------------------
     
     // -------------------------------------------------------------------------------------------------------------------------------------------------
@@ -108,9 +108,14 @@ public class PlayerMovementController : MonoBehaviour
     private void Update()
     {
         _currentState.ExecuteState();
-        if (!_currentState.hasPrint) Debug.Log($"Player in state: {_currentState.GetName()}");
-        _controller.Move(GetMoveVectorTowardsCameraDirection(_currentMovementVelocity) * Time.deltaTime);
         ApplyGravity();
+        if (!_currentState.hasPrint) Debug.Log($"Player in state: {_currentState.GetName()}");
+    }
+
+    public void MoveCharacter() 
+    { 
+        Vector3 movementVector = GetMoveVectorTowardsCameraDirection(_currentMovementVelocity);
+        _controller.Move(movementVector * Time.deltaTime); 
     }
 
     public void RotateTowardsCameraDirection()

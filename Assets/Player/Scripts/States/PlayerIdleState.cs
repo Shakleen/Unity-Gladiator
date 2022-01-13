@@ -29,7 +29,12 @@ public class PlayerIdleState : PlayerBaseState
     public override void ExecuteState() 
     { 
         CheckSwitchState(); 
-        if (HasMovementVelocity()) Decelarate();
+        
+        if (HasMovementVelocity())
+        {
+            Decelarate();
+            _context.MovementHandler.MoveCharacter();
+        }
     }
 
     private bool HasMovementVelocity()

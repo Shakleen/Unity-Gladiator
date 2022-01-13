@@ -37,6 +37,7 @@ public class PlayerWalkState : PlayerBaseState
         CheckSwitchState();
         _context.MovementHandler.RotateTowardsCameraDirection();
         UpdateWalkVelocity();
+        _context.MovementHandler.MoveCharacter();
     }
 
     private void UpdateWalkVelocity()
