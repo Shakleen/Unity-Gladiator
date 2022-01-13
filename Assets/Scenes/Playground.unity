@@ -3367,10 +3367,62 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Rig
       objectReference: {fileID: 0}
+    - target: {fileID: 2766834768194946900, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
+      propertyPath: m_Center.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2766834768194946900, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
+      propertyPath: m_StepOffset
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3072770365810342404, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
+      propertyPath: _runDodgeSpeedMultiplier
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3072770365810342404, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
+      propertyPath: _normalDodgeSpeedMultiplier
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 3072770365810342404, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
+      propertyPath: _runMeleeAttackSpeedMultiplier
+      value: 1.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3072770365810342404, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
+      propertyPath: _idleMeleeAttackSpeedMultiplier
+      value: 1.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 3072770365810342404, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
+      propertyPath: _walkMeleeAttackSpeedMultiplier
+      value: 1.25
+      objectReference: {fileID: 0}
     - target: {fileID: 3072770365810342406, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 963194227}
+    - target: {fileID: 3072770365810342459, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
+      propertyPath: _maxVelocityRun
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3072770365810342459, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
+      propertyPath: _accelarationRun
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3072770365810342459, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
+      propertyPath: _decelarationRun
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3072770365810342459, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
+      propertyPath: _accelarationWalk
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3072770365810342459, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
+      propertyPath: _decelarationWalk
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3072770365810342459, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
+      propertyPath: _maxForwardWalkVelocity
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
 --- !u!1001 &8374677770341790206

@@ -373,6 +373,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7431334212993110031, guid: 314a746d63fdc9d4ca329506361a7aed, type: 3}
+      propertyPath: m_Center.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7431334212993110031, guid: 314a746d63fdc9d4ca329506361a7aed, type: 3}
+      propertyPath: m_StepOffset
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7773229217061563740, guid: 314a746d63fdc9d4ca329506361a7aed, type: 3}
       propertyPath: m_Name
       value: Player
@@ -380,6 +388,46 @@ PrefabInstance:
     - target: {fileID: 7773229217061563741, guid: 314a746d63fdc9d4ca329506361a7aed, type: 3}
       propertyPath: m_Camera
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7773229217061563743, guid: 314a746d63fdc9d4ca329506361a7aed, type: 3}
+      propertyPath: _runDodgeSpeedMultiplier
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7773229217061563743, guid: 314a746d63fdc9d4ca329506361a7aed, type: 3}
+      propertyPath: _normalDodgeSpeedMultiplier
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7773229217061563743, guid: 314a746d63fdc9d4ca329506361a7aed, type: 3}
+      propertyPath: _runMeleeAttackSpeedMultiplier
+      value: 1.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7773229217061563743, guid: 314a746d63fdc9d4ca329506361a7aed, type: 3}
+      propertyPath: _idleMeleeAttackSpeedMultiplier
+      value: 1.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 7773229217061563743, guid: 314a746d63fdc9d4ca329506361a7aed, type: 3}
+      propertyPath: _walkMeleeAttackSpeedMultiplier
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7773229217061563744, guid: 314a746d63fdc9d4ca329506361a7aed, type: 3}
+      propertyPath: _maxVelocityRun
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7773229217061563744, guid: 314a746d63fdc9d4ca329506361a7aed, type: 3}
+      propertyPath: _decelarationRun
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7773229217061563744, guid: 314a746d63fdc9d4ca329506361a7aed, type: 3}
+      propertyPath: _accelarationWalk
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7773229217061563744, guid: 314a746d63fdc9d4ca329506361a7aed, type: 3}
+      propertyPath: _decelarationWalk
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7773229217061563744, guid: 314a746d63fdc9d4ca329506361a7aed, type: 3}
+      propertyPath: _maxForwardWalkVelocity
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 314a746d63fdc9d4ca329506361a7aed, type: 3}

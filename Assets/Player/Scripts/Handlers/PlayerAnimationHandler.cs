@@ -101,15 +101,15 @@ public class PlayerAnimationHandler : MonoBehaviour
 
     public void SetMoveAnimationSpeedMultiplier(float multiplier) { _animator.SetFloat(_animatorHashMultiplierMove, multiplier); }
 
-    public void SetIdleMeleeAnimationSpeedMultiplier(float multiplier) { _animator.SetFloat(_animatorHashMultiplierMove, multiplier); }
+    public void SetIdleMeleeAnimationSpeedMultiplier(float multiplier) { _animator.SetFloat(_animatorHashMultiplierIdleMelee, multiplier); }
 
-    public void SetWalkMeleeAnimationSpeedMultiplier(float multiplier) { _animator.SetFloat(_animatorHashMultiplierMove, multiplier); }
+    public void SetWalkMeleeAnimationSpeedMultiplier(float multiplier) { _animator.SetFloat(_animatorHashMultiplierWalkMelee, multiplier); }
 
-    public void SetRunMeleeAnimationSpeedMultiplier(float multiplier) { _animator.SetFloat(_animatorHashMultiplierMove, multiplier); }
+    public void SetRunMeleeAnimationSpeedMultiplier(float multiplier) { _animator.SetFloat(_animatorHashMultiplierRunMelee, multiplier); }
 
-    public void SetNormalDodgeAnimationSpeedMultiplier(float multiplier) { _animator.SetFloat(_animatorHashMultiplierMove, multiplier); }
+    public void SetNormalDodgeAnimationSpeedMultiplier(float multiplier) { _animator.SetFloat(_animatorHashMultiplierDodgeNormal, multiplier); }
 
-    public void SetRunDodgeAnimationSpeedMultiplier(float multiplier) { _animator.SetFloat(_animatorHashMultiplierMove, multiplier); }
+    public void SetRunDodgeAnimationSpeedMultiplier(float multiplier) { _animator.SetFloat(_animatorHashMultiplierDodgeRun, multiplier); }
 
     public void SetAnimationValueVelocityX(float value) { _animator.SetFloat(_animatorHashVelocityX, value); }
 
