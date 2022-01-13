@@ -1684,6 +1684,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8729275135430630684, guid: ae132659324b64d47a8cb0748e684d09, type: 3}
   m_PrefabInstance: {fileID: 1170543502}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1184375117 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4598290967825365150, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
+  m_PrefabInstance: {fileID: 2766834766385062939}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1259216737
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2588,6 +2593,36 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8374677771169576336, guid: 65dd7dc177cfcfe4585391c138d39bca, type: 3}
   m_PrefabInstance: {fileID: 1670834562}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1706932921
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1706932922}
+  m_Layer: 0
+  m_Name: Weapon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1706932922
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1706932921}
+  m_LocalRotation: {x: 0.6676858, y: -0.018129466, z: -0.28110954, w: 0.68908966}
+  m_LocalPosition: {x: 0.088335, y: -0.02815888, z: 0.003500329}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1184375117}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 65.505, y: -74.939, z: -96.878}
 --- !u!1001 &1714133046
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3367,62 +3402,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Rig
       objectReference: {fileID: 0}
-    - target: {fileID: 2766834768194946900, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
-      propertyPath: m_Center.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2766834768194946900, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
-      propertyPath: m_StepOffset
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3072770365810342404, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
-      propertyPath: _runDodgeSpeedMultiplier
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3072770365810342404, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
-      propertyPath: _normalDodgeSpeedMultiplier
-      value: 1.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 3072770365810342404, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
-      propertyPath: _runMeleeAttackSpeedMultiplier
-      value: 1.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 3072770365810342404, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
-      propertyPath: _idleMeleeAttackSpeedMultiplier
-      value: 1.35
-      objectReference: {fileID: 0}
-    - target: {fileID: 3072770365810342404, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
-      propertyPath: _walkMeleeAttackSpeedMultiplier
-      value: 1.25
-      objectReference: {fileID: 0}
     - target: {fileID: 3072770365810342406, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 963194227}
-    - target: {fileID: 3072770365810342459, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
-      propertyPath: _maxVelocityRun
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3072770365810342459, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
-      propertyPath: _accelarationRun
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3072770365810342459, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
-      propertyPath: _decelarationRun
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3072770365810342459, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
-      propertyPath: _accelarationWalk
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3072770365810342459, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
-      propertyPath: _decelarationWalk
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3072770365810342459, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
-      propertyPath: _maxForwardWalkVelocity
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
 --- !u!1001 &8374677770341790206
