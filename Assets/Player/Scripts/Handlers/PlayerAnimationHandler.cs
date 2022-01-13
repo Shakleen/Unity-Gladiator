@@ -3,19 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Animator), typeof(Player))]
 public class PlayerAnimationHandler : MonoBehaviour
 {
-    // =================================================================================================================================================
-    //                                                          Editor tunable variables
-    // =================================================================================================================================================
-    // -------------------------------------------------------------------------------------------------------------------------------------------------
-    [Header("Walk Variables")]
-    [Tooltip("Walk animation speed multiplier")] [SerializeField] [Range(0.5f, 5.0f)] private float _moveSpeedMultiplier = 1.0f;
-    [Tooltip("Idle Melee animation speed multiplier")] [SerializeField] [Range(0.5f, 5.0f)] private float _idleMeleeAttackSpeedMultiplier = 1.0f;
-    [Tooltip("Walk Melee animation speed multiplier")] [SerializeField] [Range(0.5f, 5.0f)] private float _walkMeleeAttackSpeedMultiplier = 1.0f;
-    [Tooltip("Run Melee animation speed multiplier")] [SerializeField] [Range(0.5f, 5.0f)] private float _runMeleeAttackSpeedMultiplier = 1.0f;
-    [Tooltip("Normal dodge animation speed multiplier")] [SerializeField] [Range(0.5f, 5.0f)] private float _normalDodgeSpeedMultiplier = 1.0f;
-    [Tooltip("Run dodge animation speed multiplier")] [SerializeField] [Range(0.5f, 5.0f)] private float _runDodgeSpeedMultiplier = 1.0f;
 
-    // -------------------------------------------------------------------------------------------------------------------------------------------------
     // =================================================================================================================================================
     //                                                                  Constants
     // =================================================================================================================================================
@@ -89,12 +77,12 @@ public class PlayerAnimationHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        SetMoveAnimationSpeedMultiplier(_moveSpeedMultiplier);
-        SetIdleMeleeAnimationSpeedMultiplier(_idleMeleeAttackSpeedMultiplier);
-        SetWalkMeleeAnimationSpeedMultiplier(_walkMeleeAttackSpeedMultiplier);
-        SetRunMeleeAnimationSpeedMultiplier(_runMeleeAttackSpeedMultiplier);
-        SetNormalDodgeAnimationSpeedMultiplier(_normalDodgeSpeedMultiplier);
-        SetRunDodgeAnimationSpeedMultiplier(_runDodgeSpeedMultiplier);
+        SetMoveAnimationSpeedMultiplier(_player.Config.MoveSpeedMultiplier);
+        SetIdleMeleeAnimationSpeedMultiplier(_player.Config.IdleMeleeAttackSpeedMultiplier);
+        SetWalkMeleeAnimationSpeedMultiplier(_player.Config.WalkMeleeAttackSpeedMultiplier);
+        SetRunMeleeAnimationSpeedMultiplier(_player.Config.RunMeleeAttackSpeedMultiplier);
+        SetNormalDodgeAnimationSpeedMultiplier(_player.Config.NormalDodgeSpeedMultiplier);
+        SetRunDodgeAnimationSpeedMultiplier(_player.Config.RunDodgeSpeedMultiplier);
     }
 
     public void SetMoveAnimationSpeedMultiplier(float multiplier) { _animator.SetFloat(_animatorHashMultiplierMove, multiplier); }

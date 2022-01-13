@@ -27,15 +27,15 @@ public class PlayerRunState : PlayerBaseState
 
     private bool HasReachedMaxVelocity()
     {
-        bool hasRunVelocityX = Mathf.Abs(_context.MovementHandler.CurrentMovementVelocityX) == _context.MovementHandler.MaxVelocityRun;
-        bool hasRunVelocityZ = Mathf.Abs(_context.MovementHandler.CurrentMovementVelocityZ) == _context.MovementHandler.MaxVelocityRun;
+        bool hasRunVelocityX = Mathf.Abs(_context.MovementHandler.CurrentMovementVelocityX) == _context.Config.MaxVelocityRun;
+        bool hasRunVelocityZ = Mathf.Abs(_context.MovementHandler.CurrentMovementVelocityZ) == _context.Config.MaxVelocityRun;
         return hasRunVelocityX || hasRunVelocityZ;
     }
 
     private bool HasRunVelocity()
     {
-        bool hasRunVelocityX = Mathf.Abs(_context.MovementHandler.CurrentMovementVelocityX) > _context.MovementHandler.MaxForwardWalkVelocity;
-        bool hasRunVelocityZ = Mathf.Abs(_context.MovementHandler.CurrentMovementVelocityZ) > _context.MovementHandler.MaxForwardWalkVelocity;
+        bool hasRunVelocityX = Mathf.Abs(_context.MovementHandler.CurrentMovementVelocityX) > _context.Config.MaxWalkVelocity;
+        bool hasRunVelocityZ = Mathf.Abs(_context.MovementHandler.CurrentMovementVelocityZ) > _context.Config.MaxWalkVelocity;
         return hasRunVelocityX || hasRunVelocityZ;
     }
 
@@ -83,13 +83,13 @@ public class PlayerRunState : PlayerBaseState
         else
             velocity = 0;
 
-        velocity = Mathf.Clamp(velocity, -_context.MovementHandler.MaxVelocityRun, _context.MovementHandler.MaxVelocityRun);
+        velocity = Mathf.Clamp(velocity, -_context.Config.MaxVelocityRun, _context.Config.MaxVelocityRun);
         return velocity;
     }
 
-    private float ApplyFrameIndependentAccelaration() { return _context.MovementHandler.AccelarationRun * Time.deltaTime; }
+    private float ApplyFrameIndependentAccelaration() { return _context.Config.AccelarationRun * Time.deltaTime; }
 
-    private float ApplyFrameIndependentDecelaration() { return _context.MovementHandler.DecelarationRun * Time.deltaTime; }
+    private float ApplyFrameIndependentDecelaration() { return _context.Config.DecelarationRun * Time.deltaTime; }
 
     public override string GetName()
     {

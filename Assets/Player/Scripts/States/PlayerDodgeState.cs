@@ -50,7 +50,7 @@ public class PlayerDodgeState : PlayerBaseState
         _context.transform.rotation = Quaternion.Slerp(
             _context.transform.rotation,
             movementDirection,
-            _context.MovementHandler.CameraSensitivity * Time.deltaTime
+            _context.Config.CameraSensitivity * Time.deltaTime
         );
     }
 

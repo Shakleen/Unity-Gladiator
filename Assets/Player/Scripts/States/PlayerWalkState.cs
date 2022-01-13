@@ -76,17 +76,13 @@ public class PlayerWalkState : PlayerBaseState
         else
             velocity = 0;
 
-        velocity = Mathf.Clamp(
-            velocity, 
-            -_context.MovementHandler.MaxForwardWalkVelocity, 
-            _context.MovementHandler.MaxForwardWalkVelocity
-        );
+        velocity = Mathf.Clamp(velocity, -_context.Config.MaxWalkVelocity, _context.Config.MaxWalkVelocity);
         return velocity;
     }
 
-    private float ApplyFrameIndependentAccelaration() { return _context.MovementHandler.AccelarationWalk * Time.deltaTime; }
+    private float ApplyFrameIndependentAccelaration() { return _context.Config.AccelarationWalk * Time.deltaTime; }
 
-    private float ApplyFrameIndependentDecelaration() { return _context.MovementHandler.DecelarationWalk * Time.deltaTime; }
+    private float ApplyFrameIndependentDecelaration() { return _context.Config.DecelarationWalk * Time.deltaTime; }
 
     public override string GetName()
     {

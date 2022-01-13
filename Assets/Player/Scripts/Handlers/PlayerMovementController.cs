@@ -2,46 +2,20 @@ using UnityEngine;
 
 public class PlayerMovementController : MonoBehaviour
 {
-    private const float MOVEMENT_TRHESH = 1e-3f;
-
-    // =================================================================================================================================================
-    //                                                          Editor tunable variables
-    // =================================================================================================================================================
-    [SerializeField] private Player _player;
-    [SerializeField] private CharacterController _controller;
-
-    // -------------------------------------------------------------------------------------------------------------------------------------------------
-    [Header("Walk Variables")]
-    [Tooltip("Maximum forward veloctiy the player can walk")] [SerializeField] [Range(0.5f, 10.0f)] private float _maxForwardWalkVelocity = 1.0f;
-    [Tooltip("Accelaration used to go towards maximum walk velocity")] [SerializeField] [Range(0.5f, 10.0f)] private float _accelarationWalk = 2.0f;
-    [Tooltip("Deceleration used to go towards idle or zero velocity")] [SerializeField] [Range(0.5f, 10.0f)] private float _decelarationWalk = 2.0f;
-    // -------------------------------------------------------------------------------------------------------------------------------------------------
-
-    // -------------------------------------------------------------------------------------------------------------------------------------------------
-    [Header("Run Variables")]
-    [Tooltip("Maximum veloctiy the player can run")] [SerializeField] [Range(0.5f, 20.0f)] private float _maxVelocityRun = 2.0f;
-    [Tooltip("Accelaration used to go towards maximum run velocity")] [SerializeField] [Range(0.5f, 20.0f)] private float _accelarationRun = 2.0f;
-    [Tooltip("Deceleration used to go towards max walk velocity")] [SerializeField] [Range(0.5f, 20.0f)] private float _decelarationRun = 1.0f;
-    // -------------------------------------------------------------------------------------------------------------------------------------------------
-    
-    // -------------------------------------------------------------------------------------------------------------------------------------------------
-    [Header("Camera variables")]
-    [Tooltip("Camera movement sensitivity")] [SerializeField] [Range(1f, 10.0f)] private float _cameraSensitivity = 5.0f;
-    // -------------------------------------------------------------------------------------------------------------------------------------------------
-
-    // -------------------------------------------------------------------------------------------------------------------------------------------------
-    [Header("Player attack variables")]
-    [Tooltip("Melee attack combo time limit")] [SerializeField] [Range(1f, 10.0f)] private float _meleeAttackComboTimeLimit = 2.0f;
-    // -------------------------------------------------------------------------------------------------------------------------------------------------
-
-    
     // =================================================================================================================================================
     //                                                          References and Variables
     // =================================================================================================================================================
     
     // -------------------------------------------------------------------------------------------------------------------------------------------------
+    // Constants
+    // -------------------------------------------------------------------------------------------------------------------------------------------------
+    private const float MOVEMENT_TRHESH = 1e-3f;
+    
+    // -------------------------------------------------------------------------------------------------------------------------------------------------
     // Componenet References
     // -------------------------------------------------------------------------------------------------------------------------------------------------
+    [SerializeField] private Player _player;
+    [SerializeField] private CharacterController _controller;
     private PlayerStateManager _stateManager;
     private Transform _cameraTransform;
 
@@ -62,13 +36,6 @@ public class PlayerMovementController : MonoBehaviour
     // =================================================================================================================================================
     public float THRESH { get { return MOVEMENT_TRHESH; } }
     public Transform CameraTransform { get { return _cameraTransform; } }
-    public float MaxForwardWalkVelocity { get { return _maxForwardWalkVelocity; } }
-    public float AccelarationWalk { get { return _accelarationWalk; } }
-    public float DecelarationWalk { get { return _decelarationWalk; } }
-    public float MaxVelocityRun { get { return _maxVelocityRun; } }
-    public float AccelarationRun { get { return _accelarationRun; } }
-    public float DecelarationRun { get { return _decelarationRun; } }
-    public float MeleeAttackComboTimeLimit { get { return _meleeAttackComboTimeLimit; } }
     public PlayerBaseState CurrentState { get { return _currentState; } set { _currentState = value; } }
     public float CurrentMovementVelocityX 
     { 
@@ -88,7 +55,6 @@ public class PlayerMovementController : MonoBehaviour
             _player.AnimatorHandler.SetAnimationValueVelocityZ(value);
         } 
     }
-    public float CameraSensitivity { get { return _cameraSensitivity; } }
 
 
     // =================================================================================================================================================
@@ -122,7 +88,7 @@ public class PlayerMovementController : MonoBehaviour
         {
             float targetAngle = _cameraTransform.eulerAngles.y;
             Quaternion rotation = Quaternion.Euler(0, targetAngle, 0);
-            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, _cameraSensitivity * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, _player.Config.CameraSensitivity * Time.deltaTime);
         }
     }
 

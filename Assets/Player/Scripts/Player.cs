@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerMovementController _movementController;
     [SerializeField] private PlayerInputHandler _inputHandler;
     [SerializeField] private PlayerAnimationHandler _animationHandler;
+    [SerializeField] private PlayerConfig _config;
 
 
     // =================================================================================================================================================
@@ -16,6 +17,7 @@ public class Player : MonoBehaviour
     public PlayerMovementController MovementHandler { get { return _movementController; } }
     public PlayerInputHandler InputHandler { get { return _inputHandler; } }
     public PlayerAnimationHandler AnimatorHandler { get { return _animationHandler; } }
+    public PlayerConfig Config { get { return _config; } }
 
     // =================================================================================================================================================
     //                                                                  Functions

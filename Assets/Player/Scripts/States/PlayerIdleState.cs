@@ -67,11 +67,11 @@ public class PlayerIdleState : PlayerBaseState
         else
             velocity = 0;
 
-        velocity = Mathf.Clamp(velocity, -_context.MovementHandler.MaxVelocityRun, _context.MovementHandler.MaxVelocityRun);
+        velocity = Mathf.Clamp(velocity, -_context.Config.MaxVelocityRun, _context.Config.MaxVelocityRun);
         return velocity;
     }
 
-    private float ApplyFrameIndependentDecelaration() { return _context.MovementHandler.DecelarationRun * Time.deltaTime; }
+    private float ApplyFrameIndependentDecelaration() { return _context.Config.DecelarationRun * Time.deltaTime; }
 
     public override string GetName()
     {

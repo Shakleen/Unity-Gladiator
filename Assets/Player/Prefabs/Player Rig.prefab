@@ -393,6 +393,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7773229217061563745, guid: 314a746d63fdc9d4ca329506361a7aed, type: 3}
+      propertyPath: _config
+      value: 
+      objectReference: {fileID: 11400000, guid: 3598afa24dfc76347b34089f13334416, type: 2}
+    - target: {fileID: 7773229217061563745, guid: 314a746d63fdc9d4ca329506361a7aed, type: 3}
       propertyPath: _inputHandler
       value: 
       objectReference: {fileID: 3072770365810342405}
