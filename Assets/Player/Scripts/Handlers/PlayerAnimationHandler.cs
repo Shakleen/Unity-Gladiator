@@ -4,6 +4,19 @@ using UnityEngine;
 public class PlayerAnimationHandler : MonoBehaviour
 {
     // =================================================================================================================================================
+    //                                                          Editor tunable variables
+    // =================================================================================================================================================
+    // -------------------------------------------------------------------------------------------------------------------------------------------------
+    [Header("Walk Variables")]
+    [Tooltip("Walk animation speed multiplier")] [SerializeField] [Range(0.5f, 5.0f)] private float _moveSpeedMultiplier = 1.0f;
+    [Tooltip("Idle Melee animation speed multiplier")] [SerializeField] [Range(0.5f, 5.0f)] private float _idleMeleeAttackSpeedMultiplier = 1.0f;
+    [Tooltip("Walk Melee animation speed multiplier")] [SerializeField] [Range(0.5f, 5.0f)] private float _walkMeleeAttackSpeedMultiplier = 1.0f;
+    [Tooltip("Run Melee animation speed multiplier")] [SerializeField] [Range(0.5f, 5.0f)] private float _runMeleeAttackSpeedMultiplier = 1.0f;
+    [Tooltip("Normal dodge animation speed multiplier")] [SerializeField] [Range(0.5f, 5.0f)] private float _normalDodgeSpeedMultiplier = 1.0f;
+    [Tooltip("Run dodge animation speed multiplier")] [SerializeField] [Range(0.5f, 5.0f)] private float _runDodgeSpeedMultiplier = 1.0f;
+
+    // -------------------------------------------------------------------------------------------------------------------------------------------------
+    // =================================================================================================================================================
     //                                                                  Constants
     // =================================================================================================================================================
     private const string _ANIMATION_PARAMETER_VELOCITY_X = "velocityX";
@@ -13,6 +26,12 @@ public class PlayerAnimationHandler : MonoBehaviour
     private const string _ANIMATION_PARAMETER_IS_DODGING = "isDodging";
     private const string _ANIMATION_PARAMETER_IS_MELEE_ATTACKING = "isMeleeAttacking";
     private const string _ANIMATION_PARAMETER_MELEE_ATK_NO = "meleeAttackNumber";
+    private const string _ANIMATION_PARAMETER_MULTIPLIER_MOVE = "moveSpeedMultiplier";
+    private const string _ANIMATION_PARAMETER_MULTIPLIER_MELEE_IDLE = "idleMeleeAttackSpeedMultiplier";
+    private const string _ANIMATION_PARAMETER_MULTIPLIER_MELEE_WALK = "walkMeleeAttackSpeedMultiplier";
+    private const string _ANIMATION_PARAMETER_MULTIPLIER_MELEE_RUN = "runMeleeAttackSpeedMultiplier";
+    private const string _ANIMATION_PARAMETER_MULTIPLIER_DODGE_NORMAL = "normalDodgeSpeedMultiplier";
+    private const string _ANIMATION_PARAMETER_MULTIPLIER_DODGE_RUN = "runDodgeSpeedMultiplier";
 
     // =================================================================================================================================================
     //                                                          References and Variables
@@ -27,13 +46,11 @@ public class PlayerAnimationHandler : MonoBehaviour
     // -------------------------------------------------------------------------------------------------------------------------------------------------
     // Animation Hash Variables
     // -------------------------------------------------------------------------------------------------------------------------------------------------
-    private int _animatorHashVelocityX;
-    private int _animatorHashVelocityZ;
-    private int _animatorHashIsMoving;
-    private int _animatorHashIsRunning;
-    private int _animatorHashIsDodging;
-    private int _animatorHashIsMeleeAttacking;
+    private int _animatorHashVelocityX, _animatorHashVelocityZ;
+    private int _animatorHashIsMoving, _animatorHashIsRunning, _animatorHashIsDodging, _animatorHashIsMeleeAttacking;
     private int _animatorHashMeleeAttackNumber;
+    private int _animatorHashMultiplierMove, _animatorHashMultiplierDodgeNormal, _animatorHashMultiplierDodgeRun;
+    private int _animatorHashMultiplierIdleMelee, _animatorHashMultiplierWalkMelee, _animatorHashMultiplierRunMelee;
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------
     // Variables
@@ -64,7 +81,35 @@ public class PlayerAnimationHandler : MonoBehaviour
         _animatorHashIsDodging = Animator.StringToHash(_ANIMATION_PARAMETER_IS_DODGING);
         _animatorHashIsMeleeAttacking = Animator.StringToHash(_ANIMATION_PARAMETER_IS_MELEE_ATTACKING);
         _animatorHashMeleeAttackNumber = Animator.StringToHash(_ANIMATION_PARAMETER_MELEE_ATK_NO);
+        _animatorHashMultiplierMove = Animator.StringToHash(_ANIMATION_PARAMETER_MULTIPLIER_MOVE);
+        _animatorHashMultiplierIdleMelee = Animator.StringToHash(_ANIMATION_PARAMETER_MULTIPLIER_MELEE_IDLE);
+        _animatorHashMultiplierWalkMelee = Animator.StringToHash(_ANIMATION_PARAMETER_MULTIPLIER_MELEE_WALK);
+        _animatorHashMultiplierRunMelee = Animator.StringToHash(_ANIMATION_PARAMETER_MULTIPLIER_MELEE_RUN);
+        _animatorHashMultiplierDodgeNormal = Animator.StringToHash(_ANIMATION_PARAMETER_MULTIPLIER_DODGE_NORMAL);
+        _animatorHashMultiplierDodgeRun = Animator.StringToHash(_ANIMATION_PARAMETER_MULTIPLIER_DODGE_RUN);
     }
+
+    private void OnEnable()
+    {
+        SetMoveAnimationSpeedMultiplier(_moveSpeedMultiplier);
+        SetIdleMeleeAnimationSpeedMultiplier(_idleMeleeAttackSpeedMultiplier);
+        SetWalkMeleeAnimationSpeedMultiplier(_walkMeleeAttackSpeedMultiplier);
+        SetRunMeleeAnimationSpeedMultiplier(_runMeleeAttackSpeedMultiplier);
+        SetNormalDodgeAnimationSpeedMultiplier(_normalDodgeSpeedMultiplier);
+        SetRunDodgeAnimationSpeedMultiplier(_runDodgeSpeedMultiplier);
+    }
+
+    public void SetMoveAnimationSpeedMultiplier(float multiplier) { _animator.SetFloat(_animatorHashMultiplierMove, multiplier); }
+
+    public void SetIdleMeleeAnimationSpeedMultiplier(float multiplier) { _animator.SetFloat(_animatorHashMultiplierMove, multiplier); }
+
+    public void SetWalkMeleeAnimationSpeedMultiplier(float multiplier) { _animator.SetFloat(_animatorHashMultiplierMove, multiplier); }
+
+    public void SetRunMeleeAnimationSpeedMultiplier(float multiplier) { _animator.SetFloat(_animatorHashMultiplierMove, multiplier); }
+
+    public void SetNormalDodgeAnimationSpeedMultiplier(float multiplier) { _animator.SetFloat(_animatorHashMultiplierMove, multiplier); }
+
+    public void SetRunDodgeAnimationSpeedMultiplier(float multiplier) { _animator.SetFloat(_animatorHashMultiplierMove, multiplier); }
 
     public void SetAnimationValueVelocityX(float value) { _animator.SetFloat(_animatorHashVelocityX, value); }
 

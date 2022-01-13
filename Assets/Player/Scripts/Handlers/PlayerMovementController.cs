@@ -8,9 +8,6 @@ public class PlayerMovementController : MonoBehaviour
     // =================================================================================================================================================
     //                                                          Editor tunable variables
     // =================================================================================================================================================
-    [Tooltip("Show debug log texts")]
-    [SerializeField] private bool _showDebugText = false;
-
     // -------------------------------------------------------------------------------------------------------------------------------------------------
     [Header("Walk Variables")]
     [Tooltip("Maximum forward veloctiy the player can walk")] [SerializeField] [Range(0.5f, 5.0f)] private float _maxForwardWalkVelocity = 1.0f;
