@@ -1,3 +1,5 @@
+using System;
+
 public class PlayerStateMachine
 {
     private Player _player;
@@ -14,13 +16,17 @@ public class PlayerStateMachine
     private void InitializeStateArray()
     {
         _states = new PlayerBaseState[System.Enum.GetNames(typeof(PlayerStateType)).Length];
-        _states[GetIndex(PlayerStateType.idle)] = new PlayerIdleState(_player, this);
-        _states[GetIndex(PlayerStateType.walk)] = new PlayerWalkState(_player, this);
-        _states[GetIndex(PlayerStateType.run)] = new PlayerRunState(_player, this);
-        _states[GetIndex(PlayerStateType.dodge)] = new PlayerDodgeState(_player, this);
-        _states[GetIndex(PlayerStateType.melee_idle)] = new PlayerIdleMeleeAttackState(_player, this);
-        _states[GetIndex(PlayerStateType.melee_walking)] = new PlayerWalkingMeleeAttackState(_player, this);
-        _states[GetIndex(PlayerStateType.melee_running)] = new PlayerRunningMeleeAttackState(_player, this);
+        var assembly = typeof(PlayerBaseState).Assembly;
+
+        foreach(var type in assembly.GetExportedTypes())
+        {
+            if (type.IsSubclassOf(typeof(PlayerBaseState)))
+            {
+                PlayerBaseState state = (PlayerBaseState) Activator.CreateInstance(type, _player, this);
+                int index = GetIndex(state.GetStateType());
+                _states[index] = state;
+            }
+        }
     }
 
     public void SwitchState(PlayerStateType newStateType)

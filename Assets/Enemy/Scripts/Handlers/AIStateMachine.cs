@@ -1,3 +1,5 @@
+using System;
+
 public class AIStateMachine 
 {
     private AIAgent _aiAgent;
@@ -14,10 +16,17 @@ public class AIStateMachine
     private void InitializeStates()
     {
         _states = new AIBaseState[System.Enum.GetNames(typeof(AIStateType)).Length];
-        _states[GetIndex(AIStateType.idle)] = new AIIdleState(_aiAgent, this);
-        _states[GetIndex(AIStateType.explore)] = new AIExploreState(_aiAgent, this);
-        _states[GetIndex(AIStateType.chase)] = new AIChaseState(_aiAgent, this);
-        _states[GetIndex(AIStateType.attack)] = new AIAttackState(_aiAgent, this);
+        var assembly = typeof(AIBaseState).Assembly;
+
+        foreach(var type in assembly.GetExportedTypes())
+        {
+            if (type.IsSubclassOf(typeof(AIBaseState)))
+            {
+                AIBaseState state = (AIBaseState) Activator.CreateInstance(type, _aiAgent, this);
+                int index = GetIndex(state.GetStateType());
+                _states[index] = state;
+            }
+        }
     }
 
     public void ExecuteState() { _currentState.ExecuteState(); }

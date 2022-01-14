@@ -1,4 +1,4 @@
-public enum AIStateType { idle, chase, attack, explore }
+public enum AIStateType { idle, chase, attack, explore, death }
 
 public abstract class AIBaseState
 {

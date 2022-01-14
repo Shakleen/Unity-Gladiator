@@ -4,7 +4,7 @@ public class PlayerWalkingMeleeAttackState : PlayerBaseState
 {
     public PlayerWalkingMeleeAttackState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) {}
 
-    public override PlayerStateType GetStateType() { return PlayerStateType.melee_running; }
+    public override PlayerStateType GetStateType() { return PlayerStateType.melee_walking; }
 
     public override void OnEnterState() { _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(true); }
 
