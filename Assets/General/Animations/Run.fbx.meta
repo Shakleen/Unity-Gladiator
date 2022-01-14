@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: b1076d8b657436241b651ada8894a407
+guid: 77752f108b1c0124a91f59c82764a3ea
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: Y-Bot Walk
+    second: Run
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -35,11 +35,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Y-Bot Walk
+      name: Run
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 35
+      lastFrame: 19
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
