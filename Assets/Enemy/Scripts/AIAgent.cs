@@ -7,6 +7,7 @@ public class AIAgent : MonoBehaviour
     [SerializeField] private Transform _playerTransform;
     [SerializeField] private NavMeshAgent _navMeshAgent;
     [SerializeField] private AIAnimationHandler _animationHandler;
+    [SerializeField] private RagDollHandler _ragDollHandler;
     [SerializeField] private AIStateType _currentStateType;
 
     private AIStateMachine _stateMachine;
@@ -16,6 +17,7 @@ public class AIAgent : MonoBehaviour
     public Transform PlayerTransform { get { return _playerTransform; } }
     public NavMeshAgent NavMeshAgent { get { return _navMeshAgent; } }
     public AIAnimationHandler AnimationHandler { get { return _animationHandler; } }
+    public RagDollHandler RagDollHandler { get { return _ragDollHandler; } }
     public BaseStatus Health { get { return _health; } }
 
     private void Awake() 

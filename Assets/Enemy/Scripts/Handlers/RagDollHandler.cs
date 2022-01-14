@@ -6,6 +6,9 @@ public class RagDollHandler : MonoBehaviour
 {
     [SerializeField] private AIAgent _aiAgent;
     private Rigidbody[] _rigidBodies;
+    private bool _isRagDollActive = false;
+
+    public bool IsRagDollActive { get { return _isRagDollActive; } }
 
     private void Awake() 
     { 
@@ -13,14 +16,16 @@ public class RagDollHandler : MonoBehaviour
         AddHitBoxHandler();
     }
 
-    private void Start() { SetActiveRagDoll(true); }
+    private void Start() { SetRagDollStatus(false); }
 
-    public void SetActiveRagDoll(bool isKinematic)
+    public void SetRagDollStatus(bool status)
     {
+        _isRagDollActive = status;
+
         foreach(Rigidbody rigidbody in _rigidBodies)
-            rigidbody.isKinematic = isKinematic;
+            rigidbody.isKinematic = !status;
         
-        _aiAgent.AnimationHandler.SetAnimatorActiveStatus(isKinematic);
+        _aiAgent.AnimationHandler.SetAnimatorActiveStatus(!status);
     }
 
     private void AddHitBoxHandler()

@@ -2616,7 +2616,7 @@ GameObject:
   - component: {fileID: 7501871340276781272}
   - component: {fileID: 7501871340276781276}
   - component: {fileID: 7501871340276781275}
-  - component: {fileID: 7501871340276781274}
+  - component: {fileID: 919132149560244976}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -2698,6 +2698,7 @@ MonoBehaviour:
   _playerTransform: {fileID: 0}
   _navMeshAgent: {fileID: 7501871340276781272}
   _animationHandler: {fileID: 7501871340276781275}
+  _ragDollHandler: {fileID: 919132149560244976}
   _currentStateType: 0
 --- !u!114 &7501871340276781275
 MonoBehaviour:
@@ -2713,7 +2714,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _aiAgent: {fileID: 7501871340276781276}
   _animator: {fileID: 4140661375538113847}
---- !u!114 &7501871340276781274
+--- !u!114 &919132149560244976
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2722,7 +2723,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7268081840943836663}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 324f76ff23a134241a3c06459631847c, type: 3}
+  m_Script: {fileID: 11500000, guid: f7dc42d4adccdee4b8b4a0f4cf35704c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _aiAgent: {fileID: 7501871340276781276}
