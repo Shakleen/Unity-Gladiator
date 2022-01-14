@@ -8,7 +8,7 @@ public class AIIdleState : AIBaseState
 
     public override void OnExitState() {}
 
-    public override void CheckSwitchState() {}
+    public new void CheckSwitchState() { base.CheckSwitchState(); }
 
-    public override void ExecuteState() {}
+    public override void ExecuteState() { CheckSwitchState(); }
 }

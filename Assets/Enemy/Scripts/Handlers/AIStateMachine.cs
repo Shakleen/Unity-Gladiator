@@ -29,7 +29,16 @@ public class AIStateMachine
         }
     }
 
-    public void ExecuteState() { _currentState.ExecuteState(); }
+    public void ExecuteState() 
+    { 
+        if (_currentState.GetStateType() != AIStateType.death)
+        {
+            if (_aiAgent.Health.IsEmpty())
+                SwitchState(AIStateType.death);
+            else
+                _currentState.ExecuteState();
+        }
+    }
 
     public void SwitchState(AIStateType newStateType)
     {

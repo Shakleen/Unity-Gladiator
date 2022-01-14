@@ -4,11 +4,11 @@ public class AIDeathState : AIBaseState
 
     public override AIStateType GetStateType() { return AIStateType.death; }
 
-    public override void OnEnterState() {}
+    public override void OnEnterState() { _aiAgent.AnimationHandler.SetAnimationValueIsDead(true); }
 
     public override void OnExitState() {}
 
-    public override void CheckSwitchState() {}
+    public new void CheckSwitchState() {}
 
     public override void ExecuteState() {}
 }
