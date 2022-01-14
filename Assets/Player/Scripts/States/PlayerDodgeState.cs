@@ -41,11 +41,16 @@ public class PlayerDodgeState : PlayerBaseState
     {
         Vector3 movementVector = new Vector3(_dodgeDirection.x, 0, _dodgeDirection.y);
         movementVector = _player.MovementHandler.GetMoveVectorTowardsCameraDirection(movementVector);
-        Quaternion movementDirection = Quaternion.LookRotation(new Vector3(movementVector.x, 0, movementVector.z));
-        _player.transform.rotation = Quaternion.Slerp(
-            _player.transform.rotation,
-            movementDirection,
-            _player.Config.CameraSensitivity * Time.deltaTime
-        );
+        movementVector.y = 0;
+
+        if (movementVector != Vector3.zero)
+        {
+            Quaternion movementDirection = Quaternion.LookRotation(movementVector);
+            _player.transform.rotation = Quaternion.Slerp(
+                _player.transform.rotation,
+                movementDirection,
+                _player.Config.CameraSensitivity * Time.deltaTime
+            );
+        }
     }
 }
