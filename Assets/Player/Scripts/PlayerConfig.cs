@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu()]
+[CreateAssetMenu(fileName = "PlayerConfig", menuName = "Gladiator/PlayerConfig", order = 0)]
 public class PlayerConfig : ScriptableObject
 {
     [Header("Walk Variables")]

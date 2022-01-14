@@ -8,6 +8,7 @@ public class AIStateMachine
     {
         _aiAgent = aiAgent;
         InitializeStates();
+        _currentState = _states[GetIndex(AIStateType.idle)];
     }
 
     private void InitializeStates()

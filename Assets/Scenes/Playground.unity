@@ -734,11 +734,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fc0796638c8c7a44a2abdd5b7345418, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _navMeshAgent: {fileID: 0}
-  _playerTransform: {fileID: 0}
+  _aiAgent: {fileID: 0}
   _animator: {fileID: 0}
-  _minimumUpdateWaitTime: 1
-  _minimumUpdateDistance: 5
 --- !u!1 &610867228
 GameObject:
   m_ObjectHideFlags: 0
@@ -4071,6 +4068,7 @@ GameObject:
   - component: {fileID: 543450651783274888}
   - component: {fileID: 5866666019984178162}
   - component: {fileID: 919132147859553076}
+  - component: {fileID: 919132147859553078}
   - component: {fileID: 919132147859553075}
   - component: {fileID: 919132147859553077}
   m_Layer: 0
@@ -4092,11 +4090,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fc0796638c8c7a44a2abdd5b7345418, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _navMeshAgent: {fileID: 919132147859553076}
-  _playerTransform: {fileID: 706706145}
+  _aiAgent: {fileID: 919132147859553078}
   _animator: {fileID: 5866666019984178162}
-  _minimumUpdateWaitTime: 1
-  _minimumUpdateDistance: 5
 --- !u!195 &919132147859553076
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -4138,6 +4133,22 @@ MonoBehaviour:
   _drawVelocityColor: {r: 1, g: 0, b: 0, a: 1}
   _drawDesiredVelocity: 0
   _drawDesiredVelocityColor: {r: 0, g: 1, b: 0, a: 1}
+--- !u!114 &919132147859553078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132147859553074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bc354c8b05b79c44a3146174505fc88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _navMeshAgent: {fileID: 919132147859553076}
+  _playerTransform: {fileID: 706706145}
+  _config: {fileID: 11400000, guid: 5c1ea8d33698d664991b54ebfb0a1f4e, type: 2}
+  _animationHandler: {fileID: 919132147859553075}
 --- !u!4 &1031632036177697749
 Transform:
   m_ObjectHideFlags: 0

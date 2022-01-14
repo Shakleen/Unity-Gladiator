@@ -29,7 +29,6 @@ public class PlayerMovementHandler : MonoBehaviour
     //                                                              Getters and Setters
     // =================================================================================================================================================
     public float THRESH { get { return MOVEMENT_TRHESH; } }
-    public Transform CameraTransform { get { return _cameraTransform; } }
     public float CurrentMovementVelocityX 
     { 
         get { return _currentMovementVelocity.x; } 
