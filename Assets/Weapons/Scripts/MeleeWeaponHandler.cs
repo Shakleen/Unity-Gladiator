@@ -1,18 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MeleeWeaponHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private float _damagePerHit = 25.0f;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public float DamagePerHit { get { return _damagePerHit; } }
 }

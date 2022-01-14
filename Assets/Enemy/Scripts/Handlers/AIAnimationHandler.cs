@@ -23,4 +23,6 @@ public class AIAnimationHandler : MonoBehaviour
     public void SetAnimationValueIsDead(bool value) { _animator.SetBool(_animationHashIsDead, value); }
 
     public bool IsAnimationPlaying() {return _animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f;}
+
+    public void SetAnimatorActiveStatus(bool status) { _animator.enabled = status; }
 }
