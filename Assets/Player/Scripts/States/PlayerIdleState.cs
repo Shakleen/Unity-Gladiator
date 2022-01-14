@@ -2,28 +2,29 @@ using UnityEngine;
 
 public class PlayerIdleState : PlayerBaseState
 {
-    public PlayerIdleState(Player context, PlayerStateManager manager) : base(context, manager) {}
+    public PlayerIdleState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) {}
+
+    public override PlayerStateType GetStateType() { return PlayerStateType.idle; }
 
     public override void OnEnterState() 
     { 
-        hasPrint = false; 
-        _context.AnimatorHandler.SetAnimationValueIsMoving(false);
-        _context.AnimatorHandler.SetAnimationValueIsRunning(false);
-        _context.AnimatorHandler.SetAnimationValueIsDodging(false);
-        _context.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false);
-        _context.AnimatorHandler.ResetMeleeAttackNumber();
+        _player.AnimatorHandler.SetAnimationValueIsMoving(false);
+        _player.AnimatorHandler.SetAnimationValueIsRunning(false);
+        _player.AnimatorHandler.SetAnimationValueIsDodging(false);
+        _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false);
+        _player.AnimatorHandler.ResetMeleeAttackNumber();
     }
 
-    public override void OnExitState() { hasPrint = false; }
+    public override void OnExitState() {}
 
     public override void CheckSwitchState() 
     {
-        if (_context.InputHandler.IsInputActiveDodge)
-            SwitchState(_manager.GetDodgeState());
-        else if (_context.InputHandler.IsInputActiveMeleeAttack)
-            SwitchState(_manager.GetIdleMeleeAttackState());
-        else if (_context.InputHandler.IsInputActiveMovement)
-            SwitchState(_manager.GetWalkState());
+        if (_player.InputHandler.IsInputActiveDodge)
+            _stateMachine.SwitchState(PlayerStateType.dodge);
+        else if (_player.InputHandler.IsInputActiveMeleeAttack)
+            _stateMachine.SwitchState(PlayerStateType.melee_idle);
+        else if (_player.InputHandler.IsInputActiveMovement)
+            _stateMachine.SwitchState(PlayerStateType.walk);
     }
 
     public override void ExecuteState() 
@@ -33,49 +34,43 @@ public class PlayerIdleState : PlayerBaseState
         if (HasMovementVelocity())
         {
             Decelarate();
-            _context.MovementHandler.MoveCharacter();
+            _player.MovementHandler.MoveCharacter();
         }
     }
 
     private bool HasMovementVelocity()
     {
-        bool hasVelocityX = Mathf.Abs(_context.MovementHandler.CurrentMovementVelocityX) > _context.MovementHandler.THRESH;
-        bool hasVelocityZ = Mathf.Abs(_context.MovementHandler.CurrentMovementVelocityZ) > _context.MovementHandler.THRESH;
+        bool hasVelocityX = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocityX) > _player.MovementHandler.THRESH;
+        bool hasVelocityZ = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocityZ) > _player.MovementHandler.THRESH;
         return hasVelocityX || hasVelocityZ;
     }
 
     private void Decelarate()
     {
-        float velocityX = DecelarateAlongAxis(_context.MovementHandler.CurrentMovementVelocityX);
-        _context.MovementHandler.CurrentMovementVelocityX = velocityX;
+        float velocityX = DecelarateAlongAxis(_player.MovementHandler.CurrentMovementVelocityX);
+        _player.MovementHandler.CurrentMovementVelocityX = velocityX;
 
-        float velocityZ = DecelarateAlongAxis(_context.MovementHandler.CurrentMovementVelocityZ);
-        _context.MovementHandler.CurrentMovementVelocityZ = velocityZ;
+        float velocityZ = DecelarateAlongAxis(_player.MovementHandler.CurrentMovementVelocityZ);
+        _player.MovementHandler.CurrentMovementVelocityZ = velocityZ;
     }
 
     private float DecelarateAlongAxis(float currentVelocity)
     {
         float velocity = currentVelocity;
 
-        if (currentVelocity > _context.MovementHandler.THRESH)
+        if (currentVelocity > _player.MovementHandler.THRESH)
             velocity = currentVelocity - ApplyFrameIndependentDecelaration();
         
         // Player hasn't pressed any button for this axis but was moving in the negative direction.
-        else if (currentVelocity < -_context.MovementHandler.THRESH)
+        else if (currentVelocity < -_player.MovementHandler.THRESH)
             velocity = currentVelocity + ApplyFrameIndependentDecelaration();
         
         else
             velocity = 0;
 
-        velocity = Mathf.Clamp(velocity, -_context.Config.MaxVelocityRun, _context.Config.MaxVelocityRun);
+        velocity = Mathf.Clamp(velocity, -_player.Config.MaxVelocityRun, _player.Config.MaxVelocityRun);
         return velocity;
     }
 
-    private float ApplyFrameIndependentDecelaration() { return _context.Config.DecelarationRun * Time.deltaTime; }
-
-    public override string GetName()
-    {
-        hasPrint = true;
-        return "Idle";
-    }
+    private float ApplyFrameIndependentDecelaration() { return _player.Config.DecelarationRun * Time.deltaTime; }
 }

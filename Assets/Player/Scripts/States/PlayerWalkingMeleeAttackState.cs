@@ -2,44 +2,31 @@ using UnityEngine;
 
 public class PlayerWalkingMeleeAttackState : PlayerBaseState
 {
-    public PlayerWalkingMeleeAttackState(Player context, PlayerStateManager manager) : base(context, manager) {}
+    public PlayerWalkingMeleeAttackState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) {}
 
-    public override void OnEnterState() 
-    { 
-        hasPrint = false; 
-        _context.AnimatorHandler.SetAnimationValueIsMeleeAttacking(true);
-    }
+    public override PlayerStateType GetStateType() { return PlayerStateType.melee_running; }
 
-    public override void OnExitState() 
-    { 
-        hasPrint = false; 
-        _context.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false);
-        _context.AnimatorHandler.ResetMeleeAttackNumber();
-    }
+    public override void OnEnterState() { _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(true); }
+
+    public override void OnExitState() { _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false); }
 
     public override void CheckSwitchState() 
     {
-        if (!_context.AnimatorHandler.IsMeleeAttacking && !_context.InputHandler.IsInputActiveMeleeAttack)
+        if (!_player.AnimatorHandler.IsMeleeAttacking && !_player.InputHandler.IsInputActiveMeleeAttack)
         {
-            if (_context.InputHandler.IsInputActiveDodge)
-                SwitchState(_manager.GetDodgeState());
-            else if (_context.InputHandler.IsInputActiveMovement)
+            if (_player.InputHandler.IsInputActiveDodge)
+                _stateMachine.SwitchState(PlayerStateType.dodge);
+            else if (_player.InputHandler.IsInputActiveMovement)
             {
-                if (_context.InputHandler.IsInputActiveRun)
-                    SwitchState(_manager.GetRunState());
+                if (_player.InputHandler.IsInputActiveRun)
+                    _stateMachine.SwitchState(PlayerStateType.run);
                 else
-                    SwitchState(_manager.GetWalkState());
+                    _stateMachine.SwitchState(PlayerStateType.walk);
             }
-            else if (!_context.AnimatorHandler.IsAnimationPlaying())
-                SwitchState(_manager.GetIdleState());
+            else if (!_player.AnimatorHandler.IsAnimationPlaying())
+                _stateMachine.SwitchState(PlayerStateType.idle);
         }
     }
 
     public override void ExecuteState() { CheckSwitchState(); }
-
-    public override string GetName()
-    {
-        hasPrint = true;
-        return "Walking Melee Attack";
-    }
 }

@@ -4,53 +4,54 @@ public class PlayerWalkState : PlayerBaseState
 {
     protected const float THRESH = 1e-3f;
 
-    public PlayerWalkState(Player context, PlayerStateManager manager) : base(context, manager) {}
+    public PlayerWalkState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) {}
+
+    public override PlayerStateType GetStateType() { return PlayerStateType.walk; }
 
     public override void OnEnterState() 
     { 
-        hasPrint = false; 
-        _context.AnimatorHandler.SetAnimationValueIsMoving(true);
-        _context.AnimatorHandler.SetAnimationValueIsRunning(false);
-        _context.AnimatorHandler.SetAnimationValueIsDodging(false);
-        _context.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false);
+        _player.AnimatorHandler.SetAnimationValueIsMoving(true);
+        _player.AnimatorHandler.SetAnimationValueIsRunning(false);
+        _player.AnimatorHandler.SetAnimationValueIsDodging(false);
+        _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false);
     }
 
-    public override void OnExitState() { hasPrint = false; }
+    public override void OnExitState() {}
 
     public override void CheckSwitchState() 
     {
-        if (_context.InputHandler.IsInputActiveDodge)
-            SwitchState(_manager.GetDodgeState());
-        else if (_context.InputHandler.IsInputActiveMeleeAttack)
-            SwitchState(_manager.GetWalkingMeleeAttackState());
-        else if (!_context.InputHandler.IsInputActiveMovement)
+        if (_player.InputHandler.IsInputActiveDodge)
+            _stateMachine.SwitchState(PlayerStateType.dodge);
+        else if (_player.InputHandler.IsInputActiveMeleeAttack)
+            _stateMachine.SwitchState(PlayerStateType.melee_walking);
+        else if (!_player.InputHandler.IsInputActiveMovement)
         {
-            SwitchState(_manager.GetIdleState());
-            _context.AnimatorHandler.SetAnimationValueIsMoving(false);
+            _stateMachine.SwitchState(PlayerStateType.idle);
+            _player.AnimatorHandler.SetAnimationValueIsMoving(false);
         }
-        else if (_context.InputHandler.IsInputActiveRun)
-            SwitchState(_manager.GetRunState());
+        else if (_player.InputHandler.IsInputActiveRun)
+            _stateMachine.SwitchState(PlayerStateType.run);
     }
 
     public override void ExecuteState()
     {
         CheckSwitchState();
-        _context.MovementHandler.RotateTowardsCameraDirection();
+        _player.MovementHandler.RotateTowardsCameraDirection();
         UpdateWalkVelocity();
-        _context.MovementHandler.MoveCharacter();
+        _player.MovementHandler.MoveCharacter();
     }
 
     private void UpdateWalkVelocity()
     {
-        Vector2 inputMoveVector = _context.InputHandler.InputMoveVector;
+        Vector2 inputMoveVector = _player.InputHandler.InputMoveVector;
 
-        float velocityX = _context.MovementHandler.CurrentMovementVelocityX;
+        float velocityX = _player.MovementHandler.CurrentMovementVelocityX;
         velocityX = ChangeAxisVelocity(inputMoveVector.x, velocityX);
-        _context.MovementHandler.CurrentMovementVelocityX = velocityX;
+        _player.MovementHandler.CurrentMovementVelocityX = velocityX;
 
-        float velocityZ = _context.MovementHandler.CurrentMovementVelocityZ;
+        float velocityZ = _player.MovementHandler.CurrentMovementVelocityZ;
         velocityZ = ChangeAxisVelocity(inputMoveVector.y, velocityZ);
-        _context.MovementHandler.CurrentMovementVelocityZ = velocityZ;
+        _player.MovementHandler.CurrentMovementVelocityZ = velocityZ;
     }
 
     private float ChangeAxisVelocity(float inputVelocity, float currentVelocity)
@@ -76,17 +77,11 @@ public class PlayerWalkState : PlayerBaseState
         else
             velocity = 0;
 
-        velocity = Mathf.Clamp(velocity, -_context.Config.MaxWalkVelocity, _context.Config.MaxWalkVelocity);
+        velocity = Mathf.Clamp(velocity, -_player.Config.MaxWalkVelocity, _player.Config.MaxWalkVelocity);
         return velocity;
     }
 
-    private float ApplyFrameIndependentAccelaration() { return _context.Config.AccelarationWalk * Time.deltaTime; }
+    private float ApplyFrameIndependentAccelaration() { return _player.Config.AccelarationWalk * Time.deltaTime; }
 
-    private float ApplyFrameIndependentDecelaration() { return _context.Config.DecelarationWalk * Time.deltaTime; }
-
-    public override string GetName()
-    {
-        hasPrint = true;
-        return "Walk";
-    }
+    private float ApplyFrameIndependentDecelaration() { return _player.Config.DecelarationWalk * Time.deltaTime; }
 }

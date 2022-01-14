@@ -3,36 +3,31 @@ using UnityEngine;
 public class PlayerDodgeState : PlayerBaseState
 {
     private Vector2 _dodgeDirection;
-    public PlayerDodgeState(Player context, PlayerStateManager manager) : base(context, manager) {}
+    public PlayerDodgeState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) {}
+
+    public override PlayerStateType GetStateType() { return PlayerStateType.dodge; }
 
     public override void OnEnterState() 
     { 
-        hasPrint = false;
-        _dodgeDirection = _context.InputHandler.InputMoveVector;
-        _context.AnimatorHandler.SetAnimationValueIsDodging(true);
+        _dodgeDirection = _player.InputHandler.InputMoveVector;
+        _player.AnimatorHandler.SetAnimationValueIsDodging(true);
     }
 
-    public override void OnExitState() 
-    {  
-        hasPrint = false; 
-        _context.AnimatorHandler.SetAnimationValueIsDodging(false);
-    }
+    public override void OnExitState() { _player.AnimatorHandler.SetAnimationValueIsDodging(false); }
 
     public override void CheckSwitchState() 
     {
-        if (!_context.AnimatorHandler.IsDodging && !_context.InputHandler.IsInputActiveDodge)
+        if (!_player.AnimatorHandler.IsDodging && !_player.InputHandler.IsInputActiveDodge)
         {
-            if (_context.InputHandler.IsInputActiveMovement)
+            if (_player.InputHandler.IsInputActiveMovement)
             {
-                if (_context.InputHandler.IsInputActiveRun)
-                    SwitchState(_manager.GetRunState());
+                if (_player.InputHandler.IsInputActiveRun)
+                    _stateMachine.SwitchState(PlayerStateType.run);
                 else
-                    SwitchState(_manager.GetWalkState());
+                    _stateMachine.SwitchState(PlayerStateType.walk);
             }
-            else if (!_context.AnimatorHandler.IsAnimationPlaying())
-            {
-                SwitchState(_manager.GetIdleState());
-            }
+            else if (!_player.AnimatorHandler.IsAnimationPlaying())
+                _stateMachine.SwitchState(PlayerStateType.idle);
         }
     }
 
@@ -45,18 +40,12 @@ public class PlayerDodgeState : PlayerBaseState
     private void FaceDodgeDirection()
     {
         Vector3 movementVector = new Vector3(_dodgeDirection.x, 0, _dodgeDirection.y);
-        movementVector = _context.MovementHandler.GetMoveVectorTowardsCameraDirection(movementVector);
+        movementVector = _player.MovementHandler.GetMoveVectorTowardsCameraDirection(movementVector);
         Quaternion movementDirection = Quaternion.LookRotation(new Vector3(movementVector.x, 0, movementVector.z));
-        _context.transform.rotation = Quaternion.Slerp(
-            _context.transform.rotation,
+        _player.transform.rotation = Quaternion.Slerp(
+            _player.transform.rotation,
             movementDirection,
-            _context.Config.CameraSensitivity * Time.deltaTime
+            _player.Config.CameraSensitivity * Time.deltaTime
         );
-    }
-
-    public override string GetName()
-    {
-        hasPrint = true;
-        return "Dodge";
     }
 }

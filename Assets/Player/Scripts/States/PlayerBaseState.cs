@@ -1,14 +1,17 @@
+public enum PlayerStateType { idle, walk, run, dodge, melee_idle, melee_walking, melee_running }
+
 public abstract class PlayerBaseState
 {
-    protected Player _context;
-    protected PlayerStateManager _manager;
-    public bool hasPrint; //TODO: Remove when done
+    protected Player _player;
+    protected PlayerStateMachine _stateMachine;
 
-    protected PlayerBaseState(Player context, PlayerStateManager manager)
+    protected PlayerBaseState(Player player, PlayerStateMachine stateMachine)
     {
-        _context = context;
-        _manager = manager;
+        _player = player;
+        _stateMachine = stateMachine;
     }
+
+    public abstract PlayerStateType GetStateType();
 
     public abstract void OnEnterState();
 
@@ -17,13 +20,4 @@ public abstract class PlayerBaseState
     public abstract void CheckSwitchState();
 
     public abstract void ExecuteState();
-
-    public abstract string GetName(); //TODO: Remove when done
-
-    protected void SwitchState(PlayerBaseState newState)
-    {
-        OnExitState();
-        newState.OnEnterState();
-        _context.MovementHandler.CurrentState = newState;
-    }
 }

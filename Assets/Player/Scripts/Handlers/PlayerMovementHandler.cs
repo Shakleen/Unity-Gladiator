@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerMovementController : MonoBehaviour
+public class PlayerMovementHandler : MonoBehaviour
 {
     // =================================================================================================================================================
     //                                                          References and Variables
@@ -16,13 +16,7 @@ public class PlayerMovementController : MonoBehaviour
     // -------------------------------------------------------------------------------------------------------------------------------------------------
     [SerializeField] private Player _player;
     [SerializeField] private CharacterController _controller;
-    private PlayerStateManager _stateManager;
     private Transform _cameraTransform;
-
-    // -------------------------------------------------------------------------------------------------------------------------------------------------
-    // State veriables
-    // -------------------------------------------------------------------------------------------------------------------------------------------------
-    private PlayerBaseState _currentState;
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------
     // Movement variables
@@ -36,7 +30,6 @@ public class PlayerMovementController : MonoBehaviour
     // =================================================================================================================================================
     public float THRESH { get { return MOVEMENT_TRHESH; } }
     public Transform CameraTransform { get { return _cameraTransform; } }
-    public PlayerBaseState CurrentState { get { return _currentState; } set { _currentState = value; } }
     public float CurrentMovementVelocityX 
     { 
         get { return _currentMovementVelocity.x; } 
@@ -61,20 +54,7 @@ public class PlayerMovementController : MonoBehaviour
     //                                                                  Functions
     // =================================================================================================================================================
 
-    private void Awake() 
-    {    
-        _stateManager = new PlayerStateManager(_player);
-        _currentState = _stateManager.GetIdleState();
-    }
-
     private void Start() { _cameraTransform = Camera.main.transform; }
-
-    private void Update()
-    {
-        _currentState.ExecuteState();
-        ApplyGravity();
-        if (!_currentState.hasPrint) Debug.Log($"Player in state: {_currentState.GetName()}");
-    }
 
     public void MoveCharacter() 
     { 
@@ -99,7 +79,7 @@ public class PlayerMovementController : MonoBehaviour
         return movementInput;
     }
 
-    private void ApplyGravity()
+    public void ApplyGravity()
     {
         if (_controller.isGrounded)
             _currentMovementVelocity.y = -0.05f;

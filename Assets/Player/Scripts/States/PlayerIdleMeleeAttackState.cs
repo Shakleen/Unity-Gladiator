@@ -4,39 +4,39 @@ public class PlayerIdleMeleeAttackState : PlayerBaseState
 {
     int _attackNumber;
 
-    public PlayerIdleMeleeAttackState(Player context, PlayerStateManager manager) : base(context, manager) {}
+    public PlayerIdleMeleeAttackState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) {}
+
+    public override PlayerStateType GetStateType() { return PlayerStateType.melee_idle; }
 
     public override void OnEnterState() 
     { 
-        hasPrint = false; 
         _attackNumber = 1;
-        _context.AnimatorHandler.SetAnimationValueIsMeleeAttacking(true);
-        _context.AnimatorHandler.IncrementMeleeAttackNumber();
+        _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(true);
+        _player.AnimatorHandler.IncrementMeleeAttackNumber();
     }
 
     public override void OnExitState() 
     { 
-        hasPrint = false; 
-        _context.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false);
-        _context.AnimatorHandler.ResetMeleeAttackNumber();
+        _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false);
+        _player.AnimatorHandler.ResetMeleeAttackNumber();
         _attackNumber = 0;
     }
 
     public override void CheckSwitchState() 
     {
-        if (!_context.AnimatorHandler.IsMeleeAttacking && !_context.InputHandler.IsInputActiveMeleeAttack)
+        if (!_player.AnimatorHandler.IsMeleeAttacking && !_player.InputHandler.IsInputActiveMeleeAttack)
         {
-            if (_context.InputHandler.IsInputActiveDodge)
-                SwitchState(_manager.GetDodgeState());
-            else if (_context.InputHandler.IsInputActiveMovement)
+            if (_player.InputHandler.IsInputActiveDodge)
+                _stateMachine.SwitchState(PlayerStateType.dodge);
+            else if (_player.InputHandler.IsInputActiveMovement)
             {
-                if (_context.InputHandler.IsInputActiveRun)
-                    SwitchState(_manager.GetRunState());
+                if (_player.InputHandler.IsInputActiveRun)
+                    _stateMachine.SwitchState(PlayerStateType.run);
                 else
-                    SwitchState(_manager.GetWalkState());
+                    _stateMachine.SwitchState(PlayerStateType.walk);
             }
-            else if (!_context.AnimatorHandler.IsAnimationPlaying())
-                SwitchState(_manager.GetIdleState());
+            else if (!_player.AnimatorHandler.IsAnimationPlaying())
+                _stateMachine.SwitchState(PlayerStateType.idle);
         }
     }
 
@@ -48,23 +48,17 @@ public class PlayerIdleMeleeAttackState : PlayerBaseState
 
     private void CheckChainCombo()
     {
-        if (_context.AnimatorHandler.IsMeleeAttacking)
+        if (_player.AnimatorHandler.IsMeleeAttacking)
         {
-            if (_context.InputHandler.IsInputActiveMeleeAttack && IsAttackNumberEqual())
+            if (_player.InputHandler.IsInputActiveMeleeAttack && IsAttackNumberEqual())
                 _attackNumber++;
         }
         else
         {
             if (!IsAttackNumberEqual())
-                _context.AnimatorHandler.IncrementMeleeAttackNumber();
+                _player.AnimatorHandler.IncrementMeleeAttackNumber();
         }
     }
 
-    private bool IsAttackNumberEqual() { return _attackNumber == _context.AnimatorHandler.MeleeAttackNumber; }
-
-    public override string GetName()
-    {
-        hasPrint = true;
-        return "Idle Melee Attack";
-    }
+    private bool IsAttackNumberEqual() { return _attackNumber == _player.AnimatorHandler.MeleeAttackNumber; }
 }

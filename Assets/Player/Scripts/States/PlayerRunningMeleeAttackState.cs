@@ -2,45 +2,32 @@ using UnityEngine;
 
 public class PlayerRunningMeleeAttackState : PlayerBaseState
 {
-    public PlayerRunningMeleeAttackState(Player context, PlayerStateManager manager) : base(context, manager) {}
+    public PlayerRunningMeleeAttackState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) {}
 
-    public override void OnEnterState() 
-    { 
-        hasPrint = false; 
-        _context.AnimatorHandler.SetAnimationValueIsMeleeAttacking(true);
-    }
+    public override PlayerStateType GetStateType() { return PlayerStateType.melee_running; }
 
-    public override void OnExitState() 
-    { 
-        hasPrint = false; 
-        _context.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false);
-        _context.AnimatorHandler.ResetMeleeAttackNumber();
-    }
+    public override void OnEnterState() { _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(true); }
+
+    public override void OnExitState() { _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false); }
 
     public override void CheckSwitchState() 
     {
-        if (!_context.AnimatorHandler.IsMeleeAttacking && !_context.InputHandler.IsInputActiveMeleeAttack)
+        if (!_player.AnimatorHandler.IsMeleeAttacking && !_player.InputHandler.IsInputActiveMeleeAttack)
         {
-            if (_context.InputHandler.IsInputActiveMovement)
+            if (_player.InputHandler.IsInputActiveMovement)
             {
-                if (_context.InputHandler.IsInputActiveRun)
-                    SwitchState(_manager.GetRunState());
+                if (_player.InputHandler.IsInputActiveRun)
+                    _stateMachine.SwitchState(PlayerStateType.run);
                 else
-                    SwitchState(_manager.GetWalkState());
+                    _stateMachine.SwitchState(PlayerStateType.walk);
             }
-            else if (!_context.AnimatorHandler.IsAnimationPlaying())
+            else if (!_player.AnimatorHandler.IsAnimationPlaying())
             {
-                _context.MovementHandler.StopMovement();
-                SwitchState(_manager.GetIdleState());
+                _player.MovementHandler.StopMovement();
+                _stateMachine.SwitchState(PlayerStateType.idle);
             }
         }
     }
 
     public override void ExecuteState() { CheckSwitchState(); }
-
-    public override string GetName()
-    {
-        hasPrint = true;
-        return "Melee Attack";
-    }
 }
