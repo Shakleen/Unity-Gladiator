@@ -10,13 +10,18 @@ public class AIAgent : MonoBehaviour
     [SerializeField] private AIStateType _currentStateType;
 
     private AIStateMachine _stateMachine;
+    private BaseStatus _healthStatus;
 
     public AIConfig Config { get { return _config; } }
     public Transform PlayerTransform { get { return _playerTransform; } }
     public NavMeshAgent NavMeshAgent { get { return _navMeshAgent; } }
     public AIAnimationHandler AnimationHandler { get { return _animationHandler; } }
 
-    private void Awake() { _stateMachine = new AIStateMachine(this); }
+    private void Awake() 
+    { 
+        _stateMachine = new AIStateMachine(this); 
+        _healthStatus = new BaseStatus(_config.Health);
+    }
 
     private void Update() 
     { 
