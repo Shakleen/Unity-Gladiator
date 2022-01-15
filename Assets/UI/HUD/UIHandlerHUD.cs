@@ -6,13 +6,13 @@ public class UIHandlerHUD : MonoBehaviour
     [SerializeField] private Slider _healthBar;
     [SerializeField] private Slider _staminaBar;
     [SerializeField] private Slider _manaBar;
-    [SerializeField] private Player _player;
+    [SerializeField] private PlayerStatusHandler _statusHandler;
 
     private void Start()
     {
-        InitSlider(_healthBar, _player.Health);
-        InitSlider(_staminaBar, _player.Stamina);
-        InitSlider(_manaBar, _player.Mana);
+        InitSlider(_healthBar, _statusHandler.Health);
+        InitSlider(_staminaBar, _statusHandler.Stamina);
+        InitSlider(_manaBar, _statusHandler.Mana);
     }
 
     private void InitSlider(Slider slider, BaseStatus status)
@@ -21,9 +21,9 @@ public class UIHandlerHUD : MonoBehaviour
         slider.value = status.CurrentCapacity;
     }
 
-    public void UpdateHealthBar(float value) { _healthBar.value = value; }
+    public void UpdateHealthBar() { _healthBar.value = _statusHandler.Health.CurrentCapacity; }
 
-    public void UpdateStaminaBar(float value) { _staminaBar.value = value; }
+    public void UpdateStaminaBar() { _staminaBar.value = _statusHandler.Stamina.CurrentCapacity; }
 
-    public void UpdateManaBar(float value) { _manaBar.value = value; }
+    public void UpdateManaBar() { _manaBar.value = _statusHandler.Mana.CurrentCapacity; }
 }

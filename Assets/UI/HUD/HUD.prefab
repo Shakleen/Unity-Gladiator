@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Direction: 0
   m_MinValue: 0
   m_MaxValue: 100
-  m_WholeNumbers: 1
+  m_WholeNumbers: 0
   m_Value: 100
   m_OnValueChanged:
     m_PersistentCalls:
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_Direction: 0
   m_MinValue: 0
   m_MaxValue: 100
-  m_WholeNumbers: 1
+  m_WholeNumbers: 0
   m_Value: 100
   m_OnValueChanged:
     m_PersistentCalls:
@@ -308,6 +308,7 @@ MonoBehaviour:
   _healthBar: {fileID: 4275242363348970417}
   _staminaBar: {fileID: 4275242363913019328}
   _manaBar: {fileID: 4275242363397202035}
+  _statusHandler: {fileID: 0}
 --- !u!1 &4275242363809487220
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,7 +468,7 @@ MonoBehaviour:
   m_Direction: 0
   m_MinValue: 0
   m_MaxValue: 100
-  m_WholeNumbers: 1
+  m_WholeNumbers: 0
   m_Value: 100
   m_OnValueChanged:
     m_PersistentCalls:

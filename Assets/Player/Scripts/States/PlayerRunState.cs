@@ -43,6 +43,7 @@ public class PlayerRunState : PlayerBaseState
         _player.MovementHandler.RotateTowardsCameraDirection();
         UpdateRunVelocity();
         _player.MovementHandler.MoveCharacter();
+        _player.StatusHandler.DepleteStamina();
     }
 
     private void UpdateRunVelocity()
