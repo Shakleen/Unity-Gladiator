@@ -77,12 +77,12 @@ public class PlayerAnimationHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        SetMoveAnimationSpeedMultiplier(_player.Config.animationSpeedMultiplier.move);
-        SetIdleMeleeAnimationSpeedMultiplier(_player.Config.animationSpeedMultiplier.idleMeleeAttack);
-        SetWalkMeleeAnimationSpeedMultiplier(_player.Config.animationSpeedMultiplier.walkMeleeAttack);
-        SetRunMeleeAnimationSpeedMultiplier(_player.Config.animationSpeedMultiplier.runMeleeAttack);
-        SetNormalDodgeAnimationSpeedMultiplier(_player.Config.animationSpeedMultiplier.normalDodge);
-        SetRunDodgeAnimationSpeedMultiplier(_player.Config.animationSpeedMultiplier.runDodge);
+        SetMoveAnimationSpeedMultiplier(_player.Config.MoveSpeedMultiplier);
+        SetIdleMeleeAnimationSpeedMultiplier(_player.Config.IdleMeleeAttackSpeedMultiplier);
+        SetWalkMeleeAnimationSpeedMultiplier(_player.Config.WalkMeleeAttackSpeedMultiplier);
+        SetRunMeleeAnimationSpeedMultiplier(_player.Config.RunMeleeAttackSpeedMultiplier);
+        SetNormalDodgeAnimationSpeedMultiplier(_player.Config.NormalDodgeSpeedMultiplier);
+        SetRunDodgeAnimationSpeedMultiplier(_player.Config.RunDodgeSpeedMultiplier);
     }
 
     public void SetMoveAnimationSpeedMultiplier(float multiplier) { _animator.SetFloat(_animatorHashMultiplierMove, multiplier); }

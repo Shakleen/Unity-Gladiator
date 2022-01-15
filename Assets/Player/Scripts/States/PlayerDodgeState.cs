@@ -11,7 +11,7 @@ public class PlayerDodgeState : PlayerBaseState
     { 
         _dodgeDirection = _player.InputHandler.InputMoveVector;
         _player.AnimatorHandler.SetAnimationValueIsDodging(true);
-        _player.StatusHandler.UseStamina(_player.Config.staminaCost.dodge);
+        _player.StatusHandler.UseStamina(_player.Config.DodgeAttackStaminaCost);
     }
 
     public override void OnExitState() { _player.AnimatorHandler.SetAnimationValueIsDodging(false); }
