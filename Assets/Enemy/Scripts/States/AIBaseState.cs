@@ -17,11 +17,7 @@ public abstract class AIBaseState
 
     public abstract void OnExitState();
 
-    public void CheckSwitchState()
-    {
-        if (_aiAgent.Health.IsEmpty())
-            _stateMachine.SwitchState(AIStateType.death);
-    }
+    public abstract void CheckSwitchState();
 
     public abstract void ExecuteState();
 }

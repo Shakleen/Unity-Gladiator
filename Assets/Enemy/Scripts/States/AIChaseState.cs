@@ -12,10 +12,11 @@ public class AIChaseState : AIBaseState
 
     public override void OnExitState() {}
 
-    public new void CheckSwitchState() { base.CheckSwitchState(); }
+    public override void CheckSwitchState() {}
 
     public override void ExecuteState()
     {
+        CheckSwitchState();
         UpdateAgentPath();
         _aiAgent.AnimationHandler.SetAnimationValueMovementSpeed(_aiAgent.NavMeshAgent.velocity.magnitude);
     }

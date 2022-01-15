@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class AIIdleState : AIBaseState
 {
     public AIIdleState(AIAgent aiAgent, AIStateMachine stateMachine) : base(aiAgent, stateMachine) {}
@@ -8,7 +10,26 @@ public class AIIdleState : AIBaseState
 
     public override void OnExitState() {}
 
-    public new void CheckSwitchState() { base.CheckSwitchState(); }
-
     public override void ExecuteState() { CheckSwitchState(); }
+
+    public override void CheckSwitchState() 
+    { 
+        if (ShouldChasePlayer())
+            _stateMachine.SwitchState(AIStateType.chase);
+    }
+
+    public bool ShouldChasePlayer()
+    {
+        Vector3 distanceFromPlayer = _aiAgent.PlayerTransform.position - _aiAgent.transform.position;
+        return IsWithInReach(distanceFromPlayer) && IsFacingPlayer(distanceFromPlayer);
+    }
+
+    private bool IsWithInReach(Vector3 distanceFromPlayer) { return distanceFromPlayer.magnitude <= _aiAgent.Config.AwarenessRadius; }
+
+    private bool IsFacingPlayer(Vector3 distanceFromPlayer)
+    {
+        distanceFromPlayer.Normalize();
+        float dotProduct = Vector3.Dot(distanceFromPlayer, _aiAgent.transform.forward);
+        return dotProduct > 0.0f;
+    }
 }

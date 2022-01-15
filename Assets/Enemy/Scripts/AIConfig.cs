@@ -9,12 +9,16 @@ public class AIConfig : ScriptableObject {
     
     [Tooltip("Minimum amount of units player should travel in order to update path.")]
     [SerializeField] [Range(1.0f, 10.0f)] private float _minimumUpdateDistance = 5.0f;
+    
+    [Tooltip("Maximum distance of awareness of an chasing. If the player is within this distance, the enemy will being chasing.")]
+    [SerializeField] [Range(1.0f, 10.0f)] private float _awarenessRadius = 10.0f;
 
     [Tooltip("Health the enemy starts with")]
     [SerializeField] [Range(1.0f, 1000.0f)] private float _health = 100.0f;
 
     public float MinimumUpdateWaitTime { get { return _minimumUpdateWaitTime; } }
     public float MinimumUpdateDistance { get { return _minimumUpdateDistance; } }
+    public float AwarenessRadius { get { return _awarenessRadius; } }
     public float Health { get { return _health; } }
     
 }

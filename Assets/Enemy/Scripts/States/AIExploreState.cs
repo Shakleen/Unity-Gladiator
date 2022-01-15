@@ -8,7 +8,7 @@ public class AIExploreState : AIBaseState
 
     public override void OnExitState() {}
 
-    public new void CheckSwitchState() { base.CheckSwitchState(); }
+    public override void CheckSwitchState() {}
 
     public override void ExecuteState() {}
 }
