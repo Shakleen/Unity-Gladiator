@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerConfig", menuName = "Gladiator/PlayerConfig", order = 0)]
 public class PlayerConfig : ScriptableObject
 {
+    // -------------------------------------------------------------------------------------------------------------------------------------------------
     [Header("Walk Variables")]
     
     [Tooltip("Maximum forward veloctiy the player can walk")] 
@@ -13,7 +14,9 @@ public class PlayerConfig : ScriptableObject
     
     [Tooltip("Deceleration used to go towards idle or zero velocity")] 
     [SerializeField] [Range(0.5f, 10.0f)] private float _decelarationWalk = 6.0f;
+    // -------------------------------------------------------------------------------------------------------------------------------------------------
 
+    // -------------------------------------------------------------------------------------------------------------------------------------------------
     [Header("Run Variables")]
     
     [Tooltip("Maximum veloctiy the player can run")] 
@@ -24,15 +27,48 @@ public class PlayerConfig : ScriptableObject
     
     [Tooltip("Deceleration used to go towards max walk velocity")] 
     [SerializeField] [Range(0.5f, 20.0f)] private float _decelarationRun = 6.0f;
-    
+    // -------------------------------------------------------------------------------------------------------------------------------------------------
+
+    // -------------------------------------------------------------------------------------------------------------------------------------------------
     [Header("Camera variables")]
     [Tooltip("Camera movement sensitivity")] 
     [SerializeField] [Range(1f, 10.0f)] private float _cameraSensitivity = 5.0f;
+    // -------------------------------------------------------------------------------------------------------------------------------------------------
 
+    // -------------------------------------------------------------------------------------------------------------------------------------------------
     [Header("Player attack variables")]
     [Tooltip("Melee attack combo time limit")] 
     [SerializeField] [Range(1f, 10.0f)] private float _meleeAttackComboTimeLimit = 2.0f;
+    // -------------------------------------------------------------------------------------------------------------------------------------------------
 
+    // -------------------------------------------------------------------------------------------------------------------------------------------------
+    [Header("Player stats")]
+    [Tooltip("Player starting health")]
+    [SerializeField] [Range(1.0f, 1000.0f)] private float _startingHealth = 100.0f;
+    
+    [Tooltip("Player health regen rate")]
+    [SerializeField] [Range(1.0f, 10.0f)] private float _healthRegenPerSec = 10.0f;
+    
+    [Tooltip("Player starting stamina")]
+    [SerializeField] [Range(1.0f, 100.0f)] private float _startingStamina = 50.0f;
+    
+    [Tooltip("Player stamina regen rate")]
+    [SerializeField] [Range(1.0f, 10.0f)] private float _staminaRegenPerSec = 10.0f;
+    
+    [Tooltip("Player stamina depletion rate when running")]
+    [SerializeField] [Range(1.0f, 20.0f)] private float _staminaDepletePerSec = 20.0f;
+    
+    [Tooltip("Player starting mana")]
+    [SerializeField] [Range(1.0f, 100.0f)] private float _startingMana = 25.0f;
+    
+    [Tooltip("Player mana regen rate")]
+    [SerializeField] [Range(1.0f, 10.0f)] private float _manaRegenPerSec = 5.0f;
+    
+    [Tooltip("Player mana depletion rate when using skills")]
+    [SerializeField] [Range(1.0f, 20.0f)] private float _manaDepletePerSec = 10.0f;
+    // -------------------------------------------------------------------------------------------------------------------------------------------------
+
+    // -------------------------------------------------------------------------------------------------------------------------------------------------
     [Header("Animation speed multipliers")]
     
     [Tooltip("Walk animation speed multiplier")] 
@@ -52,6 +88,7 @@ public class PlayerConfig : ScriptableObject
     
     [Tooltip("Run dodge animation speed multiplier")] 
     [SerializeField] [Range(0.5f, 5.0f)] private float _runDodgeSpeedMultiplier = 1.5f;
+    // -------------------------------------------------------------------------------------------------------------------------------------------------
 
     public float MaxWalkVelocity { get { return _maxWalkVelocity; } }
     public float AccelarationWalk { get { return _accelarationWalk; } }
@@ -60,6 +97,14 @@ public class PlayerConfig : ScriptableObject
     public float AccelarationRun { get { return _accelarationRun; } }
     public float DecelarationRun { get { return _decelarationRun; } }
     public float CameraSensitivity { get { return _cameraSensitivity; } }
+    public float StartingHealth { get { return _startingHealth; } }
+    public float HealthRegenPerSec { get { return _healthRegenPerSec; } }
+    public float StartingStamina { get { return _startingStamina; } }
+    public float StaminaRegenPerSec { get { return _staminaRegenPerSec; } }
+    public float StaminaDepletePerSec { get { return _staminaDepletePerSec; } }
+    public float StartingMana { get { return _startingMana; } }
+    public float ManaRegenPerSec { get { return _manaRegenPerSec; } }
+    public float ManaDepletePerSec { get { return _manaDepletePerSec; } }
     public float MeleeAttackComboTimeLimit { get { return _meleeAttackComboTimeLimit; } }
     public float MoveSpeedMultiplier { get { return _moveSpeedMultiplier; } }
     public float IdleMeleeAttackSpeedMultiplier { get { return _idleMeleeAttackSpeedMultiplier; } }
