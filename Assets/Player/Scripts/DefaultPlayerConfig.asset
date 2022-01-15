@@ -24,7 +24,7 @@ MonoBehaviour:
   _healthRegenPerSec: 10
   _startingStamina: 50
   _staminaRegenPerSec: 10
-  _staminaDepletePerSec: 20
+  _staminaDepletePerSec: 10
   _startingMana: 25
   _manaRegenPerSec: 5
   _manaDepletePerSec: 10
