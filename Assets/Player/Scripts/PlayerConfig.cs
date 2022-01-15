@@ -67,6 +67,22 @@ public class PlayerConfig : ScriptableObject
     [Tooltip("Player mana depletion rate when using skills")]
     [SerializeField] [Range(1.0f, 20.0f)] private float _manaDepletePerSec = 10.0f;
     // -------------------------------------------------------------------------------------------------------------------------------------------------
+    
+    // -------------------------------------------------------------------------------------------------------------------------------------------------
+    [Header("Player Action stamina costs")]
+
+    [Tooltip("Dodge stamina cost")] 
+    [SerializeField] [Range(1f, 100.0f)] private float _dodgeAttackStaminaCost = 5.0f;
+
+    [Tooltip("Idle melee attack stamina cost")] 
+    [SerializeField] [Range(1f, 100.0f)] private float _idleMeleeAttackStaminaCost = 5.0f;
+
+    [Tooltip("Walking melee attack stamina cost")] 
+    [SerializeField] [Range(1f, 100.0f)] private float _walkingMeleeAttackStaminaCost = 15.0f;
+
+    [Tooltip("Running melee attack stamina cost")] 
+    [SerializeField] [Range(1f, 100.0f)] private float _runningMeleeAttackStaminaCost = 25.0f;
+    // -------------------------------------------------------------------------------------------------------------------------------------------------
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------
     [Header("Animation speed multipliers")]
@@ -105,6 +121,10 @@ public class PlayerConfig : ScriptableObject
     public float StartingMana { get { return _startingMana; } }
     public float ManaRegenPerSec { get { return _manaRegenPerSec; } }
     public float ManaDepletePerSec { get { return _manaDepletePerSec; } }
+    public float DodgeAttackStaminaCost { get { return _dodgeAttackStaminaCost; } }
+    public float IdleMeleeAttackStaminaCost { get { return _idleMeleeAttackStaminaCost; } }
+    public float WalkingMeleeAttackStaminaCost { get { return _walkingMeleeAttackStaminaCost; } }
+    public float RunningMeleeAttackStaminaCost { get { return _runningMeleeAttackStaminaCost; } }
     public float MeleeAttackComboTimeLimit { get { return _meleeAttackComboTimeLimit; } }
     public float MoveSpeedMultiplier { get { return _moveSpeedMultiplier; } }
     public float IdleMeleeAttackSpeedMultiplier { get { return _idleMeleeAttackSpeedMultiplier; } }

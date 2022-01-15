@@ -37,6 +37,14 @@ public class PlayerStatusHandler : MonoBehaviour
         _hud.UpdateStaminaBar();
     }
 
+    public void UseStamina(float value)
+    {
+        _stamina.Take(value);
+        _hud.UpdateStaminaBar();
+    }
+
+    public bool HasSufficientStamina() { return _stamina.CurrentCapacity > (_stamina.MaxCapacity / 5); }
+
     public void Regenerate()
     {
         _health.Regenerate();
@@ -44,7 +52,7 @@ public class PlayerStatusHandler : MonoBehaviour
         
         _stamina.Regenerate();
         _hud.UpdateStaminaBar();
-        
+
         _mana.Regenerate();
         _hud.UpdateManaBar();
     }

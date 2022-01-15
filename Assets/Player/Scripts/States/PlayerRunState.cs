@@ -12,16 +12,27 @@ public class PlayerRunState : PlayerBaseState
 
     public override void CheckSwitchState()
     {
-        if (_player.InputHandler.IsInputActiveDodge)
-            _stateMachine.SwitchState(PlayerStateType.dodge);
-        else if (_player.InputHandler.IsInputActiveMeleeAttack && HasReachedMaxVelocity())
-            _stateMachine.SwitchState(PlayerStateType.melee_running);
-        else if (!_player.InputHandler.IsInputActiveRun && !HasRunVelocity())
+        if (HasNoStamina() || DoesNotWantToRun())
         {
             _player.AnimatorHandler.SetAnimationValueIsRunning(false);
             _stateMachine.SwitchState(PlayerStateType.walk);
         }
+        else
+        {
+            if (WantsToDodge())
+                _stateMachine.SwitchState(PlayerStateType.dodge);
+            else if (WantsToPerformRunningMelee())
+                _stateMachine.SwitchState(PlayerStateType.melee_running);
+        }
     }
+
+    private bool HasNoStamina() { return _player.StatusHandler.Stamina.IsEmpty(); }
+
+    private bool DoesNotWantToRun() { return (!_player.InputHandler.IsInputActiveRun && !HasRunVelocity()); }
+
+    private bool WantsToDodge() { return _player.InputHandler.IsInputActiveDodge; }
+
+    private bool WantsToPerformRunningMelee() { return _player.InputHandler.IsInputActiveMeleeAttack && HasReachedMaxVelocity(); }
 
     private bool HasReachedMaxVelocity()
     {

@@ -6,7 +6,11 @@ public class PlayerRunningMeleeAttackState : PlayerBaseState
 
     public override PlayerStateType GetStateType() { return PlayerStateType.melee_running; }
 
-    public override void OnEnterState() { _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(true); }
+    public override void OnEnterState() 
+    { 
+        _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(true); 
+        _player.StatusHandler.UseStamina(_player.Config.RunningMeleeAttackStaminaCost);
+    }
 
     public override void OnExitState() { _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false); }
 

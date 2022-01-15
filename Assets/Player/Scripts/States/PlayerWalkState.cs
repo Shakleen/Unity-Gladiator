@@ -18,20 +18,28 @@ public class PlayerWalkState : PlayerBaseState
 
     public override void OnExitState() {}
 
-    public override void CheckSwitchState() 
+    public override void CheckSwitchState()
     {
-        if (_player.InputHandler.IsInputActiveDodge)
+        if (GetIsInputActiveDodge())
             _stateMachine.SwitchState(PlayerStateType.dodge);
-        else if (_player.InputHandler.IsInputActiveMeleeAttack)
+        else if (GetIsInputActiveMeleeAttack())
             _stateMachine.SwitchState(PlayerStateType.melee_walking);
-        else if (!_player.InputHandler.IsInputActiveMovement)
+        else if (!GetIsInputActiveMovement())
         {
             _stateMachine.SwitchState(PlayerStateType.idle);
             _player.AnimatorHandler.SetAnimationValueIsMoving(false);
         }
-        else if (_player.InputHandler.IsInputActiveRun)
+        else if (GetIsInputActiveRun() && _player.StatusHandler.HasSufficientStamina())
             _stateMachine.SwitchState(PlayerStateType.run);
     }
+
+    private bool GetIsInputActiveRun() { return _player.InputHandler.IsInputActiveRun; }
+
+    private bool GetIsInputActiveMovement() { return _player.InputHandler.IsInputActiveMovement; }
+
+    private bool GetIsInputActiveMeleeAttack() { return _player.InputHandler.IsInputActiveMeleeAttack; }
+
+    private bool GetIsInputActiveDodge() { return _player.InputHandler.IsInputActiveDodge; }
 
     public override void ExecuteState()
     {

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class BaseStatus
 {
+    private float THRESH = 1e-3f;
     protected float _maxCapacity;
     protected float _currentCapacity;
 
@@ -11,11 +12,19 @@ public class BaseStatus
 
     public BaseStatus(float maxCapacity) { _maxCapacity = _currentCapacity = maxCapacity; }
     
-    public void Add(float value) { _currentCapacity = Mathf.Min(_maxCapacity, _currentCapacity + value); }
+    public void Add(float value) 
+    { 
+        _currentCapacity += value;
+        _currentCapacity = IsFull() ? _maxCapacity : _currentCapacity;
+    }
 
-    public void Take(float value) { _currentCapacity = Mathf.Max(0, _currentCapacity - value); }
+    public void Take(float value) 
+    { 
+        _currentCapacity -= value;
+        _currentCapacity = IsEmpty() ? 0 : _currentCapacity;
+    }
 
-    public bool IsEmpty() { return _currentCapacity == 0; }
+    public bool IsEmpty() { return _currentCapacity <= THRESH; }
 
-    public bool IsFull() { return _currentCapacity == _maxCapacity; }
+    public bool IsFull() { return _currentCapacity >= _maxCapacity; }
 }
