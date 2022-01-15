@@ -13,7 +13,7 @@ public class PlayerIdleMeleeAttackState : PlayerBaseState
         _attackNumber = 1;
         _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(true);
         _player.AnimatorHandler.IncrementMeleeAttackNumber();
-        _player.StatusHandler.UseStamina(_player.Config.IdleMeleeAttackStaminaCost);
+        _player.StatusHandler.UseStamina(_player.Config.staminaCost.idleMelee);
     }
 
     public override void OnExitState() 
@@ -59,7 +59,7 @@ public class PlayerIdleMeleeAttackState : PlayerBaseState
             if (!IsAttackNumberEqual())
             {
                 _player.AnimatorHandler.IncrementMeleeAttackNumber();
-                _player.StatusHandler.UseStamina(_player.Config.IdleMeleeAttackStaminaCost);
+                _player.StatusHandler.UseStamina(_player.Config.staminaCost.idleMelee);
             }
         }
     }

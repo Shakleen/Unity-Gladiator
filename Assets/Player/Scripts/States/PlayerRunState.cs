@@ -36,15 +36,15 @@ public class PlayerRunState : PlayerBaseState
 
     private bool HasReachedMaxVelocity()
     {
-        bool hasRunVelocityX = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocityX) == _player.Config.MaxVelocityRun;
-        bool hasRunVelocityZ = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocityZ) == _player.Config.MaxVelocityRun;
+        bool hasRunVelocityX = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocityX) == _player.Config.run.maxVelocity;
+        bool hasRunVelocityZ = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocityZ) == _player.Config.run.maxVelocity;
         return hasRunVelocityX || hasRunVelocityZ;
     }
 
     private bool HasRunVelocity()
     {
-        bool hasRunVelocityX = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocityX) > _player.Config.MaxWalkVelocity;
-        bool hasRunVelocityZ = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocityZ) > _player.Config.MaxWalkVelocity;
+        bool hasRunVelocityX = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocityX) > _player.Config.walk.maxVelocity;
+        bool hasRunVelocityZ = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocityZ) > _player.Config.walk.maxVelocity;
         return hasRunVelocityX || hasRunVelocityZ;
     }
 
@@ -93,11 +93,11 @@ public class PlayerRunState : PlayerBaseState
         else
             velocity = 0;
 
-        velocity = Mathf.Clamp(velocity, -_player.Config.MaxVelocityRun, _player.Config.MaxVelocityRun);
+        velocity = Mathf.Clamp(velocity, -_player.Config.run.maxVelocity, _player.Config.run.maxVelocity);
         return velocity;
     }
 
-    private float ApplyFrameIndependentAccelaration() { return _player.Config.AccelarationRun * Time.deltaTime; }
+    private float ApplyFrameIndependentAccelaration() { return _player.Config.run.accelaration * Time.deltaTime; }
 
-    private float ApplyFrameIndependentDecelaration() { return _player.Config.DecelarationRun * Time.deltaTime; }
+    private float ApplyFrameIndependentDecelaration() { return _player.Config.run.decelaration * Time.deltaTime; }
 }

@@ -15,19 +15,19 @@ public class PlayerStatusHandler : MonoBehaviour
     private void Awake() 
     {    
         _health = new RegenStatus(
-            _player.Config.StartingHealth, 
-            _player.Config.HealthRegenPerSec, 
-            0
+            _player.Config.health.startingCapacity, 
+            _player.Config.health.regenPerSec, 
+            _player.Config.health.depletePerSec
         );
         _stamina = new RegenStatus(
-            _player.Config.StartingStamina, 
-            _player.Config.StaminaRegenPerSec, 
-            _player.Config.StaminaDepletePerSec
+            _player.Config.stamina.startingCapacity, 
+            _player.Config.stamina.regenPerSec, 
+            _player.Config.stamina.depletePerSec
         );
         _mana = new RegenStatus(
-            _player.Config.StartingMana, 
-            _player.Config.ManaRegenPerSec, 
-            _player.Config.ManaDepletePerSec
+            _player.Config.mana.startingCapacity, 
+            _player.Config.mana.regenPerSec, 
+            _player.Config.mana.depletePerSec
         );
     }
 
