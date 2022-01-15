@@ -10,7 +10,11 @@ public class AIIdleState : AIBaseState
 
     public override void OnExitState() {}
 
-    public override void ExecuteState() { CheckSwitchState(); }
+    public override void ExecuteState() 
+    { 
+        CheckSwitchState(); 
+        _aiAgent.AnimationHandler.SetAnimationValueMovementSpeed(0f);
+    }
 
     public override void CheckSwitchState() 
     { 

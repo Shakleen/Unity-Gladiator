@@ -12,7 +12,16 @@ public class AIChaseState : AIBaseState
 
     public override void OnExitState() {}
 
-    public override void CheckSwitchState() {}
+    public override void CheckSwitchState() {
+        if (!IsWithInReach()) 
+            _stateMachine.SwitchState(AIStateType.idle);
+    }
+
+    private bool IsWithInReach() 
+    { 
+        Vector3 distanceFromPlayer = _aiAgent.PlayerTransform.position - _aiAgent.transform.position;
+        return distanceFromPlayer.magnitude <= _aiAgent.Config.AwarenessRadius; 
+    }
 
     public override void ExecuteState()
     {
