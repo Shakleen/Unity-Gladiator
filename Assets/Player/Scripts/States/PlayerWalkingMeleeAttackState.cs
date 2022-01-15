@@ -4,7 +4,15 @@ public class PlayerWalkingMeleeAttackState : PlayerBaseState
 {
     public PlayerWalkingMeleeAttackState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) {}
 
-    public override PlayerStateType GetStateType() { return PlayerStateType.melee_walking; }
+    public override void InitializeTransitions()
+    {
+        _transtions.Add(new Transition(PlayerStateType.dodge, AttackToDodgeCondition, OnExitState));
+        _transtions.Add(new Transition(PlayerStateType.run, AttackToRunCondition, OnExitState));
+        _transtions.Add(new Transition(PlayerStateType.walk, AttackToWalkCondition, OnExitState));
+        _transtions.Add(new Transition(PlayerStateType.idle, AttackToIdleCondition, OnExitState));
+    }
+
+    public override PlayerStateType GetStateType() => PlayerStateType.melee_walking;
 
     public override void OnEnterState() 
     { 
@@ -12,25 +20,7 @@ public class PlayerWalkingMeleeAttackState : PlayerBaseState
         _player.StatusHandler.UseStamina(_player.Config.WalkingMeleeAttackStaminaCost);
     }
 
-    public override void OnExitState() { _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false); }
-
-    public override void CheckSwitchState() 
-    {
-        if (!_player.AnimatorHandler.IsMeleeAttacking && !_player.InputHandler.IsInputActiveMeleeAttack)
-        {
-            if (_player.InputHandler.IsInputActiveDodge)
-                _stateMachine.SwitchState(PlayerStateType.dodge);
-            else if (_player.InputHandler.IsInputActiveMovement)
-            {
-                if (_player.InputHandler.IsInputActiveRun)
-                    _stateMachine.SwitchState(PlayerStateType.run);
-                else
-                    _stateMachine.SwitchState(PlayerStateType.walk);
-            }
-            else if (!_player.AnimatorHandler.IsAnimationPlaying())
-                _stateMachine.SwitchState(PlayerStateType.idle);
-        }
-    }
+    private void OnExitState() => _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false);
 
     public override void ExecuteState() { CheckSwitchState(); }
 }

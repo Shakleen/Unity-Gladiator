@@ -1,38 +1,29 @@
+using System;
 using UnityEngine;
 
 public class PlayerRunState : PlayerBaseState
 {
     public PlayerRunState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) {}
 
-    public override PlayerStateType GetStateType() { return PlayerStateType.run; }
-
-    public override void OnEnterState() { _player.AnimatorHandler.SetAnimationValueIsRunning(true); }
-
-    public override void OnExitState() {}
-
-    public override void CheckSwitchState()
+    public override void InitializeTransitions()
     {
-        if (HasNoStamina() || DoesNotWantToRun())
-        {
-            _player.AnimatorHandler.SetAnimationValueIsRunning(false);
-            _stateMachine.SwitchState(PlayerStateType.walk);
-        }
-        else
-        {
-            if (WantsToDodge())
-                _stateMachine.SwitchState(PlayerStateType.dodge);
-            else if (WantsToPerformRunningMelee())
-                _stateMachine.SwitchState(PlayerStateType.melee_running);
-        }
+        _transtions.Add(new Transition(PlayerStateType.walk, ToWalkCondition, () => _player.AnimatorHandler.SetAnimationValueIsRunning(false)));
+        _transtions.Add(new Transition(PlayerStateType.dodge, ToDodgeCondition));
+        _transtions.Add(new Transition(PlayerStateType.melee_running, ToMeleeCondition));
     }
 
-    private bool HasNoStamina() { return _player.StatusHandler.Stamina.IsEmpty(); }
+    private bool ToWalkCondition()
+    {
+        bool hasNoStamina = _player.StatusHandler.Stamina.IsEmpty();
+        bool runPressed = _player.InputHandler.IsInputActiveRun;
+        return hasNoStamina || (!runPressed && !HasRunVelocity());
+    }
 
-    private bool DoesNotWantToRun() { return (!_player.InputHandler.IsInputActiveRun && !HasRunVelocity()); }
+    private new bool ToMeleeCondition() => base.ToMeleeCondition() && HasReachedMaxVelocity();
 
-    private bool WantsToDodge() { return _player.InputHandler.IsInputActiveDodge; }
+    public override PlayerStateType GetStateType() => PlayerStateType.run;
 
-    private bool WantsToPerformRunningMelee() { return _player.InputHandler.IsInputActiveMeleeAttack && HasReachedMaxVelocity(); }
+    public override void OnEnterState() { _player.AnimatorHandler.SetAnimationValueIsRunning(true); }
 
     private bool HasReachedMaxVelocity()
     {

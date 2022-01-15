@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerWalkState : PlayerBaseState
@@ -6,7 +7,21 @@ public class PlayerWalkState : PlayerBaseState
 
     public PlayerWalkState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) {}
 
-    public override PlayerStateType GetStateType() { return PlayerStateType.walk; }
+    public override void InitializeTransitions()
+    {
+        _transtions.Add(new Transition(PlayerStateType.dodge, ToDodgeCondition));
+        _transtions.Add(new Transition(PlayerStateType.melee_walking, ToMeleeCondition));
+        _transtions.Add(new Transition(PlayerStateType.run, ToRunCondition));
+        _transtions.Add(new Transition(PlayerStateType.idle, ToIdleCondition, () => _player.AnimatorHandler.SetAnimationValueIsMoving(false)));
+    }
+
+    private bool ToIdleCondition()
+    {
+        bool movePressed = _player.InputHandler.IsInputActiveMovement; 
+        return !movePressed;
+    }
+
+    public override PlayerStateType GetStateType() => PlayerStateType.walk;
 
     public override void OnEnterState() 
     { 
@@ -15,31 +30,6 @@ public class PlayerWalkState : PlayerBaseState
         _player.AnimatorHandler.SetAnimationValueIsDodging(false);
         _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false);
     }
-
-    public override void OnExitState() {}
-
-    public override void CheckSwitchState()
-    {
-        if (GetIsInputActiveDodge())
-            _stateMachine.SwitchState(PlayerStateType.dodge);
-        else if (GetIsInputActiveMeleeAttack())
-            _stateMachine.SwitchState(PlayerStateType.melee_walking);
-        else if (!GetIsInputActiveMovement())
-        {
-            _stateMachine.SwitchState(PlayerStateType.idle);
-            _player.AnimatorHandler.SetAnimationValueIsMoving(false);
-        }
-        else if (GetIsInputActiveRun() && _player.StatusHandler.HasSufficientStamina())
-            _stateMachine.SwitchState(PlayerStateType.run);
-    }
-
-    private bool GetIsInputActiveRun() { return _player.InputHandler.IsInputActiveRun; }
-
-    private bool GetIsInputActiveMovement() { return _player.InputHandler.IsInputActiveMovement; }
-
-    private bool GetIsInputActiveMeleeAttack() { return _player.InputHandler.IsInputActiveMeleeAttack; }
-
-    private bool GetIsInputActiveDodge() { return _player.InputHandler.IsInputActiveDodge; }
 
     public override void ExecuteState()
     {

@@ -6,7 +6,15 @@ public class PlayerIdleMeleeAttackState : PlayerBaseState
 
     public PlayerIdleMeleeAttackState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) {}
 
-    public override PlayerStateType GetStateType() { return PlayerStateType.melee_idle; }
+    public override void InitializeTransitions()
+    {
+        _transtions.Add(new Transition(PlayerStateType.dodge, AttackToDodgeCondition, OnExitState));
+        _transtions.Add(new Transition(PlayerStateType.run, AttackToRunCondition, OnExitState));
+        _transtions.Add(new Transition(PlayerStateType.walk, AttackToWalkCondition, OnExitState));
+        _transtions.Add(new Transition(PlayerStateType.idle, AttackToIdleCondition, OnExitState));
+    }
+
+    public override PlayerStateType GetStateType() => PlayerStateType.melee_idle;
 
     public override void OnEnterState() 
     { 
@@ -16,29 +24,11 @@ public class PlayerIdleMeleeAttackState : PlayerBaseState
         _player.StatusHandler.UseStamina(_player.Config.IdleMeleeAttackStaminaCost);
     }
 
-    public override void OnExitState() 
+    private void OnExitState() 
     { 
         _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false);
         _player.AnimatorHandler.ResetMeleeAttackNumber();
         _attackNumber = 0;
-    }
-
-    public override void CheckSwitchState() 
-    {
-        if (!_player.AnimatorHandler.IsMeleeAttacking && !_player.InputHandler.IsInputActiveMeleeAttack)
-        {
-            if (_player.InputHandler.IsInputActiveDodge)
-                _stateMachine.SwitchState(PlayerStateType.dodge);
-            else if (_player.InputHandler.IsInputActiveMovement)
-            {
-                if (_player.InputHandler.IsInputActiveRun)
-                    _stateMachine.SwitchState(PlayerStateType.run);
-                else
-                    _stateMachine.SwitchState(PlayerStateType.walk);
-            }
-            else if (!_player.AnimatorHandler.IsAnimationPlaying())
-                _stateMachine.SwitchState(PlayerStateType.idle);
-        }
     }
 
     public override void ExecuteState()

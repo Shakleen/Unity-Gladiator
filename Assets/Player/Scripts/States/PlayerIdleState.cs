@@ -4,7 +4,20 @@ public class PlayerIdleState : PlayerBaseState
 {
     public PlayerIdleState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) {}
 
-    public override PlayerStateType GetStateType() { return PlayerStateType.idle; }
+    public override void InitializeTransitions()
+    {
+        _transtions.Add(new Transition(PlayerStateType.dodge, ToDodgeCondition));
+        _transtions.Add(new Transition(PlayerStateType.melee_idle, ToMeleeCondition));
+        _transtions.Add(new Transition(PlayerStateType.walk, ToWalkCondition));
+    }
+
+    private bool ToWalkCondition()
+    {
+        bool walkPressed = _player.InputHandler.IsInputActiveMovement;
+        return walkPressed;
+    }
+
+    public override PlayerStateType GetStateType() => PlayerStateType.idle;
 
     public override void OnEnterState() 
     { 
@@ -13,18 +26,6 @@ public class PlayerIdleState : PlayerBaseState
         _player.AnimatorHandler.SetAnimationValueIsDodging(false);
         _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false);
         _player.AnimatorHandler.ResetMeleeAttackNumber();
-    }
-
-    public override void OnExitState() {}
-
-    public override void CheckSwitchState() 
-    {
-        if (_player.InputHandler.IsInputActiveDodge)
-            _stateMachine.SwitchState(PlayerStateType.dodge);
-        else if (_player.InputHandler.IsInputActiveMeleeAttack)
-            _stateMachine.SwitchState(PlayerStateType.melee_idle);
-        else if (_player.InputHandler.IsInputActiveMovement)
-            _stateMachine.SwitchState(PlayerStateType.walk);
     }
 
     public override void ExecuteState() 

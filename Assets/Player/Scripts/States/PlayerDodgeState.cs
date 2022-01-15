@@ -5,7 +5,38 @@ public class PlayerDodgeState : PlayerBaseState
     private Vector2 _dodgeDirection;
     public PlayerDodgeState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) {}
 
-    public override PlayerStateType GetStateType() { return PlayerStateType.dodge; }
+    public override void InitializeTransitions()
+    {
+        _transtions.Add(new Transition(PlayerStateType.run, ToRunCondition, OnExitState));
+        _transtions.Add(new Transition(PlayerStateType.run, ToWalkCondition, OnExitState));
+        _transtions.Add(new Transition(PlayerStateType.idle, ToIdleCondition, OnExitState));
+    }
+
+    private new bool ToRunCondition() => NotDodgingAndDodgeNotPressed() && base.ToRunCondition();
+
+    private bool ToWalkCondition()
+    {
+        bool movePressed = _player.InputHandler.IsInputActiveMovement;
+        bool runPressed = _player.InputHandler.IsInputActiveRun;
+        return NotDodgingAndDodgeNotPressed() && movePressed && !runPressed;
+    }
+
+    private bool ToIdleCondition()
+    {
+        bool movePressed = _player.InputHandler.IsInputActiveMovement;
+        bool runPressed = _player.InputHandler.IsInputActiveRun;
+        bool animationPlaying = _player.AnimatorHandler.IsAnimationPlaying();
+        return NotDodgingAndDodgeNotPressed() && !movePressed && !runPressed && animationPlaying;
+    }
+
+    private bool NotDodgingAndDodgeNotPressed()
+    {
+        bool dodgePressed = _player.InputHandler.IsInputActiveDodge;
+        bool isDodging = _player.AnimatorHandler.IsDodging;
+        return !dodgePressed && !isDodging;
+    }
+
+    public override PlayerStateType GetStateType() => PlayerStateType.dodge;
 
     public override void OnEnterState() 
     { 
@@ -14,23 +45,7 @@ public class PlayerDodgeState : PlayerBaseState
         _player.StatusHandler.UseStamina(_player.Config.DodgeAttackStaminaCost);
     }
 
-    public override void OnExitState() { _player.AnimatorHandler.SetAnimationValueIsDodging(false); }
-
-    public override void CheckSwitchState() 
-    {
-        if (!_player.AnimatorHandler.IsDodging && !_player.InputHandler.IsInputActiveDodge)
-        {
-            if (_player.InputHandler.IsInputActiveMovement)
-            {
-                if (_player.InputHandler.IsInputActiveRun)
-                    _stateMachine.SwitchState(PlayerStateType.run);
-                else
-                    _stateMachine.SwitchState(PlayerStateType.walk);
-            }
-            else if (!_player.AnimatorHandler.IsAnimationPlaying())
-                _stateMachine.SwitchState(PlayerStateType.idle);
-        }
-    }
+    private void OnExitState() => _player.AnimatorHandler.SetAnimationValueIsDodging(false);
 
     public override void ExecuteState()
     {

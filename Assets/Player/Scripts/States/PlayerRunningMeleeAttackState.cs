@@ -4,7 +4,14 @@ public class PlayerRunningMeleeAttackState : PlayerBaseState
 {
     public PlayerRunningMeleeAttackState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) {}
 
-    public override PlayerStateType GetStateType() { return PlayerStateType.melee_running; }
+    public override void InitializeTransitions()
+    {
+        _transtions.Add(new Transition(PlayerStateType.run, AttackToRunCondition, OnExitState));
+        _transtions.Add(new Transition(PlayerStateType.walk, AttackToWalkCondition, OnExitState));
+        _transtions.Add(new Transition(PlayerStateType.idle, AttackToIdleCondition, OnExitState));
+    }
+
+    public override PlayerStateType GetStateType() => PlayerStateType.melee_running;
 
     public override void OnEnterState() 
     { 
@@ -12,25 +19,10 @@ public class PlayerRunningMeleeAttackState : PlayerBaseState
         _player.StatusHandler.UseStamina(_player.Config.RunningMeleeAttackStaminaCost);
     }
 
-    public override void OnExitState() { _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false); }
-
-    public override void CheckSwitchState() 
+    private void OnExitState() 
     {
-        if (!_player.AnimatorHandler.IsMeleeAttacking && !_player.InputHandler.IsInputActiveMeleeAttack)
-        {
-            if (_player.InputHandler.IsInputActiveMovement)
-            {
-                if (_player.InputHandler.IsInputActiveRun)
-                    _stateMachine.SwitchState(PlayerStateType.run);
-                else
-                    _stateMachine.SwitchState(PlayerStateType.walk);
-            }
-            else if (!_player.AnimatorHandler.IsAnimationPlaying())
-            {
-                _player.MovementHandler.StopMovement();
-                _stateMachine.SwitchState(PlayerStateType.idle);
-            }
-        }
+        _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false);
+        _player.MovementHandler.StopMovement();
     }
 
     public override void ExecuteState() { CheckSwitchState(); }

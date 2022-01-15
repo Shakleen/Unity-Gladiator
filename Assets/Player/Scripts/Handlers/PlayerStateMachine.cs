@@ -32,7 +32,6 @@ public class PlayerStateMachine
     public void SwitchState(PlayerStateType newStateType)
     {
         PlayerBaseState newState = GetPlayerState(newStateType);
-        _currentState.OnExitState();
         newState.OnEnterState();
         _currentState = newState;
     }
