@@ -20,6 +20,19 @@ MonoBehaviour:
   _decelarationRun: 6
   _cameraSensitivity: 5
   _meleeAttackComboTimeLimit: 2
+  _startingHealth: 100
+  _healthRegenPerSec: 10
+  _startingStamina: 50
+  _staminaRegenPerSec: 10
+  _staminaDepletePerSec: 20
+  _startingMana: 25
+  _manaRegenPerSec: 5
+  _manaDepletePerSec: 10
+  _regenDelay: 1
+  _dodgeAttackStaminaCost: 5
+  _idleMeleeAttackStaminaCost: 5
+  _walkingMeleeAttackStaminaCost: 15
+  _runningMeleeAttackStaminaCost: 25
   _moveSpeedMultiplier: 1
   _idleMeleeAttackSpeedMultiplier: 1.35
   _walkMeleeAttackSpeedMultiplier: 1.25

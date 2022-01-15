@@ -4,9 +4,14 @@ public class PlayerStatusHandler : MonoBehaviour
 {
     [SerializeField] private Player _player;
     [SerializeField] private UIHandlerHUD _hud;
+
     private RegenStatus _health;
     private RegenStatus _stamina;
     private RegenStatus _mana;
+    private float _regenDelay;
+    private float _staminaRegenDelay;
+    private float _healthRegenDelay;
+    private float _manaRegenDelay;
 
     public RegenStatus Health { get { return _health; } }
     public RegenStatus Stamina { get { return _stamina; } }
@@ -14,6 +19,7 @@ public class PlayerStatusHandler : MonoBehaviour
 
     private void Awake() 
     {    
+        _regenDelay = _player.Config.RegenDelay;
         _health = new RegenStatus(
             _player.Config.StartingHealth, 
             _player.Config.HealthRegenPerSec, 
@@ -33,12 +39,14 @@ public class PlayerStatusHandler : MonoBehaviour
 
     public void DepleteStamina()
     {
+        _staminaRegenDelay = _regenDelay;
         _stamina.Deplete();
         _hud.UpdateStaminaBar();
     }
 
     public void UseStamina(float value)
     {
+        _staminaRegenDelay = _regenDelay;
         _stamina.Take(value);
         _hud.UpdateStaminaBar();
     }
@@ -47,13 +55,28 @@ public class PlayerStatusHandler : MonoBehaviour
 
     public void Regenerate()
     {
-        _health.Regenerate();
-        _hud.UpdateHealthBar();
+        if (!_health.IsFull() && _healthRegenDelay <= 0f)
+        {
+            _health.Regenerate();
+            _hud.UpdateHealthBar();
+        }
         
-        _stamina.Regenerate();
-        _hud.UpdateStaminaBar();
+        if (!_stamina.IsFull() && _staminaRegenDelay <= 0f)
+        {
+            _stamina.Regenerate();
+            _hud.UpdateStaminaBar();
+        }
 
-        _mana.Regenerate();
-        _hud.UpdateManaBar();
+        if (!_mana.IsFull() && _manaRegenDelay <= 0f)
+        {
+            _mana.Regenerate();
+            _hud.UpdateManaBar();
+        }
+
+        _healthRegenDelay = DecreaseDelayTimer(_healthRegenDelay);
+        _staminaRegenDelay = DecreaseDelayTimer(_staminaRegenDelay);
+        _manaRegenDelay = DecreaseDelayTimer(_manaRegenDelay);
     }
+
+    private float DecreaseDelayTimer(float value) { return value <= 0f ? value : value - Time.deltaTime; }
 }

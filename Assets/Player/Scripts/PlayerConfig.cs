@@ -66,6 +66,9 @@ public class PlayerConfig : ScriptableObject
     
     [Tooltip("Player mana depletion rate when using skills")]
     [SerializeField] [Range(1.0f, 20.0f)] private float _manaDepletePerSec = 10.0f;
+    
+    [Tooltip("Regenaration delayed upon use")]
+    [SerializeField] [Range(0.1f, 3.0f)] private float _regenDelay = 0.5f;
     // -------------------------------------------------------------------------------------------------------------------------------------------------
     
     // -------------------------------------------------------------------------------------------------------------------------------------------------
@@ -121,6 +124,7 @@ public class PlayerConfig : ScriptableObject
     public float StartingMana { get { return _startingMana; } }
     public float ManaRegenPerSec { get { return _manaRegenPerSec; } }
     public float ManaDepletePerSec { get { return _manaDepletePerSec; } }
+    public float RegenDelay { get { return _regenDelay; } }
     public float DodgeAttackStaminaCost { get { return _dodgeAttackStaminaCost; } }
     public float IdleMeleeAttackStaminaCost { get { return _idleMeleeAttackStaminaCost; } }
     public float WalkingMeleeAttackStaminaCost { get { return _walkingMeleeAttackStaminaCost; } }
