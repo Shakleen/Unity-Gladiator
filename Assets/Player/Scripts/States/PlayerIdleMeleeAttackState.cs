@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class PlayerIdleMeleeAttackState : PlayerBaseMeleeAttackState
 {
-    int _attackNumber;
-
     public PlayerIdleMeleeAttackState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) {}
 
     public override void InitializeTransitions()
@@ -16,44 +14,14 @@ public class PlayerIdleMeleeAttackState : PlayerBaseMeleeAttackState
 
     public override PlayerStateType GetStateType() => PlayerStateType.melee_idle;
 
-    public override void OnEnterState() 
-    { 
-        _attackNumber = 1;
-        _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(true);
-        _player.AnimatorHandler.IncrementMeleeAttackNumber();
-        _player.StatusHandler.UseStamina(_player.Config.staminaCost.idleMeleeAttack);
-    }
+    public override void OnEnterState() {}
 
-    private void OnExitState() 
-    { 
-        _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false);
-        _player.AnimatorHandler.ResetMeleeAttackNumber();
-        _attackNumber = 0;
-    }
+    private void OnExitState() {}
 
     public override void ExecuteState()
     {
         CheckSwitchState();
         Decelarate();
-        CheckChainCombo();
+        _player.AttackHandler.Attack();
     }
-
-    private void CheckChainCombo()
-    {
-        if (_player.AnimatorHandler.IsMeleeAttacking)
-        {
-            if (_player.InputHandler.IsInputActiveMeleeAttack && IsAttackNumberEqual())
-                _attackNumber++;
-        }
-        else
-        {
-            if (!IsAttackNumberEqual())
-            {
-                _player.AnimatorHandler.IncrementMeleeAttackNumber();
-                _player.StatusHandler.UseStamina(_player.Config.staminaCost.idleMeleeAttack);
-            }
-        }
-    }
-
-    private bool IsAttackNumberEqual() { return _attackNumber == _player.AnimatorHandler.MeleeAttackNumber; }
 }

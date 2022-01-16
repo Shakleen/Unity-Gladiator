@@ -50,6 +50,7 @@ public class PlayerInputHandler : MonoBehaviour
     public bool IsInputActiveMeleeAttack { get { return _isInputActiveAttack; } }
     // -------------------------------------------------------------------------------------------------------------------------------------------------
 
+    public static event Action OnAttackPressed;
 
     // =================================================================================================================================================
     //                                                                      Functions
@@ -99,5 +100,9 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void InputCallbackDodge(InputAction.CallbackContext context) { _isInputActiveDodge = context.ReadValueAsButton(); }
 
-    private void InputCallbackAttack(InputAction.CallbackContext context) { _isInputActiveAttack = context.ReadValueAsButton(); }
+    private void InputCallbackAttack(InputAction.CallbackContext context) 
+    { 
+        _isInputActiveAttack = context.ReadValueAsButton(); 
+        if (_isInputActiveAttack) OnAttackPressed?.Invoke();
+    }
 }

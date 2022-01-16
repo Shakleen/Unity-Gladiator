@@ -45,13 +45,11 @@ public class PlayerAnimationHandler : MonoBehaviour
     // -------------------------------------------------------------------------------------------------------------------------------------------------
     private bool _isDodging = false;
     [SerializeField] private int _meleeAttackNumber = 0;
-    [SerializeField] private bool _isMeleeAttacking = false;
 
     // =================================================================================================================================================
     //                                                              Getters and Setters
     // =================================================================================================================================================
     public bool IsDodging { get { return _isDodging; } }
-    public bool IsMeleeAttacking { get { return _isMeleeAttacking; } }
     public int MeleeAttackNumber { get { return _meleeAttackNumber; } }
 
 
@@ -131,8 +129,14 @@ public class PlayerAnimationHandler : MonoBehaviour
 
     private void AnimationEventDodgeEnd() { _isDodging = false; }
 
-    private void AnimationEventMeleeAttackStart() { _isMeleeAttacking = true; }
+    private void AnimationEventMeleeAttackStart() => _player.AttackHandler.SetAttackBools(started : true);
 
-    private void AnimationEventMeleeAttackEnd() { _isMeleeAttacking = false; }
+    private void AnimationEventMeleeAttacking() 
+    {
+        _player.AttackHandler.SetAttackBools(happening : true);
+        _player.StatusHandler.UseStamina(_player.Config.staminaCost.idleMeleeAttack);
+    }
+
+    private void AnimationEventMeleeAttackEnd() => _player.AttackHandler.SetAttackBools(ended : true);
     // -------------------------------------------------------------------------------------------------------------------------------------------------
 }

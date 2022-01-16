@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
     public PlayerInputHandler InputHandler { get { return _inputHandler; } }
     public PlayerAnimationHandler AnimatorHandler { get { return _animationHandler; } }
     public PlayerStatusHandler StatusHandler { get { return _statusHandler; } }
+    public PlayerAttackHandler AttackHandler { get { return _attackHandler; } }
     public Config Config { get { return _config; } }
 
     // =================================================================================================================================================

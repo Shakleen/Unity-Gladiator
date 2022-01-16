@@ -7,7 +7,7 @@ public abstract class PlayerBaseMeleeAttackState : PlayerBaseState
     protected bool AttackNotPressedAndNotAttacking() 
     {
         bool attackPressed = _player.InputHandler.IsInputActiveMeleeAttack;
-        bool isAttacking = _player.AnimatorHandler.IsMeleeAttacking;
+        bool isAttacking = _player.AttackHandler.IsAttacking;
         return !attackPressed && !isAttacking;
     }
 
@@ -24,9 +24,9 @@ public abstract class PlayerBaseMeleeAttackState : PlayerBaseState
 
     protected bool AttackToIdleCondition()
     {
+        bool inAttackState = _player.AttackHandler.InAttackState();
         bool movePressed = _player.InputHandler.IsInputActiveMovement;
         bool runPressed = _player.InputHandler.IsInputActiveRun;
-        bool animationDone = !_player.AnimatorHandler.IsAnimationPlaying();
-        return AttackNotPressedAndNotAttacking() && !movePressed && !runPressed && animationDone;
+        return !inAttackState && !movePressed && !runPressed;
     }
 }
