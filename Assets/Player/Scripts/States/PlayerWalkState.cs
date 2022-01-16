@@ -36,7 +36,7 @@ public class PlayerWalkState : PlayerBaseState
         CheckSwitchState();
         _player.MovementHandler.RotateTowardsCameraDirection();
         UpdateWalkVelocity();
-        _player.MovementHandler.MoveCharacter();
+        // _player.MovementHandler.MoveCharacter();
     }
 
     private void UpdateWalkVelocity()
@@ -81,5 +81,5 @@ public class PlayerWalkState : PlayerBaseState
 
     private float ApplyFrameIndependentAccelaration() { return _player.Config.AccelarationWalk * Time.deltaTime; }
 
-    private float ApplyFrameIndependentDecelaration() { return _player.Config.DecelarationWalk * Time.deltaTime; }
+    private new float ApplyFrameIndependentDecelaration() { return _player.Config.DecelarationWalk * Time.deltaTime; }
 }

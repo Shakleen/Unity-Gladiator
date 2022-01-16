@@ -35,8 +35,10 @@ public class PlayerIdleState : PlayerBaseState
         if (HasMovementVelocity())
         {
             Decelarate();
-            _player.MovementHandler.MoveCharacter();
+            // _player.MovementHandler.MoveCharacter();
         }
+        else
+            _player.MovementHandler.StopMovement();
     }
 
     private bool HasMovementVelocity()
@@ -45,33 +47,4 @@ public class PlayerIdleState : PlayerBaseState
         bool hasVelocityZ = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocityZ) > _player.MovementHandler.THRESH;
         return hasVelocityX || hasVelocityZ;
     }
-
-    private void Decelarate()
-    {
-        float velocityX = DecelarateAlongAxis(_player.MovementHandler.CurrentMovementVelocityX);
-        _player.MovementHandler.CurrentMovementVelocityX = velocityX;
-
-        float velocityZ = DecelarateAlongAxis(_player.MovementHandler.CurrentMovementVelocityZ);
-        _player.MovementHandler.CurrentMovementVelocityZ = velocityZ;
-    }
-
-    private float DecelarateAlongAxis(float currentVelocity)
-    {
-        float velocity = currentVelocity;
-
-        if (currentVelocity > _player.MovementHandler.THRESH)
-            velocity = currentVelocity - ApplyFrameIndependentDecelaration();
-        
-        // Player hasn't pressed any button for this axis but was moving in the negative direction.
-        else if (currentVelocity < -_player.MovementHandler.THRESH)
-            velocity = currentVelocity + ApplyFrameIndependentDecelaration();
-        
-        else
-            velocity = 0;
-
-        velocity = Mathf.Clamp(velocity, -_player.Config.MaxVelocityRun, _player.Config.MaxVelocityRun);
-        return velocity;
-    }
-
-    private float ApplyFrameIndependentDecelaration() { return _player.Config.DecelarationRun * Time.deltaTime; }
 }

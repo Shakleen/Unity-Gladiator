@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerWalkingMeleeAttackState : PlayerBaseState
+public class PlayerWalkingMeleeAttackState : PlayerBaseMeleeAttackState
 {
     public PlayerWalkingMeleeAttackState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) {}
 
@@ -22,5 +22,9 @@ public class PlayerWalkingMeleeAttackState : PlayerBaseState
 
     private void OnExitState() => _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false);
 
-    public override void ExecuteState() { CheckSwitchState(); }
+    public override void ExecuteState() 
+    { 
+        CheckSwitchState(); 
+        Decelarate();
+    }
 }

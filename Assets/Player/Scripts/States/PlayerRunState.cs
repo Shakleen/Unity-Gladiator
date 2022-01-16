@@ -44,7 +44,7 @@ public class PlayerRunState : PlayerBaseState
         CheckSwitchState();
         _player.MovementHandler.RotateTowardsCameraDirection();
         UpdateRunVelocity();
-        _player.MovementHandler.MoveCharacter();
+        // _player.MovementHandler.MoveCharacter();
         _player.StatusHandler.DepleteStamina();
     }
 
@@ -90,5 +90,5 @@ public class PlayerRunState : PlayerBaseState
 
     private float ApplyFrameIndependentAccelaration() { return _player.Config.AccelarationRun * Time.deltaTime; }
 
-    private float ApplyFrameIndependentDecelaration() { return _player.Config.DecelarationRun * Time.deltaTime; }
+    private new float ApplyFrameIndependentDecelaration() { return _player.Config.DecelarationRun * Time.deltaTime; }
 }

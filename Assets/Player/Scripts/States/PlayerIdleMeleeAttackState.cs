@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerIdleMeleeAttackState : PlayerBaseState
+public class PlayerIdleMeleeAttackState : PlayerBaseMeleeAttackState
 {
     int _attackNumber;
 
@@ -34,6 +34,7 @@ public class PlayerIdleMeleeAttackState : PlayerBaseState
     public override void ExecuteState()
     {
         CheckSwitchState();
+        Decelarate();
         CheckChainCombo();
     }
 

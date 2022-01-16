@@ -37,6 +37,6 @@ public class Player : MonoBehaviour
         _currentStateType = _stateMachine.GetCurrentStateType();
         _stateMachine.ExecuteState();
         _statusHandler.Regenerate();
-        _movementController.ApplyGravity();
+        _movementController.MoveCharacter();
     }
 }

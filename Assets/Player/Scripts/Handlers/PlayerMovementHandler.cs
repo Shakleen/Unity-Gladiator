@@ -58,6 +58,7 @@ public class PlayerMovementHandler : MonoBehaviour
     public void MoveCharacter() 
     { 
         Vector3 movementVector = GetMoveVectorTowardsCameraDirection(_currentMovementVelocity);
+        ApplyGravity();
         _controller.Move(movementVector * Time.deltaTime); 
     }
 
@@ -88,7 +89,7 @@ public class PlayerMovementHandler : MonoBehaviour
 
     public void StopMovement() 
     { 
-        CurrentMovementVelocityX = 0; 
-        CurrentMovementVelocityZ = 0; 
+        CurrentMovementVelocityX = 0f; 
+        CurrentMovementVelocityZ = 0f; 
     }
 }

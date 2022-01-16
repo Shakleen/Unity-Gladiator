@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerRunningMeleeAttackState : PlayerBaseState
+public class PlayerRunningMeleeAttackState : PlayerBaseMeleeAttackState
 {
     public PlayerRunningMeleeAttackState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) {}
 
@@ -25,5 +25,9 @@ public class PlayerRunningMeleeAttackState : PlayerBaseState
         _player.MovementHandler.StopMovement();
     }
 
-    public override void ExecuteState() { CheckSwitchState(); }
+    public override void ExecuteState() 
+    { 
+        CheckSwitchState(); 
+        Decelarate();
+    }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public enum PlayerStateType { idle, walk, run, dodge, melee_idle, melee_walking, melee_running }
 
@@ -73,29 +74,32 @@ public abstract class PlayerBaseState
         return hasStamina && movePressed && runPressed;
     }
 
-    protected bool AttackNotPressedAndNotAttacking() 
+    protected void Decelarate()
     {
-        bool attackPressed = _player.InputHandler.IsInputActiveMeleeAttack;
-        bool isAttacking = _player.AnimatorHandler.IsMeleeAttacking;
-        return !attackPressed && !isAttacking;
+        float velocityX = DecelarateAlongAxis(_player.MovementHandler.CurrentMovementVelocityX);
+        _player.MovementHandler.CurrentMovementVelocityX = velocityX;
+
+        float velocityZ = DecelarateAlongAxis(_player.MovementHandler.CurrentMovementVelocityZ);
+        _player.MovementHandler.CurrentMovementVelocityZ = velocityZ;
     }
 
-    protected bool AttackToDodgeCondition() => AttackNotPressedAndNotAttacking() && ToDodgeCondition();
-
-    protected bool AttackToRunCondition() => AttackNotPressedAndNotAttacking() && ToRunCondition();
-
-    protected bool AttackToWalkCondition()
+    protected float DecelarateAlongAxis(float currentVelocity)
     {
-        bool movePressed = _player.InputHandler.IsInputActiveMovement;
-        bool runPressed = _player.InputHandler.IsInputActiveRun;
-        return AttackNotPressedAndNotAttacking() && movePressed && !runPressed;
+        float velocity = currentVelocity;
+
+        if (currentVelocity > _player.MovementHandler.THRESH)
+            velocity = currentVelocity - ApplyFrameIndependentDecelaration();
+        
+        // Player hasn't pressed any button for this axis but was moving in the negative direction.
+        else if (currentVelocity < -_player.MovementHandler.THRESH)
+            velocity = currentVelocity + ApplyFrameIndependentDecelaration();
+        
+        else
+            velocity = 0;
+
+        velocity = Mathf.Clamp(velocity, -_player.Config.MaxVelocityRun, _player.Config.MaxVelocityRun);
+        return velocity;
     }
 
-    protected bool AttackToIdleCondition()
-    {
-        bool movePressed = _player.InputHandler.IsInputActiveMovement;
-        bool runPressed = _player.InputHandler.IsInputActiveRun;
-        bool animationDone = !_player.AnimatorHandler.IsAnimationPlaying();
-        return AttackNotPressedAndNotAttacking() && !movePressed && !runPressed && animationDone;
-    }
+    protected float ApplyFrameIndependentDecelaration() { return _player.Config.DecelarationRun * Time.deltaTime; }
 }

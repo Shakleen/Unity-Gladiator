@@ -20,7 +20,7 @@ public class PlayerStateMachine
 
         foreach(var type in assembly.GetExportedTypes())
         {
-            if (type.IsSubclassOf(typeof(PlayerBaseState)))
+            if (type.IsSubclassOf(typeof(PlayerBaseState)) && !type.IsAbstract)
             {
                 PlayerBaseState state = (PlayerBaseState) Activator.CreateInstance(type, _player, this);
                 int index = GetIndex(state.GetStateType());
