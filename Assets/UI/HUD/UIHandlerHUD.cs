@@ -25,11 +25,10 @@ public class UIHandlerHUD : MonoBehaviour
         slider.value = status.CurrentCapacity;
     }
 
-    public void UpdateHealthBar() 
-    { 
-        _healthBar.value = _statusHandler.Health.CurrentCapacity; 
-        _healthValueText.text = string.Format(
-            "{0} / {1}", 
+    public void UpdateHealthBar()
+    {
+        _healthBar.value = _statusHandler.Health.CurrentCapacity;
+        _healthValueText.text = FormatStatusDisplayString(
             (int) _statusHandler.Health.CurrentCapacity, 
             (int) _statusHandler.Health.MaxCapacity
         );
@@ -38,8 +37,7 @@ public class UIHandlerHUD : MonoBehaviour
     public void UpdateStaminaBar() 
     { 
         _staminaBar.value = _statusHandler.Stamina.CurrentCapacity; 
-        _staminaValueText.text = string.Format(
-            "{0} / {1}", 
+        _staminaValueText.text = FormatStatusDisplayString(
             (int) _statusHandler.Stamina.CurrentCapacity, 
             (int) _statusHandler.Stamina.MaxCapacity
         );
@@ -48,10 +46,11 @@ public class UIHandlerHUD : MonoBehaviour
     public void UpdateManaBar() 
     { 
         _manaBar.value = _statusHandler.Mana.CurrentCapacity; 
-        _manaValueText.text = string.Format(
-            "{0} / {1}", 
+        _manaValueText.text = FormatStatusDisplayString(
             (int) _statusHandler.Mana.CurrentCapacity, 
             (int) _statusHandler.Mana.MaxCapacity
         );
     }
+
+    private string FormatStatusDisplayString(float current, float max) => string.Format("{0} / {1}", (int)current, (int)max);
 }

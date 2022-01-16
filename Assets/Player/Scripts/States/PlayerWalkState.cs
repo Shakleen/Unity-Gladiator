@@ -75,11 +75,11 @@ public class PlayerWalkState : PlayerBaseState
         else
             velocity = 0;
 
-        velocity = Mathf.Clamp(velocity, -_player.Config.MaxWalkVelocity, _player.Config.MaxWalkVelocity);
+        velocity = Mathf.Clamp(velocity, -_player.Config.walk.maxVelocity, _player.Config.walk.maxVelocity);
         return velocity;
     }
 
-    private float ApplyFrameIndependentAccelaration() { return _player.Config.AccelarationWalk * Time.deltaTime; }
+    private float ApplyFrameIndependentAccelaration() { return _player.Config.walk.accelaration * Time.deltaTime; }
 
-    private new float ApplyFrameIndependentDecelaration() { return _player.Config.DecelarationWalk * Time.deltaTime; }
+    private new float ApplyFrameIndependentDecelaration() { return _player.Config.walk.decelaration * Time.deltaTime; }
 }

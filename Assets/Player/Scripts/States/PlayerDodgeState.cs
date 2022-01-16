@@ -42,7 +42,7 @@ public class PlayerDodgeState : PlayerBaseState
     { 
         _dodgeDirection = _player.InputHandler.InputMoveVector;
         _player.AnimatorHandler.SetAnimationValueIsDodging(true);
-        _player.StatusHandler.UseStamina(_player.Config.DodgeAttackStaminaCost);
+        _player.StatusHandler.UseStamina(_player.Config.staminaCost.dodge);
     }
 
     private void OnExitState() => _player.AnimatorHandler.SetAnimationValueIsDodging(false);
@@ -65,7 +65,7 @@ public class PlayerDodgeState : PlayerBaseState
             _player.transform.rotation = Quaternion.Slerp(
                 _player.transform.rotation,
                 movementDirection,
-                _player.Config.CameraSensitivity * Time.deltaTime
+                _player.Config.misc.cameraSensitivity * Time.deltaTime
             );
         }
     }

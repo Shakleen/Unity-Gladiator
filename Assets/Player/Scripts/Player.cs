@@ -9,8 +9,8 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerInputHandler _inputHandler;
     [SerializeField] private PlayerAnimationHandler _animationHandler;
     [SerializeField] private PlayerStatusHandler _statusHandler;
-    [SerializeField] private PlayerConfig _config;
     [SerializeField] private PlayerStateType _currentStateType;
+    [SerializeField] private Config _config;
     private PlayerStateMachine _stateMachine;
 
 
@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
     public PlayerInputHandler InputHandler { get { return _inputHandler; } }
     public PlayerAnimationHandler AnimatorHandler { get { return _animationHandler; } }
     public PlayerStatusHandler StatusHandler { get { return _statusHandler; } }
-    public PlayerConfig Config { get { return _config; } }
+    public Config Config { get { return _config; } }
 
     // =================================================================================================================================================
     //                                                                  Functions
