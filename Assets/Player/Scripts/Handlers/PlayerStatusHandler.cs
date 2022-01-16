@@ -19,7 +19,7 @@ public class PlayerStatusHandler : MonoBehaviour
 
     private void Awake() 
     {    
-        _regenDelay = _player.Config.misc.RegenDelay;
+        _regenDelay = _player.Config.misc.regenDelay;
         _health = new RegenStatus(
             _player.Config.health.initialCapacity, 
             _player.Config.health.regenPerSec, 

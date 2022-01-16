@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerInputHandler _inputHandler;
     [SerializeField] private PlayerAnimationHandler _animationHandler;
     [SerializeField] private PlayerStatusHandler _statusHandler;
+    [SerializeField] private PlayerAttackHandler _attackHandler;
     [SerializeField] private PlayerStateType _currentStateType;
     [SerializeField] private Config _config;
     private PlayerStateMachine _stateMachine;
