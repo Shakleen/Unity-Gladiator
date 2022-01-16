@@ -16,7 +16,7 @@ public class PlayerRunningMeleeAttackState : PlayerBaseMeleeAttackState
     public override void OnEnterState() 
     { 
         _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(true); 
-        _player.StatusHandler.UseStamina(_player.Config.RunningMeleeAttackStaminaCost);
+        _player.StatusHandler.UseStamina(_player.Config.staminaCost.runningMeleeAttack);
     }
 
     private void OnExitState() 

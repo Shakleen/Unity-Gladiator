@@ -19,22 +19,29 @@ public class PlayerStatusHandler : MonoBehaviour
 
     private void Awake() 
     {    
-        _regenDelay = _player.Config.RegenDelay;
+        _regenDelay = _player.Config.misc.RegenDelay;
         _health = new RegenStatus(
-            _player.Config.StartingHealth, 
-            _player.Config.HealthRegenPerSec, 
-            0
+            _player.Config.health.initialCapacity, 
+            _player.Config.health.regenPerSec, 
+            _player.Config.health.depletePerSec
         );
         _stamina = new RegenStatus(
-            _player.Config.StartingStamina, 
-            _player.Config.StaminaRegenPerSec, 
-            _player.Config.StaminaDepletePerSec
+            _player.Config.stamina.initialCapacity, 
+            _player.Config.stamina.regenPerSec, 
+            _player.Config.stamina.depletePerSec
         );
         _mana = new RegenStatus(
-            _player.Config.StartingMana, 
-            _player.Config.ManaRegenPerSec, 
-            _player.Config.ManaDepletePerSec
+            _player.Config.mana.initialCapacity, 
+            _player.Config.mana.regenPerSec, 
+            _player.Config.mana.depletePerSec
         );
+    }
+
+    private void Start()
+    {
+        _hud.UpdateHealthBar();
+        _hud.UpdateStaminaBar();
+        _hud.UpdateManaBar();
     }
 
     public void DepleteStamina()

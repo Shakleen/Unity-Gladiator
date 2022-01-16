@@ -68,7 +68,7 @@ public class PlayerMovementHandler : MonoBehaviour
         {
             float targetAngle = _cameraTransform.eulerAngles.y;
             Quaternion rotation = Quaternion.Euler(0, targetAngle, 0);
-            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, _player.Config.CameraSensitivity * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, _player.Config.misc.cameraSensitivity * Time.deltaTime);
         }
     }
 
