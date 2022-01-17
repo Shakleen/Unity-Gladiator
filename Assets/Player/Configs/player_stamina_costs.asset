@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29fc6786186a416458a5fae5712dd3ac, type: 3}
   m_Name: player_stamina_costs
   m_EditorClassIdentifier: 
-  _dodgeAttack: 5
+  _dodge: 10
   _idleMeleeAttack: 5
   _walkingMeleeAttack: 15
   _runningMeleeAttack: 25

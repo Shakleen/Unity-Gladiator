@@ -17,7 +17,7 @@ public class PlayerIdleState : PlayerBaseState
 
     public override PlayerStateType GetStateType() => PlayerStateType.idle;
 
-    public override void OnEnterState() => _player.AnimatorHandler.SetAnimationValueIsDodging(false);
+    public override void OnEnterState() {}
 
     public override void ExecuteState() 
     { 

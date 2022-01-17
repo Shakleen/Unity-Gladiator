@@ -50,6 +50,7 @@ public class PlayerAnimationHandler : MonoBehaviour
         PlayerMovementHandler.OnCurrentMovementChange += OnCurrentMovementChange;
         PlayerInputHandler.OnRunPressed += OnRunPressed;
         PlayerInputHandler.OnMovePressed += OnMovePressed;
+        PlayerInputHandler.OnDodgePressed += OnDodgePressed;
     }
 
     private void SetMultipliers()
@@ -67,6 +68,7 @@ public class PlayerAnimationHandler : MonoBehaviour
         PlayerMovementHandler.OnCurrentMovementChange -= OnCurrentMovementChange;
         PlayerInputHandler.OnRunPressed -= OnRunPressed;
         PlayerInputHandler.OnMovePressed -= OnMovePressed;
+        PlayerInputHandler.OnDodgePressed -= OnDodgePressed;
     }
 
     private void OnCurrentMovementChange()
@@ -75,9 +77,12 @@ public class PlayerAnimationHandler : MonoBehaviour
         SetAnimationValueVelocityZ(_player.MovementHandler.CurrentMovementVelocity.z);
     }
 
+    #region Input Event Callbacks
     private void OnRunPressed() => SetAnimationValueIsRunning(_player.InputHandler.IsInputActiveRun);
-
     private void OnMovePressed() => SetAnimationValueIsMoving(_player.InputHandler.IsInputActiveMovement);
+    private void OnDodgePressed() => SetAnimationValueIsDodging(_player.InputHandler.IsInputActiveDodge);
+    #endregion
+
 
     #region Animation speed multiplier setters
     public void SetMoveAnimationSpeedMultiplier(float multiplier) => _animator.SetFloat(_hashMultiplierMove, multiplier);
@@ -93,7 +98,7 @@ public class PlayerAnimationHandler : MonoBehaviour
     private void SetAnimationValueVelocityZ(float value) => _animator.SetFloat(_hashVelocityZ, value);
     private void SetAnimationValueIsMoving(bool value) => _animator.SetBool(_hashIsMoving, value);
     private void SetAnimationValueIsRunning(bool value) => _animator.SetBool(_hashIsRunning, value);
-    public void SetAnimationValueIsDodging(bool value) => _animator.SetBool(_hashIsDodging, value);
+    private void SetAnimationValueIsDodging(bool value) => _animator.SetBool(_hashIsDodging, value);
     public void SetAnimationValueIsMeleeAttacking(bool value) => _animator.SetBool(_hashIsMeleeAttacking, value);
     public void IncrementMeleeAttackNumber()
     {
@@ -110,9 +115,17 @@ public class PlayerAnimationHandler : MonoBehaviour
     public bool IsAnimationPlaying() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f;
 
     #region Animation Events
-    private void AnimationEventDodgeStart() => _isDodging = true;
-    private void AnimationEventDodgeEnd() => _isDodging = false;
 
+    #region Dodge events
+    private void AnimationEventDodgeStart() 
+    {
+        _isDodging = true;
+        _player.StatusHandler.UseStamina(_player.Config.staminaCost.dodge);
+    }
+    private void AnimationEventDodgeEnd() => _isDodging = false;
+    #endregion
+
+    #region Melee attack events
     private void AnimationEventMeleeAttackStart() => _player.AttackHandler.SetAttackBools(started : true);
     private void AnimationEventMeleeAttacking() 
     {
@@ -120,6 +133,8 @@ public class PlayerAnimationHandler : MonoBehaviour
         _player.StatusHandler.UseStamina(_player.Config.staminaCost.idleMeleeAttack);
     }
     private void AnimationEventMeleeAttackEnd() => _player.AttackHandler.SetAttackBools(ended : true);
+    #endregion
+
     #endregion
     // -------------------------------------------------------------------------------------------------------------------------------------------------
 }

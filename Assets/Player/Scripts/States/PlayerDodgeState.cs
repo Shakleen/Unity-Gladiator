@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class PlayerDodgeState : PlayerBaseState
 {
-    private Vector2 _dodgeDirection;
     private bool _animationPlaying;
     private bool _isDodging;
 
@@ -10,9 +9,9 @@ public class PlayerDodgeState : PlayerBaseState
 
     public override void InitializeTransitions()
     {
-        _transtions.Add(new Transition(PlayerStateType.run, ToRunCondition, OnExitState));
-        _transtions.Add(new Transition(PlayerStateType.run, ToWalkCondition, OnExitState));
-        _transtions.Add(new Transition(PlayerStateType.idle, ToIdleCondition, OnExitState));
+        _transtions.Add(new Transition(PlayerStateType.run, ToRunCondition));
+        _transtions.Add(new Transition(PlayerStateType.walk, ToWalkCondition));
+        _transtions.Add(new Transition(PlayerStateType.idle, ToIdleCondition));
     }
 
     private new bool ToRunCondition() => NotDodgingAndDodgeNotPressed() && base.ToRunCondition();
@@ -28,8 +27,7 @@ public class PlayerDodgeState : PlayerBaseState
     {
         _movePressed = _player.InputHandler.IsInputActiveMovement;
         _runPressed = _player.InputHandler.IsInputActiveRun;
-        _animationPlaying = _player.AnimatorHandler.IsAnimationPlaying();
-        return NotDodgingAndDodgeNotPressed() && !_movePressed && !_runPressed && _animationPlaying;
+        return NotDodgingAndDodgeNotPressed() && !_movePressed && !_runPressed;
     }
 
     private bool NotDodgingAndDodgeNotPressed()
@@ -41,35 +39,11 @@ public class PlayerDodgeState : PlayerBaseState
 
     public override PlayerStateType GetStateType() => PlayerStateType.dodge;
 
-    public override void OnEnterState() 
-    { 
-        _dodgeDirection = _player.InputHandler.InputMoveVector;
-        _player.AnimatorHandler.SetAnimationValueIsDodging(true);
-        _player.StatusHandler.UseStamina(_player.Config.staminaCost.dodge);
-    }
-
-    private void OnExitState() => _player.AnimatorHandler.SetAnimationValueIsDodging(false);
+    public override void OnEnterState() {}
 
     public override void ExecuteState()
     {
         CheckSwitchState();
-        FaceDodgeDirection();
-    }
-
-    private void FaceDodgeDirection()
-    {
-        Vector3 movementVector = new Vector3(_dodgeDirection.x, 0, _dodgeDirection.y);
-        movementVector = _player.MovementHandler.GetMoveVectorTowardsCameraDirection(movementVector);
-        movementVector.y = 0;
-
-        if (movementVector != Vector3.zero)
-        {
-            Quaternion movementDirection = Quaternion.LookRotation(movementVector);
-            _player.transform.rotation = Quaternion.Slerp(
-                _player.transform.rotation,
-                movementDirection,
-                _player.Config.misc.cameraSensitivity * Time.deltaTime
-            );
-        }
+        _player.MovementHandler.FaceDodgeDirection();
     }
 }

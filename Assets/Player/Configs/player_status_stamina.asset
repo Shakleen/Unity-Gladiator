@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: player_status_stamina
   m_EditorClassIdentifier: 
   _initialCapacity: 50
-  _regenPerSec: 10
-  _depletePerSec: 10
+  _regenPerSec: 5
+  _depletePerSec: 5
