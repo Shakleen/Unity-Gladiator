@@ -48,6 +48,8 @@ public class PlayerAnimationHandler : MonoBehaviour
     {
         SetMultipliers();
         PlayerMovementHandler.OnCurrentMovementChange += OnCurrentMovementChange;
+        PlayerInputHandler.OnRunPressed += OnRunPressed;
+        PlayerInputHandler.OnMovePressed += OnMovePressed;
     }
 
     private void SetMultipliers()
@@ -60,13 +62,22 @@ public class PlayerAnimationHandler : MonoBehaviour
         SetRunDodgeAnimationSpeedMultiplier(_player.Config.animationSpeed.runDodge);
     }
 
-    private void OnDisable() => PlayerMovementHandler.OnCurrentMovementChange -= OnCurrentMovementChange;
+    private void OnDisable() 
+    {
+        PlayerMovementHandler.OnCurrentMovementChange -= OnCurrentMovementChange;
+        PlayerInputHandler.OnRunPressed -= OnRunPressed;
+        PlayerInputHandler.OnMovePressed -= OnMovePressed;
+    }
 
     private void OnCurrentMovementChange()
     {
         SetAnimationValueVelocityX(_player.MovementHandler.CurrentMovementVelocity.x);
         SetAnimationValueVelocityZ(_player.MovementHandler.CurrentMovementVelocity.z);
     }
+
+    private void OnRunPressed() => SetAnimationValueIsRunning(_player.InputHandler.IsInputActiveRun);
+
+    private void OnMovePressed() => SetAnimationValueIsMoving(_player.InputHandler.IsInputActiveMovement);
 
     #region Animation speed multiplier setters
     public void SetMoveAnimationSpeedMultiplier(float multiplier) => _animator.SetFloat(_hashMultiplierMove, multiplier);
@@ -78,10 +89,10 @@ public class PlayerAnimationHandler : MonoBehaviour
     #endregion
 
     #region Animation parameter setters
-    public void SetAnimationValueVelocityX(float value) => _animator.SetFloat(_hashVelocityX, value);
-    public void SetAnimationValueVelocityZ(float value) => _animator.SetFloat(_hashVelocityZ, value);
-    public void SetAnimationValueIsMoving(bool value) => _animator.SetBool(_hashIsMoving, value);
-    public void SetAnimationValueIsRunning(bool value) => _animator.SetBool(_hashIsRunning, value);
+    private void SetAnimationValueVelocityX(float value) => _animator.SetFloat(_hashVelocityX, value);
+    private void SetAnimationValueVelocityZ(float value) => _animator.SetFloat(_hashVelocityZ, value);
+    private void SetAnimationValueIsMoving(bool value) => _animator.SetBool(_hashIsMoving, value);
+    private void SetAnimationValueIsRunning(bool value) => _animator.SetBool(_hashIsRunning, value);
     public void SetAnimationValueIsDodging(bool value) => _animator.SetBool(_hashIsDodging, value);
     public void SetAnimationValueIsMeleeAttacking(bool value) => _animator.SetBool(_hashIsMeleeAttacking, value);
     public void IncrementMeleeAttackNumber()

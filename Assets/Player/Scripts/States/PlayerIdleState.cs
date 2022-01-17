@@ -21,8 +21,6 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void OnEnterState() 
     { 
-        _player.AnimatorHandler.SetAnimationValueIsMoving(false);
-        _player.AnimatorHandler.SetAnimationValueIsRunning(false);
         _player.AnimatorHandler.SetAnimationValueIsDodging(false);
         _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false);
         _player.AnimatorHandler.ResetMeleeAttackNumber();

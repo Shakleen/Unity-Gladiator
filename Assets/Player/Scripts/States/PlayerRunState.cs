@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class PlayerRunState : PlayerBaseMovementState
@@ -7,7 +6,7 @@ public class PlayerRunState : PlayerBaseMovementState
 
     public override void InitializeTransitions()
     {
-        _transtions.Add(new Transition(PlayerStateType.walk, ToWalkCondition, () => _player.AnimatorHandler.SetAnimationValueIsRunning(false)));
+        _transtions.Add(new Transition(PlayerStateType.walk, ToWalkCondition));
         _transtions.Add(new Transition(PlayerStateType.dodge, ToDodgeCondition));
         _transtions.Add(new Transition(PlayerStateType.melee_running, ToMeleeCondition));
     }
@@ -16,14 +15,14 @@ public class PlayerRunState : PlayerBaseMovementState
     {
         bool hasNoStamina = _player.StatusHandler.Stamina.IsEmpty();
         bool runPressed = _player.InputHandler.IsInputActiveRun;
-        return hasNoStamina || (!runPressed && !HasRunVelocity());
+        return (hasNoStamina || !runPressed) && !HasRunVelocity();
     }
 
     private new bool ToMeleeCondition() => base.ToMeleeCondition() && HasReachedMaxVelocity();
 
     public override PlayerStateType GetStateType() => PlayerStateType.run;
 
-    public override void OnEnterState() => _player.AnimatorHandler.SetAnimationValueIsRunning(true);
+    public override void OnEnterState() {}
 
     private bool HasReachedMaxVelocity()
     {
@@ -43,7 +42,13 @@ public class PlayerRunState : PlayerBaseMovementState
     { 
         CheckSwitchState();
         _player.MovementHandler.RotateTowardsCameraDirection();
-        UpdateVelocity();
-        _player.StatusHandler.DepleteStamina();
+        
+        if (_player.InputHandler.IsInputActiveRun && !_player.StatusHandler.Stamina.IsEmpty())
+        {
+            UpdateVelocity();
+            _player.StatusHandler.DepleteStamina();
+        }
+        else
+            Decelarate();
     }
 }

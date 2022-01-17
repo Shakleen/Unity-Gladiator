@@ -12,7 +12,7 @@ public class PlayerWalkState : PlayerBaseMovementState
         _transtions.Add(new Transition(PlayerStateType.dodge, ToDodgeCondition));
         _transtions.Add(new Transition(PlayerStateType.melee_walking, ToMeleeCondition));
         _transtions.Add(new Transition(PlayerStateType.run, ToRunCondition));
-        _transtions.Add(new Transition(PlayerStateType.idle, ToIdleCondition, () => _player.AnimatorHandler.SetAnimationValueIsMoving(false)));
+        _transtions.Add(new Transition(PlayerStateType.idle, ToIdleCondition));
     }
 
     private bool ToIdleCondition() => !_player.InputHandler.IsInputActiveMovement;
@@ -21,10 +21,7 @@ public class PlayerWalkState : PlayerBaseMovementState
 
     public override void OnEnterState() 
     { 
-        _player.AnimatorHandler.SetAnimationValueIsMoving(true);
-        _player.AnimatorHandler.SetAnimationValueIsRunning(false);
         _player.AnimatorHandler.SetAnimationValueIsDodging(false);
-        _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false);
     }
 
     public override void ExecuteState()
