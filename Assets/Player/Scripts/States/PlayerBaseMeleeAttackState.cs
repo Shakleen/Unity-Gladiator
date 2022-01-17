@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public abstract class PlayerBaseMeleeAttackState : PlayerBaseState
 {
     private bool _isAttacking;

@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class PlayerWalkingMeleeAttackState : PlayerBaseMeleeAttackState
 {
     public PlayerWalkingMeleeAttackState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) {}

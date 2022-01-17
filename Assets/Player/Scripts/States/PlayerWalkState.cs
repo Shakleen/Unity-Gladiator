@@ -1,6 +1,3 @@
-using System;
-using UnityEngine;
-
 public class PlayerWalkState : PlayerBaseMovementState
 {
     protected const float THRESH = 1e-3f;
