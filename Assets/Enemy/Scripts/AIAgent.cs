@@ -1,24 +1,27 @@
 using UnityEngine;
-using UnityEngine.AI;
 
 public class AIAgent : MonoBehaviour
 {
+    #region Component references
     [SerializeField] private AIConfig _config;
     [SerializeField] private Transform _playerTransform;
-    [SerializeField] private NavMeshAgent _navMeshAgent;
     [SerializeField] private AIAnimationHandler _animationHandler;
     [SerializeField] private RagDollHandler _ragDollHandler;
+    [SerializeField] private AILocomotion _aiLocomotion;
     [SerializeField] private AIStateType _currentStateType;
-
     private AIStateMachine _stateMachine;
     private BaseStatus _health;
+    #endregion
 
-    public AIConfig Config { get { return _config; } }
-    public Transform PlayerTransform { get { return _playerTransform; } }
-    public NavMeshAgent NavMeshAgent { get { return _navMeshAgent; } }
-    public AIAnimationHandler AnimationHandler { get { return _animationHandler; } }
-    public RagDollHandler RagDollHandler { get { return _ragDollHandler; } }
-    public BaseStatus Health { get { return _health; } }
+    #region Getters and setter
+    public AIConfig Config { get => _config; }
+    public Transform PlayerTransform { get => _playerTransform; }
+    public AIAnimationHandler AnimationHandler { get => _animationHandler; }
+    public RagDollHandler RagDollHandler { get => _ragDollHandler; }
+    public AILocomotion AILocomotion { get => _aiLocomotion; }
+    public AIStateType CurrentState { get => _currentStateType; set => _currentStateType = value; }
+    public BaseStatus Health { get => _health; }
+    #endregion
 
     private void Awake() 
     { 
@@ -28,7 +31,6 @@ public class AIAgent : MonoBehaviour
 
     private void Update() 
     { 
-        _currentStateType = _stateMachine.GetCurrentStateType();
         _stateMachine.ExecuteState(); 
     }
 }

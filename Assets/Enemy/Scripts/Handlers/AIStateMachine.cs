@@ -46,6 +46,7 @@ public class AIStateMachine
         _currentState.OnExitState();
         newState.OnEnterState();
         _currentState = newState;
+        _aiAgent.CurrentState = newStateType;
     }
 
     public AIStateType GetCurrentStateType() { return _currentState.GetStateType(); }
