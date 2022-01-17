@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PlayerIdleState : PlayerBaseState
 {
+    private bool _hasVelocityX, _hasVelocityZ;
+
     public PlayerIdleState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) {}
 
     public override void InitializeTransitions()
@@ -11,20 +13,11 @@ public class PlayerIdleState : PlayerBaseState
         _transtions.Add(new Transition(PlayerStateType.walk, ToWalkCondition));
     }
 
-    private bool ToWalkCondition()
-    {
-        bool walkPressed = _player.InputHandler.IsInputActiveMovement;
-        return walkPressed;
-    }
+    private bool ToWalkCondition() => _player.InputHandler.IsInputActiveMovement;
 
     public override PlayerStateType GetStateType() => PlayerStateType.idle;
 
-    public override void OnEnterState() 
-    { 
-        _player.AnimatorHandler.SetAnimationValueIsDodging(false);
-        _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false);
-        _player.AnimatorHandler.ResetMeleeAttackNumber();
-    }
+    public override void OnEnterState() => _player.AnimatorHandler.SetAnimationValueIsDodging(false);
 
     public override void ExecuteState() 
     { 
@@ -38,8 +31,8 @@ public class PlayerIdleState : PlayerBaseState
 
     private bool HasMovementVelocity()
     {
-        bool hasVelocityX = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocity.x) > _player.MovementHandler.THRESH;
-        bool hasVelocityZ = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocity.z) > _player.MovementHandler.THRESH;
-        return hasVelocityX || hasVelocityZ;
+        _hasVelocityX = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocity.x) > _player.MovementHandler.THRESH;
+        _hasVelocityZ = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocity.z) > _player.MovementHandler.THRESH;
+        return _hasVelocityX || _hasVelocityZ;
     }
 }

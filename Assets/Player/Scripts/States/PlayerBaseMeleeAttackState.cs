@@ -2,13 +2,16 @@ using UnityEngine;
 
 public abstract class PlayerBaseMeleeAttackState : PlayerBaseState
 {
+    private bool _isAttacking;
+    private bool _inAttackState;
+
     protected PlayerBaseMeleeAttackState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) {}
 
     protected bool AttackNotPressedAndNotAttacking() 
     {
-        bool attackPressed = _player.InputHandler.IsInputActiveMeleeAttack;
-        bool isAttacking = _player.AttackHandler.IsAttacking;
-        return !attackPressed && !isAttacking;
+        _attackPressed = _player.InputHandler.IsInputActiveMeleeAttack;
+        _isAttacking = _player.AttackHandler.IsAttacking;
+        return !_attackPressed && !_isAttacking;
     }
 
     protected bool AttackToDodgeCondition() => AttackNotPressedAndNotAttacking() && ToDodgeCondition();
@@ -17,16 +20,16 @@ public abstract class PlayerBaseMeleeAttackState : PlayerBaseState
 
     protected bool AttackToWalkCondition()
     {
-        bool movePressed = _player.InputHandler.IsInputActiveMovement;
-        bool runPressed = _player.InputHandler.IsInputActiveRun;
-        return AttackNotPressedAndNotAttacking() && movePressed && !runPressed;
+        _movePressed = _player.InputHandler.IsInputActiveMovement;
+        _runPressed = _player.InputHandler.IsInputActiveRun;
+        return AttackNotPressedAndNotAttacking() && _movePressed && !_runPressed;
     }
 
     protected bool AttackToIdleCondition()
     {
-        bool inAttackState = _player.AttackHandler.InAttackState();
-        bool movePressed = _player.InputHandler.IsInputActiveMovement;
-        bool runPressed = _player.InputHandler.IsInputActiveRun;
-        return !inAttackState && !movePressed && !runPressed;
+        _inAttackState = _player.AttackHandler.InAttackState();
+        _movePressed = _player.InputHandler.IsInputActiveMovement;
+        _runPressed = _player.InputHandler.IsInputActiveRun;
+        return !_inAttackState && !_movePressed && !_runPressed;
     }
 }

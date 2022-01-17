@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PlayerRunState : PlayerBaseMovementState
 {
+    private bool _hasVelocityX, _hasVelocityZ;
+
     public PlayerRunState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine, player.Config.run) {}
 
     public override void InitializeTransitions()
@@ -13,9 +15,9 @@ public class PlayerRunState : PlayerBaseMovementState
 
     private bool ToWalkCondition()
     {
-        bool hasNoStamina = _player.StatusHandler.Stamina.IsEmpty();
-        bool runPressed = _player.InputHandler.IsInputActiveRun;
-        return (hasNoStamina || !runPressed) && !HasRunVelocity();
+        _hasStamina = !_player.StatusHandler.Stamina.IsEmpty();
+        _runPressed = _player.InputHandler.IsInputActiveRun;
+        return (!_hasStamina || !_runPressed) && !HasRunVelocity();
     }
 
     private new bool ToMeleeCondition() => base.ToMeleeCondition() && HasReachedMaxVelocity();
@@ -26,16 +28,16 @@ public class PlayerRunState : PlayerBaseMovementState
 
     private bool HasReachedMaxVelocity()
     {
-        bool hasRunVelocityX = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocity.x) == _maxMovementVelocity;
-        bool hasRunVelocityZ = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocity.z) == _maxMovementVelocity;
-        return hasRunVelocityX || hasRunVelocityZ;
+        _hasVelocityX = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocity.x) == _maxMovementVelocity;
+        _hasVelocityZ = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocity.z) == _maxMovementVelocity;
+        return _hasVelocityX || _hasVelocityZ;
     }
 
     private bool HasRunVelocity()
     {
-        bool hasRunVelocityX = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocity.x) > _player.Config.walk.maxVelocity;
-        bool hasRunVelocityZ = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocity.z) > _player.Config.walk.maxVelocity;
-        return hasRunVelocityX || hasRunVelocityZ;
+        _hasVelocityX = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocity.x) > _player.Config.walk.maxVelocity;
+        _hasVelocityZ = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocity.z) > _player.Config.walk.maxVelocity;
+        return _hasVelocityX || _hasVelocityZ;
     }
 
     public override void ExecuteState() 

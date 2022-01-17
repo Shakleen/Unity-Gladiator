@@ -19,10 +19,7 @@ public class PlayerWalkState : PlayerBaseMovementState
 
     public override PlayerStateType GetStateType() => PlayerStateType.walk;
 
-    public override void OnEnterState() 
-    { 
-        _player.AnimatorHandler.SetAnimationValueIsDodging(false);
-    }
+    public override void OnEnterState() => _player.AnimatorHandler.SetAnimationValueIsDodging(false);
 
     public override void ExecuteState()
     {

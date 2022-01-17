@@ -3,6 +3,9 @@ using UnityEngine;
 public class PlayerDodgeState : PlayerBaseState
 {
     private Vector2 _dodgeDirection;
+    private bool _animationPlaying;
+    private bool _isDodging;
+
     public PlayerDodgeState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) {}
 
     public override void InitializeTransitions()
@@ -16,24 +19,24 @@ public class PlayerDodgeState : PlayerBaseState
 
     private bool ToWalkCondition()
     {
-        bool movePressed = _player.InputHandler.IsInputActiveMovement;
-        bool runPressed = _player.InputHandler.IsInputActiveRun;
-        return NotDodgingAndDodgeNotPressed() && movePressed && !runPressed;
+        _movePressed = _player.InputHandler.IsInputActiveMovement;
+        _runPressed = _player.InputHandler.IsInputActiveRun;
+        return NotDodgingAndDodgeNotPressed() && _movePressed && !_runPressed;
     }
 
     private bool ToIdleCondition()
     {
-        bool movePressed = _player.InputHandler.IsInputActiveMovement;
-        bool runPressed = _player.InputHandler.IsInputActiveRun;
-        bool animationPlaying = _player.AnimatorHandler.IsAnimationPlaying();
-        return NotDodgingAndDodgeNotPressed() && !movePressed && !runPressed && animationPlaying;
+        _movePressed = _player.InputHandler.IsInputActiveMovement;
+        _runPressed = _player.InputHandler.IsInputActiveRun;
+        _animationPlaying = _player.AnimatorHandler.IsAnimationPlaying();
+        return NotDodgingAndDodgeNotPressed() && !_movePressed && !_runPressed && _animationPlaying;
     }
 
     private bool NotDodgingAndDodgeNotPressed()
     {
-        bool dodgePressed = _player.InputHandler.IsInputActiveDodge;
-        bool isDodging = _player.AnimatorHandler.IsDodging;
-        return !dodgePressed && !isDodging;
+        _dodgePressed = _player.InputHandler.IsInputActiveDodge;
+        _isDodging = _player.AnimatorHandler.IsDodging;
+        return !_dodgePressed && !_isDodging;
     }
 
     public override PlayerStateType GetStateType() => PlayerStateType.dodge;

@@ -23,9 +23,9 @@ public abstract class PlayerBaseMovementState : PlayerBaseState
 
     protected void UpdateVelocity()
     {
-        float velocityX = ChangeAxisVelocity(_player.InputHandler.InputMoveVector.x, _player.MovementHandler.CurrentMovementVelocity.x);
-        float velocityZ = ChangeAxisVelocity(_player.InputHandler.InputMoveVector.y, _player.MovementHandler.CurrentMovementVelocity.z);
-        _player.MovementHandler.CurrentMovementVelocity = new Vector3(velocityX, 0, velocityZ);
+        _velocityX = ChangeAxisVelocity(_player.InputHandler.InputMoveVector.x, _player.MovementHandler.CurrentMovementVelocity.x);
+        _velocityZ = ChangeAxisVelocity(_player.InputHandler.InputMoveVector.y, _player.MovementHandler.CurrentMovementVelocity.z);
+        _player.MovementHandler.CurrentMovementVelocity = new Vector3(_velocityX, 0f, _velocityZ);
     }
 
     private float ChangeAxisVelocity(float inputVelocity, float currentVelocity)
@@ -33,11 +33,11 @@ public abstract class PlayerBaseMovementState : PlayerBaseState
         float velocity = currentVelocity;
 
         // Player pressed button to move in the positive direction of axis
-        if (inputVelocity > 0)
+        if (inputVelocity > 0f)
             velocity = currentVelocity + MakeFrameIndependent(_accelaration);
         
         // Player pressed button to move in the negative direction of axis
-        else if (inputVelocity < 0)
+        else if (inputVelocity < 0f)
             velocity = currentVelocity - MakeFrameIndependent(_accelaration);
         
         // Player hasn't pressed any button for this axis but was moving in the positive direction.
