@@ -13,6 +13,7 @@ public class PlayerRunState : PlayerBaseMovementState
         _transtions.Add(new Transition(PlayerStateType.melee_running, ToMeleeCondition));
     }
 
+    #region Transition condition
     private bool ToWalkCondition()
     {
         _hasStamina = !_player.StatusHandler.Stamina.IsEmpty();
@@ -21,15 +22,17 @@ public class PlayerRunState : PlayerBaseMovementState
     }
 
     private new bool ToMeleeCondition() => base.ToMeleeCondition() && HasReachedMaxVelocity();
+    #endregion
 
     public override PlayerStateType GetStateType() => PlayerStateType.run;
 
     public override void OnEnterState() {}
 
+    #region Velocity checks
     private bool HasReachedMaxVelocity()
     {
-        _hasVelocityX = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocity.x) == _maxMovementVelocity;
-        _hasVelocityZ = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocity.z) == _maxMovementVelocity;
+        _hasVelocityX = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocity.x) == _player.Config.run.maxVelocity;
+        _hasVelocityZ = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocity.z) == _player.Config.run.maxVelocity;
         return _hasVelocityX || _hasVelocityZ;
     }
 
@@ -39,6 +42,7 @@ public class PlayerRunState : PlayerBaseMovementState
         _hasVelocityZ = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocity.z) > _player.Config.walk.maxVelocity;
         return _hasVelocityX || _hasVelocityZ;
     }
+    #endregion
 
     public override void ExecuteState() 
     { 

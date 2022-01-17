@@ -34,6 +34,7 @@ public class PlayerStateMachine
         PlayerBaseState newState = GetPlayerState(newStateType);
         newState.OnEnterState();
         _currentState = newState;
+        _player.CurrentState = newStateType;
     }
 
     public void ExecuteState() { _currentState.ExecuteState(); }

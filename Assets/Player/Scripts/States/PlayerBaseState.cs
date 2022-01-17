@@ -34,13 +34,6 @@ public abstract class PlayerBaseState
         InitializeTransitions();
     }
 
-    #region Abstract methods
-    public abstract void InitializeTransitions();
-    public abstract PlayerStateType GetStateType();
-    public abstract void OnEnterState();
-    public abstract void ExecuteState();
-    #endregion
-
     public void CheckSwitchState() 
     {
         foreach(Transition transition in _transtions)
@@ -53,6 +46,13 @@ public abstract class PlayerBaseState
             }
         }
     }
+
+    #region Abstract methods
+    public abstract void InitializeTransitions();
+    public abstract PlayerStateType GetStateType();
+    public abstract void OnEnterState();
+    public abstract void ExecuteState();
+    #endregion
 
     #region Common transition conditions
     protected bool ToDodgeCondition()

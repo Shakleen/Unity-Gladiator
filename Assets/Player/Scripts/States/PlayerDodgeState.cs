@@ -14,6 +14,7 @@ public class PlayerDodgeState : PlayerBaseState
         _transtions.Add(new Transition(PlayerStateType.idle, ToIdleCondition));
     }
 
+    #region Transition conditions
     private new bool ToRunCondition() => NotDodgingAndDodgeNotPressed() && base.ToRunCondition();
 
     private bool ToWalkCondition()
@@ -36,6 +37,7 @@ public class PlayerDodgeState : PlayerBaseState
         _isDodging = _player.AnimatorHandler.IsDodging;
         return !_dodgePressed && !_isDodging;
     }
+    #endregion
 
     public override PlayerStateType GetStateType() => PlayerStateType.dodge;
 

@@ -2,11 +2,11 @@ using UnityEngine;
 
 public abstract class PlayerBaseMovementState : PlayerBaseState
 {
-    protected float _minMovementValue;
-    protected float _maxMovementVelocity;
-    protected float _accelaration;
-    protected float _decelaration;
-    protected float _thresh;
+    private float _minMovementValue;
+    private float _maxMovementVelocity;
+    private float _accelaration;
+    private float _decelaration;
+    private float _thresh;
 
     protected PlayerBaseMovementState(
         Player player, 

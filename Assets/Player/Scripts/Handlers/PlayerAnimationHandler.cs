@@ -1,7 +1,5 @@
-using System;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator), typeof(Player))]
 public class PlayerAnimationHandler : MonoBehaviour
 {
     #region Component references
@@ -82,7 +80,6 @@ public class PlayerAnimationHandler : MonoBehaviour
     private void OnMovePressed() => SetAnimationValueIsMoving(_player.InputHandler.IsInputActiveMovement);
     private void OnDodgePressed() => SetAnimationValueIsDodging(_player.InputHandler.IsInputActiveDodge);
     #endregion
-
 
     #region Animation speed multiplier setters
     public void SetMoveAnimationSpeedMultiplier(float multiplier) => _animator.SetFloat(_hashMultiplierMove, multiplier);

@@ -1,17 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAttackHandler : MonoBehaviour
 {
+    #region Variables
     private const float THRESH = 1e-5f;
     [SerializeField] private Player _player;
 
-    [SerializeField] private int _comboCounter;
-    [SerializeField] private float _comboTimer;
-    [SerializeField] private bool _attackStarted;
-    [SerializeField] private bool _attacking;
-    [SerializeField] private bool _attackEnded;
+    private int _comboCounter;
+    private float _comboTimer;
+    private bool _attackStarted;
+    private bool _attacking;
+    private bool _attackEnded;
+    #endregion
     
     public bool IsAttacking { get => _attacking; }
     
@@ -21,6 +21,7 @@ public class PlayerAttackHandler : MonoBehaviour
 
     private void OnDisable() => PlayerInputHandler.OnAttackPressed -= RequestQueueNextAttack;
 
+    #region Attacking queuing
     private void RequestQueueNextAttack()
     {
         if (IsFirstAttack() || CanInitiateNextAttack())
@@ -43,7 +44,8 @@ public class PlayerAttackHandler : MonoBehaviour
     }
 
     private bool IsWithInComboTime() => _comboTimer >= THRESH;
-
+    #endregion
+    
     private void Start() => ResetCombo();
 
     public void ResetCombo() 
