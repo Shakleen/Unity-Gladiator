@@ -46,7 +46,7 @@ public class PlayerAttackHandler : MonoBehaviour
 
     private void Start() => ResetCombo();
 
-    private void ResetCombo() 
+    public void ResetCombo() 
     {
         _comboTimer = _comboCounter = 0;
         _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false);
