@@ -40,5 +40,6 @@ public class Player : MonoBehaviour
         _stateMachine.ExecuteState();
         _statusHandler.Regenerate();
         _movementController.MoveCharacter();
+        _attackHandler.DecreaseAttackComboTimer();
     }
 }

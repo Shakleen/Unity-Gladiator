@@ -9,9 +9,9 @@ public class PlayerAttackHandler : MonoBehaviour
 
     [SerializeField] private int _comboCounter;
     [SerializeField] private float _comboTimer;
-    [SerializeField] private bool _attackStarted = false;
-    [SerializeField] private bool _attacking = false;
-    [SerializeField] private bool _attackEnded = false;
+    [SerializeField] private bool _attackStarted;
+    [SerializeField] private bool _attacking;
+    [SerializeField] private bool _attackEnded;
     
     public bool IsAttacking { get => _attacking; }
     
@@ -25,17 +25,24 @@ public class PlayerAttackHandler : MonoBehaviour
     {
         if (IsFirstAttack() || CanInitiateNextAttack())
         {
-            _comboTimer = _player.Config.misc.idleAttackComboMaxTime;
-            _comboCounter++;
-            if (_comboCounter > 4) _comboCounter = 4;
+            _comboTimer = _player.Config.attack.idleAttackComboMaxTime;
+            
+            if (_comboCounter >= _player.Config.attack.maxCombos) 
+                _comboCounter = _player.Config.attack.maxCombos;
+            else
+                _comboCounter++;
         }
     }
 
+    private bool IsFirstAttack() => _comboCounter == 0;
+
     private bool CanInitiateNextAttack()
     {
-        bool hasStamina = _attackEnded && !_player.StatusHandler.Stamina.IsEmpty();
-        return !IsNextAttackQueued() && IsWithInComboTime() && hasStamina;
+        bool hasStamina = !_player.StatusHandler.Stamina.IsEmpty();
+        return _attackEnded && !IsNextAttackQueued() && IsWithInComboTime() && hasStamina;
     }
+
+    private bool IsWithInComboTime() => _comboTimer >= THRESH;
 
     private void Start() => ResetCombo();
 
@@ -47,8 +54,6 @@ public class PlayerAttackHandler : MonoBehaviour
         SetAttackBools();
     }
 
-    private void Update() => DecreaseTimer();
-
     public void Attack()
     {
         if (IsNextAttackQueued())
@@ -58,7 +63,7 @@ public class PlayerAttackHandler : MonoBehaviour
         }
     }
 
-    private void DecreaseTimer()
+    public void DecreaseAttackComboTimer()
     {
         if (_comboTimer > THRESH)
             _comboTimer -= Time.deltaTime;
@@ -66,11 +71,7 @@ public class PlayerAttackHandler : MonoBehaviour
             ResetCombo();
     }
 
-    private bool IsFirstAttack() => _comboCounter == 0;
-
     public bool IsNextAttackQueued() => _comboCounter > _player.AnimatorHandler.MeleeAttackNumber;
-
-    private bool IsWithInComboTime() => _comboTimer >= THRESH;
 
     public void SetAttackBools(bool started = false, bool happening = false, bool ended = false)
     { 

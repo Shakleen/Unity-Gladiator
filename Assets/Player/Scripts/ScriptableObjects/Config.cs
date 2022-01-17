@@ -14,4 +14,5 @@ public class Config : MonoBehaviour
     [SerializeField] public StaminaCost staminaCost;
     
     [SerializeField] public PlayerConfig misc;
+    [SerializeField] public AttackConfig attack;
 }
