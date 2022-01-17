@@ -33,18 +33,15 @@ public class PlayerIdleState : PlayerBaseState
         CheckSwitchState(); 
         
         if (HasMovementVelocity())
-        {
             Decelarate();
-            // _player.MovementHandler.MoveCharacter();
-        }
         else
             _player.MovementHandler.StopMovement();
     }
 
     private bool HasMovementVelocity()
     {
-        bool hasVelocityX = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocityX) > _player.MovementHandler.THRESH;
-        bool hasVelocityZ = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocityZ) > _player.MovementHandler.THRESH;
+        bool hasVelocityX = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocity.x) > _player.MovementHandler.THRESH;
+        bool hasVelocityZ = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocity.z) > _player.MovementHandler.THRESH;
         return hasVelocityX || hasVelocityZ;
     }
 }

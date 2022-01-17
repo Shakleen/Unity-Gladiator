@@ -1,66 +1,49 @@
+using System;
 using UnityEngine;
 
 public class PlayerMovementHandler : MonoBehaviour
 {
-    // =================================================================================================================================================
-    //                                                          References and Variables
-    // =================================================================================================================================================
-    
-    // -------------------------------------------------------------------------------------------------------------------------------------------------
-    // Constants
-    // -------------------------------------------------------------------------------------------------------------------------------------------------
+    public static event Action OnCurrentMovementChange;
     private const float MOVEMENT_TRHESH = 1e-3f;
     
-    // -------------------------------------------------------------------------------------------------------------------------------------------------
-    // Componenet References
-    // -------------------------------------------------------------------------------------------------------------------------------------------------
+    #region Componenet References
     [SerializeField] private Player _player;
     [SerializeField] private CharacterController _controller;
     private Transform _cameraTransform;
+    #endregion
 
-    // -------------------------------------------------------------------------------------------------------------------------------------------------
-    // Movement variables
-    // -------------------------------------------------------------------------------------------------------------------------------------------------
-    [SerializeField] private Vector3 _currentMovementVelocity = Vector3.zero;
-    // -------------------------------------------------------------------------------------------------------------------------------------------------
+    private Vector3 _currentMovementVelocity = Vector3.zero;
 
-
-    // =================================================================================================================================================
-    //                                                              Getters and Setters
-    // =================================================================================================================================================
+    #region Getters and Setters
     public float THRESH { get { return MOVEMENT_TRHESH; } }
-    public float CurrentMovementVelocityX 
-    { 
-        get { return _currentMovementVelocity.x; } 
-        set 
-        { 
-            _currentMovementVelocity.x = value; 
-            _player.AnimatorHandler.SetAnimationValueVelocityX(value);
-        } 
+    public Vector3 CurrentMovementVelocity 
+    {
+        get => _currentMovementVelocity;
+        set
+        {
+            _currentMovementVelocity = value;
+            OnCurrentMovementChange?.Invoke();
+        }
     }
-    public float CurrentMovementVelocityZ 
-    { 
-        get { return _currentMovementVelocity.z; } 
-        set 
-        { 
-            _currentMovementVelocity.z = value; 
-            _player.AnimatorHandler.SetAnimationValueVelocityZ(value);
-        } 
-    }
+    #endregion
 
-
-    // =================================================================================================================================================
-    //                                                                  Functions
-    // =================================================================================================================================================
-
-    private void Start() { _cameraTransform = Camera.main.transform; }
+    private void Start() => _cameraTransform = Camera.main.transform;
 
     public void MoveCharacter() 
     { 
         Vector3 movementVector = GetMoveVectorTowardsCameraDirection(_currentMovementVelocity);
-        ApplyGravity();
+        ApplyGravity(movementVector);
         _controller.Move(movementVector * Time.deltaTime); 
     }
+
+    public Vector3 GetMoveVectorTowardsCameraDirection(Vector3 movementInput)
+    {
+        movementInput = movementInput.x * _cameraTransform.right.normalized + movementInput.z * _cameraTransform.forward.normalized;
+        movementInput.y = 0f;
+        return movementInput;
+    }
+
+    private void ApplyGravity(Vector3 movementVector) => movementVector.y = _controller.isGrounded ? -0.05f : -9.81f;
 
     public void RotateTowardsCameraDirection()
     {
@@ -72,24 +55,5 @@ public class PlayerMovementHandler : MonoBehaviour
         }
     }
 
-    public Vector3 GetMoveVectorTowardsCameraDirection(Vector3 movementInput)
-    {
-        movementInput = movementInput.x * _cameraTransform.right.normalized + movementInput.z * _cameraTransform.forward.normalized;
-        movementInput.y = 0f;
-        return movementInput;
-    }
-
-    public void ApplyGravity()
-    {
-        if (_controller.isGrounded)
-            _currentMovementVelocity.y = -0.05f;
-        else
-            _currentMovementVelocity.y = -9.81f;
-    }
-
-    public void StopMovement() 
-    { 
-        CurrentMovementVelocityX = 0f; 
-        CurrentMovementVelocityZ = 0f; 
-    }
+    public void StopMovement() => _currentMovementVelocity = new Vector3(0, _currentMovementVelocity.y, 0);
 }

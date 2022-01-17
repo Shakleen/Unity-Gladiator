@@ -76,11 +76,9 @@ public abstract class PlayerBaseState
 
     protected void Decelarate()
     {
-        float velocityX = DecelarateAlongAxis(_player.MovementHandler.CurrentMovementVelocityX);
-        _player.MovementHandler.CurrentMovementVelocityX = velocityX;
-
-        float velocityZ = DecelarateAlongAxis(_player.MovementHandler.CurrentMovementVelocityZ);
-        _player.MovementHandler.CurrentMovementVelocityZ = velocityZ;
+        float velocityX = DecelarateAlongAxis(_player.MovementHandler.CurrentMovementVelocity.x);
+        float velocityZ = DecelarateAlongAxis(_player.MovementHandler.CurrentMovementVelocity.z);
+        _player.MovementHandler.CurrentMovementVelocity = new Vector3(velocityX, 0, velocityZ);
     }
 
     protected float DecelarateAlongAxis(float currentVelocity)

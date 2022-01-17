@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 
-public class PlayerRunState : PlayerBaseState
+public class PlayerRunState : PlayerBaseMovementState
 {
-    public PlayerRunState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) {}
+    public PlayerRunState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine, player.Config.run) {}
 
     public override void InitializeTransitions()
     {
@@ -23,19 +23,19 @@ public class PlayerRunState : PlayerBaseState
 
     public override PlayerStateType GetStateType() => PlayerStateType.run;
 
-    public override void OnEnterState() { _player.AnimatorHandler.SetAnimationValueIsRunning(true); }
+    public override void OnEnterState() => _player.AnimatorHandler.SetAnimationValueIsRunning(true);
 
     private bool HasReachedMaxVelocity()
     {
-        bool hasRunVelocityX = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocityX) == _player.Config.run.maxVelocity;
-        bool hasRunVelocityZ = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocityZ) == _player.Config.run.maxVelocity;
+        bool hasRunVelocityX = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocity.x) == _maxMovementVelocity;
+        bool hasRunVelocityZ = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocity.z) == _maxMovementVelocity;
         return hasRunVelocityX || hasRunVelocityZ;
     }
 
     private bool HasRunVelocity()
     {
-        bool hasRunVelocityX = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocityX) > _player.Config.walk.maxVelocity;
-        bool hasRunVelocityZ = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocityZ) > _player.Config.walk.maxVelocity;
+        bool hasRunVelocityX = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocity.x) > _player.Config.walk.maxVelocity;
+        bool hasRunVelocityZ = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocity.z) > _player.Config.walk.maxVelocity;
         return hasRunVelocityX || hasRunVelocityZ;
     }
 
@@ -43,51 +43,7 @@ public class PlayerRunState : PlayerBaseState
     { 
         CheckSwitchState();
         _player.MovementHandler.RotateTowardsCameraDirection();
-        UpdateRunVelocity();
+        UpdateVelocity();
         _player.StatusHandler.DepleteStamina();
     }
-
-    private void UpdateRunVelocity()
-    {
-        Vector2 inputMoveVector = _player.InputHandler.InputMoveVector;
-
-        float velocityX = _player.MovementHandler.CurrentMovementVelocityX;
-        velocityX = ChangeAxisVelocity(inputMoveVector.x, velocityX);
-        _player.MovementHandler.CurrentMovementVelocityX = velocityX;
-
-        float velocityZ = _player.MovementHandler.CurrentMovementVelocityZ;
-        velocityZ = ChangeAxisVelocity(inputMoveVector.y, velocityZ);
-        _player.MovementHandler.CurrentMovementVelocityZ = velocityZ;
-    }
-
-    private float ChangeAxisVelocity(float inputVelocity, float currentVelocity)
-    {
-        float velocity = currentVelocity;
-
-        // Player pressed button to move in the positive direction of axis
-        if (inputVelocity > 0 && _player.InputHandler.IsInputActiveRun)
-            velocity = currentVelocity + ApplyFrameIndependentAccelaration();
-        
-        // Player pressed button to move in the negative direction of axis
-        else if (inputVelocity < 0 && _player.InputHandler.IsInputActiveRun)
-            velocity = currentVelocity - ApplyFrameIndependentAccelaration();
-        
-        // Player hasn't pressed any button for this axis but was moving in the positive direction.
-        else if (currentVelocity > _player.MovementHandler.THRESH)
-            velocity = currentVelocity - ApplyFrameIndependentDecelaration();
-        
-        // Player hasn't pressed any button for this axis but was moving in the negative direction.
-        else if (currentVelocity < -_player.MovementHandler.THRESH)
-            velocity = currentVelocity + ApplyFrameIndependentDecelaration();
-        
-        else
-            velocity = 0;
-
-        velocity = Mathf.Clamp(velocity, -_player.Config.run.maxVelocity, _player.Config.run.maxVelocity);
-        return velocity;
-    }
-
-    private float ApplyFrameIndependentAccelaration() { return _player.Config.run.accelaration * Time.deltaTime; }
-
-    private new float ApplyFrameIndependentDecelaration() { return _player.Config.run.decelaration * Time.deltaTime; }
 }
