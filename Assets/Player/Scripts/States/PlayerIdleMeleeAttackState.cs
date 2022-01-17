@@ -6,10 +6,10 @@ public class PlayerIdleMeleeAttackState : PlayerBaseMeleeAttackState
 
     public override void InitializeTransitions()
     {
-        _transtions.Add(new Transition(PlayerStateType.dodge, AttackToDodgeCondition, OnExitState));
-        _transtions.Add(new Transition(PlayerStateType.run, AttackToRunCondition, OnExitState));
-        _transtions.Add(new Transition(PlayerStateType.walk, AttackToWalkCondition, OnExitState));
-        _transtions.Add(new Transition(PlayerStateType.idle, AttackToIdleCondition, OnExitState));
+        _transtions.Add(new Transition(PlayerStateType.dodge, AttackToDodgeCondition));
+        _transtions.Add(new Transition(PlayerStateType.run, AttackToRunCondition));
+        _transtions.Add(new Transition(PlayerStateType.walk, AttackToWalkCondition));
+        _transtions.Add(new Transition(PlayerStateType.idle, AttackToIdleCondition));
     }
 
     public override PlayerStateType GetStateType() => PlayerStateType.melee_idle;

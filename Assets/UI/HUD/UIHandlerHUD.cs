@@ -12,45 +12,48 @@ public class UIHandlerHUD : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _manaValueText;
     [SerializeField] private PlayerStatusHandler _statusHandler;
 
+    private void OnEnable() 
+    {
+        PlayerStatusHandler.OnHealthChange += UpdateHealthBar;
+        PlayerStatusHandler.OnStaminaChange += UpdateStaminaBar;
+        PlayerStatusHandler.OnManaChange += UpdateManaBar;
+    }
+
+    private void OnDisable() 
+    {
+        PlayerStatusHandler.OnHealthChange -= UpdateHealthBar;
+        PlayerStatusHandler.OnStaminaChange -= UpdateStaminaBar;
+        PlayerStatusHandler.OnManaChange -= UpdateManaBar;
+    }
+
     private void Start()
     {
-        InitSlider(_healthBar, _statusHandler.Health);
-        InitSlider(_staminaBar, _statusHandler.Stamina);
-        InitSlider(_manaBar, _statusHandler.Mana);
+        InitSlider(_healthBar, _healthValueText, _statusHandler.Health);
+        InitSlider(_staminaBar, _staminaValueText, _statusHandler.Stamina);
+        InitSlider(_manaBar, _manaValueText, _statusHandler.Mana);
     }
 
-    private void InitSlider(Slider slider, BaseStatus status)
+    private void InitSlider(Slider bar, TextMeshProUGUI uiText, BaseStatus status)
     {
-        slider.maxValue = status.MaxCapacity;
-        slider.value = status.CurrentCapacity;
+        bar.maxValue = status.MaxCapacity;
+        bar.value = status.CurrentCapacity;
+        uiText.text = FormatStatusDisplayString(status);
     }
 
-    public void UpdateHealthBar()
+    private string FormatStatusDisplayString(BaseStatus status) 
     {
-        _healthBar.value = _statusHandler.Health.CurrentCapacity;
-        _healthValueText.text = FormatStatusDisplayString(
-            (int) _statusHandler.Health.CurrentCapacity, 
-            (int) _statusHandler.Health.MaxCapacity
-        );
+        return string.Format("{0} / {1}", (int)status.CurrentCapacity, (int)status.MaxCapacity);
     }
 
-    public void UpdateStaminaBar() 
-    { 
-        _staminaBar.value = _statusHandler.Stamina.CurrentCapacity; 
-        _staminaValueText.text = FormatStatusDisplayString(
-            (int) _statusHandler.Stamina.CurrentCapacity, 
-            (int) _statusHandler.Stamina.MaxCapacity
-        );
-    }
+    public void UpdateHealthBar() => UpdateBar(_healthBar, _healthValueText, _statusHandler.Health);
 
-    public void UpdateManaBar() 
-    { 
-        _manaBar.value = _statusHandler.Mana.CurrentCapacity; 
-        _manaValueText.text = FormatStatusDisplayString(
-            (int) _statusHandler.Mana.CurrentCapacity, 
-            (int) _statusHandler.Mana.MaxCapacity
-        );
-    }
+    public void UpdateStaminaBar() => UpdateBar(_staminaBar, _staminaValueText, _statusHandler.Stamina);
 
-    private string FormatStatusDisplayString(float current, float max) => string.Format("{0} / {1}", (int)current, (int)max);
+    public void UpdateManaBar() => UpdateBar(_manaBar, _manaValueText, _statusHandler.Mana);
+
+    private void UpdateBar(Slider bar, TextMeshProUGUI uiText, BaseStatus status)
+    {
+        bar.value = status.CurrentCapacity; 
+        uiText.text = FormatStatusDisplayString(status);
+    }
 }
