@@ -559,34 +559,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2766834767040454827, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2766834767040454827, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.3025393
-      objectReference: {fileID: 0}
-    - target: {fileID: 2766834767040454827, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -3.7756526
-      objectReference: {fileID: 0}
-    - target: {fileID: 2766834767040454827, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.9945219
-      objectReference: {fileID: 0}
-    - target: {fileID: 2766834767040454827, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.104528464
-      objectReference: {fileID: 0}
-    - target: {fileID: 2766834767040454827, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.000000029802319
-      objectReference: {fileID: 0}
-    - target: {fileID: 2766834767040454827, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.0000000037252899
-      objectReference: {fileID: 0}
+    - target: {fileID: 615096659, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
+      propertyPath: _hud
+      value: 
+      objectReference: {fileID: 679853013}
     - target: {fileID: 2766834768014683070, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -635,14 +611,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Rig
       objectReference: {fileID: 0}
-    - target: {fileID: 2766834768014683071, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3072770365810342458, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
-      propertyPath: _statusHandler
-      value: 
-      objectReference: {fileID: 615096659}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
 --- !u!1001 &476424636
@@ -1024,39 +992,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 610867228}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &615096657 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3072770365810342407, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
-  m_PrefabInstance: {fileID: 420177283}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &615096658 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2445310503804248253, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
   m_PrefabInstance: {fileID: 420177283}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &615096659
+--- !u!114 &615096659 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 615096659, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
+  m_PrefabInstance: {fileID: 420177283}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 615096657}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43fea056af2d79e428722af5d23fa8b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _player: {fileID: 615096662}
-  _hud: {fileID: 679853013}
---- !u!114 &615096662 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3072770365810342458, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
-  m_PrefabInstance: {fileID: 420177283}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 615096657}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a949c35a800cf2a4dab698988dcd1255, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &648907565

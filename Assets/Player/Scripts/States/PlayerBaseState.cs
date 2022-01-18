@@ -97,9 +97,9 @@ public abstract class PlayerBaseState
         else
             velocity = 0;
 
-        velocity = Mathf.Clamp(velocity, -_player.Config.MaxVelocityRun, _player.Config.MaxVelocityRun);
+        velocity = Mathf.Clamp(velocity, -_player.Config.run.maxVelocity, _player.Config.run.maxVelocity);
         return velocity;
     }
 
-    protected float ApplyFrameIndependentDecelaration() { return _player.Config.DecelarationRun * Time.deltaTime; }
+    protected float ApplyFrameIndependentDecelaration() => _player.Config.run.decelaration * Time.deltaTime;
 }
