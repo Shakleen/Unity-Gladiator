@@ -1,3 +1,5 @@
+using System;
+
 public class PlayerWalkState : PlayerBaseMovementState
 {
     protected const float THRESH = 1e-3f;
@@ -14,7 +16,7 @@ public class PlayerWalkState : PlayerBaseMovementState
 
     private bool ToIdleCondition() => !_player.InputHandler.IsInputActiveMovement;
 
-    public override PlayerStateType GetStateType() => PlayerStateType.walk;
+    public override Enum GetStateType() => PlayerStateType.walk;
 
     public override void OnEnterState() {}
 

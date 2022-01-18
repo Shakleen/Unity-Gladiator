@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerRunState : PlayerBaseMovementState
@@ -24,7 +25,7 @@ public class PlayerRunState : PlayerBaseMovementState
     private new bool ToMeleeCondition() => base.ToMeleeCondition() && HasReachedMaxVelocity();
     #endregion
 
-    public override PlayerStateType GetStateType() => PlayerStateType.run;
+    public override Enum GetStateType() => PlayerStateType.run;
 
     public override void OnEnterState() {}
 

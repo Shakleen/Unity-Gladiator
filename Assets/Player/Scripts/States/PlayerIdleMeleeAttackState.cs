@@ -1,3 +1,5 @@
+using System;
+
 public class PlayerIdleMeleeAttackState : PlayerBaseMeleeAttackState
 {
     public PlayerIdleMeleeAttackState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) {}
@@ -10,7 +12,7 @@ public class PlayerIdleMeleeAttackState : PlayerBaseMeleeAttackState
         _transtions.Add(new Transition(PlayerStateType.idle, AttackToIdleCondition));
     }
 
-    public override PlayerStateType GetStateType() => PlayerStateType.melee_idle;
+    public override Enum GetStateType() => PlayerStateType.melee_idle;
 
     public override void OnEnterState() {}
 

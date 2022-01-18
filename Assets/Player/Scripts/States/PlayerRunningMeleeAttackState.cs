@@ -1,3 +1,5 @@
+using System;
+
 public class PlayerRunningMeleeAttackState : PlayerBaseMeleeAttackState
 {
     public PlayerRunningMeleeAttackState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) {}
@@ -9,17 +11,11 @@ public class PlayerRunningMeleeAttackState : PlayerBaseMeleeAttackState
         _transtions.Add(new Transition(PlayerStateType.idle, AttackToIdleCondition, OnExitState));
     }
 
-    public override PlayerStateType GetStateType() => PlayerStateType.melee_running;
+    public override Enum GetStateType() => PlayerStateType.melee_running;
 
-    public override void OnEnterState() 
-    { 
-        _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(true); 
-    }
+    public override void OnEnterState() => _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(true); 
 
-    private void OnExitState() 
-    {
-        _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false);
-    }
+    private void OnExitState() => _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false);
 
     public override void ExecuteState() 
     { 

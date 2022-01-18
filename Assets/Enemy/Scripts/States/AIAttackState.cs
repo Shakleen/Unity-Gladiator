@@ -1,14 +1,22 @@
+using System;
+
 public class AIAttackState : AIBaseState
 {
     public AIAttackState(AIAgent aiAgent, AIStateMachine stateMachine) : base(aiAgent, stateMachine) {}
 
-    public override AIStateType GetStateType() { return AIStateType.attack; }
+    public override void InitializeTransitions()
+    {
+        _transtions.Add(new Transition(AIStateType.aware, ToAwareCondition));
+    }
+
+    private bool ToAwareCondition()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override Enum GetStateType() => AIStateType.attack;
 
     public override void OnEnterState() {}
 
-    public override void OnExitState() {}
-
-    public override void CheckSwitchState() {}
-
-    public override void ExecuteState() {}
+    public override void ExecuteState() => CheckSwitchState();
 }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerIdleState : PlayerBaseState
@@ -15,7 +16,7 @@ public class PlayerIdleState : PlayerBaseState
 
     private bool ToWalkCondition() => _player.InputHandler.IsInputActiveMovement;
 
-    public override PlayerStateType GetStateType() => PlayerStateType.idle;
+    public override Enum GetStateType() => PlayerStateType.idle;
 
     public override void OnEnterState() {}
 

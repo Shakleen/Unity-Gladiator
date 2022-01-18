@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerDodgeState : PlayerBaseState
@@ -39,7 +40,7 @@ public class PlayerDodgeState : PlayerBaseState
     }
     #endregion
 
-    public override PlayerStateType GetStateType() => PlayerStateType.dodge;
+    public override Enum GetStateType() => PlayerStateType.dodge;
 
     public override void OnEnterState() {}
 

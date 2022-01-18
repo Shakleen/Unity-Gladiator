@@ -1,27 +1,12 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public enum PlayerStateType { idle, walk, run, dodge, melee_idle, melee_walking, melee_running }
 
-public abstract class PlayerBaseState
+public abstract class PlayerBaseState : BaseState
 {
-    protected readonly struct Transition
-    {
-        public Transition(PlayerStateType destination, Func<bool> Condition, System.Action OnExit = null)
-        {
-            this.destination = destination;
-            this.Condition = Condition;
-            this.OnExit = OnExit;
-        }
-
-        public Func<bool> Condition { get; }
-        public PlayerStateType destination { get; }
-        public System.Action OnExit { get; }
-    }
     protected Player _player;
     protected PlayerStateMachine _stateMachine;
-    protected List<Transition> _transtions;
     protected bool _hasStamina;
     protected bool _dodgePressed, _attackPressed, _movePressed, _runPressed;
     protected float _velocityX, _velocityZ;
@@ -30,8 +15,6 @@ public abstract class PlayerBaseState
     {
         _player = player;
         _stateMachine = stateMachine;
-        _transtions = new List<Transition>();
-        InitializeTransitions();
     }
 
     public void CheckSwitchState() 
@@ -41,18 +24,11 @@ public abstract class PlayerBaseState
             if (transition.Condition())
             {
                 if (transition.OnExit != null) transition.OnExit();
-                _stateMachine.SwitchState(transition.destination);
+                _stateMachine.SwitchState((PlayerStateType) transition.destination);
                 return;
             }
         }
     }
-
-    #region Abstract methods
-    public abstract void InitializeTransitions();
-    public abstract PlayerStateType GetStateType();
-    public abstract void OnEnterState();
-    public abstract void ExecuteState();
-    #endregion
 
     #region Common transition conditions
     protected bool ToDodgeCondition()

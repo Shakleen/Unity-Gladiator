@@ -12,6 +12,8 @@ public class AILocomotion : MonoBehaviour
     
     public NavMeshAgent NavMeshAgent { get => _navMeshAgent; }
 
+    private void Start() => _timer = _aiAgent.Config.MinimumUpdateWaitTime;
+
     public void UpdateAgentPath()
     {
         _timer -= Time.deltaTime;
