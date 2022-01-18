@@ -1,6 +1,6 @@
-public enum AIStateType { idle, chase, attack, explore, death }
+public enum AIStateType { aware, chase, attack, taunt, death }
 
-public abstract class AIBaseState
+public abstract class AIBaseState : BaseState
 {
     protected AIAgent _aiAgent;
     protected AIStateMachine _stateMachine;
@@ -11,13 +11,16 @@ public abstract class AIBaseState
         _stateMachine = stateMachine;
     }
 
-    public abstract AIStateType GetStateType();
-
-    public abstract void OnEnterState();
-
-    public abstract void OnExitState();
-
-    public abstract void CheckSwitchState();
-
-    public abstract void ExecuteState();
+    public void CheckSwitchState()
+    {
+        foreach(Transition transition in _transtions)
+        {
+            if (transition.Condition())
+            {
+                if (transition.OnExit != null) transition.OnExit();
+                _stateMachine.SwitchState((AIStateType) transition.destination);
+                return;
+            }
+        }
+    }
 }

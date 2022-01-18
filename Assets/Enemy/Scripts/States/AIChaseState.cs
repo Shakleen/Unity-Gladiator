@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class AIChaseState : AIBaseState
@@ -6,43 +7,23 @@ public class AIChaseState : AIBaseState
     
     public AIChaseState(AIAgent aiAgent, AIStateMachine stateMachine) : base(aiAgent, stateMachine) {}
 
-    public override AIStateType GetStateType() { return AIStateType.chase; }
+    public override void InitializeTransitions() => _transtions.Add(new Transition(AIStateType.aware, ToAwareCondition));
 
-    public override void OnEnterState() { _timer = _aiAgent.Config.MinimumUpdateWaitTime; }
-
-    public override void OnExitState() {}
-
-    public override void CheckSwitchState() {
-        if (!IsWithInReach()) 
-            _stateMachine.SwitchState(AIStateType.idle);
-    }
-
-    private bool IsWithInReach() 
-    { 
+    private bool ToAwareCondition()
+    {
         Vector3 distanceFromPlayer = _aiAgent.PlayerTransform.position - _aiAgent.transform.position;
-        return distanceFromPlayer.magnitude <= _aiAgent.Config.AwarenessRadius; 
+        bool isWithInAttackDistance = distanceFromPlayer.magnitude <= _aiAgent.Config.AttackRadius;
+        return isWithInAttackDistance;
     }
+
+    public override Enum GetStateType() => AIStateType.chase;
+
+    public override void OnEnterState() {}
 
     public override void ExecuteState()
     {
         CheckSwitchState();
-        UpdateAgentPath();
-        _aiAgent.AnimationHandler.SetAnimationValueMovementSpeed(_aiAgent.NavMeshAgent.velocity.magnitude);
-    }
-
-    private void UpdateAgentPath()
-    {
-        _timer -= Time.deltaTime;
-
-        if (_timer < 0f)
-        {
-            float thresh = _aiAgent.Config.MinimumUpdateDistance * _aiAgent.Config.MinimumUpdateDistance;
-            float playerMoveDistance = (_aiAgent.PlayerTransform.position - _aiAgent.NavMeshAgent.destination).sqrMagnitude;
-
-            if (playerMoveDistance > thresh)
-                _aiAgent.NavMeshAgent.destination = _aiAgent.PlayerTransform.position;
-
-            _timer = _aiAgent.Config.MinimumUpdateWaitTime;
-        }
+        _aiAgent.AILocomotion.UpdateAgentPath();
+        _aiAgent.AnimationHandler.SetAnimationValueMovementSpeed(_aiAgent.AILocomotion.NavMeshAgent.velocity.magnitude);
     }
 }

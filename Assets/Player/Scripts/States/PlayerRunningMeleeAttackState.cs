@@ -1,4 +1,4 @@
-using UnityEngine;
+using System;
 
 public class PlayerRunningMeleeAttackState : PlayerBaseMeleeAttackState
 {
@@ -11,19 +11,11 @@ public class PlayerRunningMeleeAttackState : PlayerBaseMeleeAttackState
         _transtions.Add(new Transition(PlayerStateType.idle, AttackToIdleCondition, OnExitState));
     }
 
-    public override PlayerStateType GetStateType() => PlayerStateType.melee_running;
+    public override Enum GetStateType() => PlayerStateType.melee_running;
 
-    public override void OnEnterState() 
-    { 
-        _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(true); 
-        _player.StatusHandler.UseStamina(_player.Config.staminaCost.runningMeleeAttack);
-    }
+    public override void OnEnterState() => _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(true); 
 
-    private void OnExitState() 
-    {
-        _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false);
-        _player.MovementHandler.StopMovement();
-    }
+    private void OnExitState() => _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false);
 
     public override void ExecuteState() 
     { 

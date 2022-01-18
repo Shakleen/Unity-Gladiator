@@ -60,7 +60,7 @@ ModelImporter:
       curves: []
       events:
       - time: 0.28502417
-        functionName: AnimationEventMeleeAttackStart
+        functionName: AnimationEventMeleeAttacking
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -68,6 +68,13 @@ ModelImporter:
         messageOptions: 0
       - time: 0.81642514
         functionName: AnimationEventMeleeAttackEnd
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0
+        functionName: AnimationEventMeleeAttackStart
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

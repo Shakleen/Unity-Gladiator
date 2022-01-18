@@ -23,7 +23,7 @@ public class PlayerStateMachine
             if (type.IsSubclassOf(typeof(PlayerBaseState)) && !type.IsAbstract)
             {
                 PlayerBaseState state = (PlayerBaseState) Activator.CreateInstance(type, _player, this);
-                int index = GetIndex(state.GetStateType());
+                int index = GetIndex(GetStateType(state.GetStateType()));
                 _states[index] = state;
             }
         }
@@ -31,16 +31,19 @@ public class PlayerStateMachine
 
     public void SwitchState(PlayerStateType newStateType)
     {
-        PlayerBaseState newState = GetPlayerState(newStateType);
+        PlayerBaseState newState = CaseStateType(newStateType);
         newState.OnEnterState();
         _currentState = newState;
+        _player.CurrentState = newStateType;
     }
 
-    public void ExecuteState() { _currentState.ExecuteState(); }
+    public void ExecuteState() => _currentState.ExecuteState();
 
-    public PlayerStateType GetCurrentStateType() { return _currentState.GetStateType(); }
+    public PlayerStateType GetCurrentStateType() => GetStateType(_currentState.GetStateType());
 
-    private PlayerBaseState GetPlayerState(PlayerStateType stateType) { return _states[GetIndex(stateType)]; }
+    private PlayerStateType GetStateType(Enum state) => (PlayerStateType) state;
 
-    private static int GetIndex(PlayerStateType stateType) { return (int)(object)stateType; }
+    private PlayerBaseState CaseStateType(PlayerStateType stateType) => _states[GetIndex(stateType)];
+
+    private static int GetIndex(PlayerStateType stateType) => (int)(object)stateType;
 }

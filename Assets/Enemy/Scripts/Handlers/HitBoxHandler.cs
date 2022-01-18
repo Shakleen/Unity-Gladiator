@@ -10,7 +10,6 @@ public class HitBoxHandler : MonoBehaviour
         
         if (other.gameObject.tag == "Weapon")
         {
-            Debug.Log("Weapon hit me!");
             MeleeWeaponHandler weapon = other.GetComponent<MeleeWeaponHandler>();
             
             if (weapon != null)

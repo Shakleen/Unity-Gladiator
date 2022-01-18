@@ -10,7 +10,7 @@ public class AIStateMachine
     {
         _aiAgent = aiAgent;
         InitializeStates();
-        _currentState = _states[GetIndex(AIStateType.idle)];
+        _currentState = _states[GetIndex(AIStateType.aware)];
     }
 
     private void InitializeStates()
@@ -23,7 +23,7 @@ public class AIStateMachine
             if (type.IsSubclassOf(typeof(AIBaseState)))
             {
                 AIBaseState state = (AIBaseState) Activator.CreateInstance(type, _aiAgent, this);
-                int index = GetIndex(state.GetStateType());
+                int index = GetIndex(CastStateType(state.GetStateType()));
                 _states[index] = state;
             }
         }
@@ -31,7 +31,7 @@ public class AIStateMachine
 
     public void ExecuteState() 
     { 
-        if (_currentState.GetStateType() != AIStateType.death)
+        if (CastStateType(_currentState.GetStateType()) != AIStateType.death)
         {
             if (_aiAgent.Health.IsEmpty())
                 SwitchState(AIStateType.death);
@@ -43,12 +43,14 @@ public class AIStateMachine
     public void SwitchState(AIStateType newStateType)
     {
         AIBaseState newState = _states[GetIndex(newStateType)];
-        _currentState.OnExitState();
         newState.OnEnterState();
         _currentState = newState;
+        _aiAgent.CurrentState = newStateType;
     }
 
-    public AIStateType GetCurrentStateType() { return _currentState.GetStateType(); }
+    public AIStateType GetCurrentStateType() => CastStateType(_currentState.GetStateType());
 
-    private static int GetIndex(AIStateType stateType) { return (int)(object)stateType; }
+    private AIStateType CastStateType(Enum state) => (AIStateType) state;
+
+    private static int GetIndex(AIStateType stateType) => (int)(object)stateType;
 }

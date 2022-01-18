@@ -2,30 +2,28 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // =================================================================================================================================================
-    //                                                          References and Variables
-    // =================================================================================================================================================
+    #region Component references
     [SerializeField] private PlayerMovementHandler _movementController;
     [SerializeField] private PlayerInputHandler _inputHandler;
     [SerializeField] private PlayerAnimationHandler _animationHandler;
     [SerializeField] private PlayerStatusHandler _statusHandler;
+    [SerializeField] private PlayerAttackHandler _attackHandler;
     [SerializeField] private PlayerStateType _currentStateType;
     [SerializeField] private Config _config;
     private PlayerStateMachine _stateMachine;
+    #endregion
 
 
-    // =================================================================================================================================================
-    //                                                              Getters and Setters
-    // =================================================================================================================================================
-    public PlayerMovementHandler MovementHandler { get { return _movementController; } }
-    public PlayerInputHandler InputHandler { get { return _inputHandler; } }
-    public PlayerAnimationHandler AnimatorHandler { get { return _animationHandler; } }
-    public PlayerStatusHandler StatusHandler { get { return _statusHandler; } }
-    public Config Config { get { return _config; } }
-
-    // =================================================================================================================================================
-    //                                                                  Functions
-    // =================================================================================================================================================
+    #region Getters and setter
+    public PlayerMovementHandler MovementHandler { get => _movementController; }
+    public PlayerInputHandler InputHandler { get => _inputHandler; }
+    public PlayerAnimationHandler AnimatorHandler { get => _animationHandler; }
+    public PlayerStatusHandler StatusHandler { get => _statusHandler; }
+    public PlayerAttackHandler AttackHandler { get => _attackHandler; }
+    public PlayerStateType CurrentState { get => _currentStateType; set => _currentStateType = value; }
+    public Config Config { get => _config; }
+    #endregion
+    
     private void Awake() 
     { 
         Cursor.lockState = CursorLockMode.Locked; 
@@ -34,9 +32,9 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        _currentStateType = _stateMachine.GetCurrentStateType();
         _stateMachine.ExecuteState();
-        _statusHandler.Regenerate();
         _movementController.MoveCharacter();
+        _statusHandler.Regenerate();
+        _attackHandler.DecreaseAttackComboTimer();
     }
 }

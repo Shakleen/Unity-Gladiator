@@ -1,10 +1,10 @@
+using System;
 using UnityEngine;
 
 public class PlayerStatusHandler : MonoBehaviour
 {
+    #region references
     [SerializeField] private Player _player;
-    [SerializeField] private UIHandlerHUD _hud;
-
     private RegenStatus _health;
     private RegenStatus _stamina;
     private RegenStatus _mana;
@@ -12,78 +12,71 @@ public class PlayerStatusHandler : MonoBehaviour
     private float _staminaRegenDelay;
     private float _healthRegenDelay;
     private float _manaRegenDelay;
+    #endregion
 
+    #region getters
     public RegenStatus Health { get { return _health; } }
     public RegenStatus Stamina { get { return _stamina; } }
     public RegenStatus Mana { get { return _mana; } }
+    #endregion
 
+    #region Events
+    public static event Action OnHealthChange;
+    public static event Action OnStaminaChange;
+    public static event Action OnManaChange;
+    #endregion
+
+    #region Awake
     private void Awake() 
     {    
-        _regenDelay = _player.Config.misc.RegenDelay;
-        _health = new RegenStatus(
-            _player.Config.health.initialCapacity, 
-            _player.Config.health.regenPerSec, 
-            _player.Config.health.depletePerSec
-        );
-        _stamina = new RegenStatus(
-            _player.Config.stamina.initialCapacity, 
-            _player.Config.stamina.regenPerSec, 
-            _player.Config.stamina.depletePerSec
-        );
-        _mana = new RegenStatus(
-            _player.Config.mana.initialCapacity, 
-            _player.Config.mana.regenPerSec, 
-            _player.Config.mana.depletePerSec
-        );
+        _regenDelay = _player.Config.misc.regenDelay;
+        _health = MakeStatus(_player.Config.health);
+        _stamina = MakeStatus(_player.Config.stamina);
+        _mana = MakeStatus(_player.Config.mana);
     }
 
-    private void Start()
-    {
-        _hud.UpdateHealthBar();
-        _hud.UpdateStaminaBar();
-        _hud.UpdateManaBar();
-    }
+    private RegenStatus MakeStatus(StatusConfig config) => new RegenStatus(config.initialCapacity, config.regenPerSec, config.depletePerSec);
+    #endregion
 
+    #region Stamina consumption
     public void DepleteStamina()
     {
         _staminaRegenDelay = _regenDelay;
         _stamina.Deplete();
-        _hud.UpdateStaminaBar();
+        OnStaminaChange?.Invoke();
     }
 
     public void UseStamina(float value)
     {
         _staminaRegenDelay = _regenDelay;
         _stamina.Take(value);
-        _hud.UpdateStaminaBar();
+        OnStaminaChange?.Invoke();
     }
+    #endregion
 
-    public bool HasSufficientStamina() { return _stamina.CurrentCapacity > (_stamina.MaxCapacity / 5); }
-
+    #region Regenerate status
     public void Regenerate()
     {
-        if (!_health.IsFull() && _healthRegenDelay <= 0f)
-        {
-            _health.Regenerate();
-            _hud.UpdateHealthBar();
-        }
-        
-        if (!_stamina.IsFull() && _staminaRegenDelay <= 0f)
-        {
-            _stamina.Regenerate();
-            _hud.UpdateStaminaBar();
-        }
-
-        if (!_mana.IsFull() && _manaRegenDelay <= 0f)
-        {
-            _mana.Regenerate();
-            _hud.UpdateManaBar();
-        }
-
-        _healthRegenDelay = DecreaseDelayTimer(_healthRegenDelay);
-        _staminaRegenDelay = DecreaseDelayTimer(_staminaRegenDelay);
-        _manaRegenDelay = DecreaseDelayTimer(_manaRegenDelay);
+        _healthRegenDelay = RegenerateStatus(_health, _healthRegenDelay, OnHealthChange);
+        _staminaRegenDelay = RegenerateStatus(_stamina, _staminaRegenDelay, OnStaminaChange);
+        _manaRegenDelay = RegenerateStatus(_mana, _manaRegenDelay, OnManaChange);
     }
 
-    private float DecreaseDelayTimer(float value) { return value <= 0f ? value : value - Time.deltaTime; }
+    private float RegenerateStatus(RegenStatus status, float regenDelay, Action OnChange)
+    {
+        if (!status.IsFull() && regenDelay <= 0f)
+        {
+            status.Regenerate();
+            OnChange?.Invoke();
+        }
+        else
+        {
+            regenDelay = CountDownTimer(regenDelay);
+        }
+
+        return regenDelay;
+    }
+
+    private float CountDownTimer(float value) => value <= 0f ? value : value - Time.deltaTime;
+    #endregion
 }

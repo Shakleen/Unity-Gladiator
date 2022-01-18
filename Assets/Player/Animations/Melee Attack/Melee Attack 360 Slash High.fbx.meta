@@ -1,14 +1,11 @@
 fileFormatVersion: 2
-guid: f0cbc93347e33f343a7720fc9ada92af
+guid: 93ff826ff02f07e4f9a05c11d2303430
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: mixamo.com
-  - first:
-      74: -2325462338344818945
-    second: Melee Attack Right to Left
+    second: Melee Attack 360 Slash High
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -38,11 +35,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Melee Attack Right to Left
+      name: Melee Attack 360 Slash High
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 72
+      lastFrame: 95
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -62,15 +59,22 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.34299517
-        functionName: AnimationEventMeleeAttackStart
+      - time: 0.11831409
+        functionName: AnimationEventMeleeAttacking
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.8115942
+      - time: 0.4731407
         functionName: AnimationEventMeleeAttackEnd
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0
+        functionName: AnimationEventMeleeAttackStart
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

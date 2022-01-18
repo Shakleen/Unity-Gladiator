@@ -1,93 +1,61 @@
 using System;
 using UnityEngine;
 
-public class PlayerRunState : PlayerBaseState
+public class PlayerRunState : PlayerBaseMovementState
 {
-    public PlayerRunState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) {}
+    private bool _hasVelocityX, _hasVelocityZ;
+
+    public PlayerRunState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine, player.Config.run) {}
 
     public override void InitializeTransitions()
     {
-        _transtions.Add(new Transition(PlayerStateType.walk, ToWalkCondition, () => _player.AnimatorHandler.SetAnimationValueIsRunning(false)));
+        _transtions.Add(new Transition(PlayerStateType.walk, ToWalkCondition));
         _transtions.Add(new Transition(PlayerStateType.dodge, ToDodgeCondition));
         _transtions.Add(new Transition(PlayerStateType.melee_running, ToMeleeCondition));
     }
 
+    #region Transition condition
     private bool ToWalkCondition()
     {
-        bool hasNoStamina = _player.StatusHandler.Stamina.IsEmpty();
-        bool runPressed = _player.InputHandler.IsInputActiveRun;
-        return hasNoStamina || (!runPressed && !HasRunVelocity());
+        _hasStamina = !_player.StatusHandler.Stamina.IsEmpty();
+        _runPressed = _player.InputHandler.IsInputActiveRun;
+        return (!_hasStamina || !_runPressed) && !HasRunVelocity();
     }
 
     private new bool ToMeleeCondition() => base.ToMeleeCondition() && HasReachedMaxVelocity();
+    #endregion
 
-    public override PlayerStateType GetStateType() => PlayerStateType.run;
+    public override Enum GetStateType() => PlayerStateType.run;
 
-    public override void OnEnterState() { _player.AnimatorHandler.SetAnimationValueIsRunning(true); }
+    public override void OnEnterState() {}
 
+    #region Velocity checks
     private bool HasReachedMaxVelocity()
     {
-        bool hasRunVelocityX = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocityX) == _player.Config.run.maxVelocity;
-        bool hasRunVelocityZ = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocityZ) == _player.Config.run.maxVelocity;
-        return hasRunVelocityX || hasRunVelocityZ;
+        _hasVelocityX = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocity.x) == _player.Config.run.maxVelocity;
+        _hasVelocityZ = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocity.z) == _player.Config.run.maxVelocity;
+        return _hasVelocityX || _hasVelocityZ;
     }
 
     private bool HasRunVelocity()
     {
-        bool hasRunVelocityX = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocityX) > _player.Config.walk.maxVelocity;
-        bool hasRunVelocityZ = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocityZ) > _player.Config.walk.maxVelocity;
-        return hasRunVelocityX || hasRunVelocityZ;
+        _hasVelocityX = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocity.x) > _player.Config.walk.maxVelocity;
+        _hasVelocityZ = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocity.z) > _player.Config.walk.maxVelocity;
+        return _hasVelocityX || _hasVelocityZ;
     }
+    #endregion
 
     public override void ExecuteState() 
     { 
         CheckSwitchState();
         _player.MovementHandler.RotateTowardsCameraDirection();
-        UpdateRunVelocity();
-        _player.StatusHandler.DepleteStamina();
-    }
-
-    private void UpdateRunVelocity()
-    {
-        Vector2 inputMoveVector = _player.InputHandler.InputMoveVector;
-
-        float velocityX = _player.MovementHandler.CurrentMovementVelocityX;
-        velocityX = ChangeAxisVelocity(inputMoveVector.x, velocityX);
-        _player.MovementHandler.CurrentMovementVelocityX = velocityX;
-
-        float velocityZ = _player.MovementHandler.CurrentMovementVelocityZ;
-        velocityZ = ChangeAxisVelocity(inputMoveVector.y, velocityZ);
-        _player.MovementHandler.CurrentMovementVelocityZ = velocityZ;
-    }
-
-    private float ChangeAxisVelocity(float inputVelocity, float currentVelocity)
-    {
-        float velocity = currentVelocity;
-
-        // Player pressed button to move in the positive direction of axis
-        if (inputVelocity > 0 && _player.InputHandler.IsInputActiveRun)
-            velocity = currentVelocity + ApplyFrameIndependentAccelaration();
         
-        // Player pressed button to move in the negative direction of axis
-        else if (inputVelocity < 0 && _player.InputHandler.IsInputActiveRun)
-            velocity = currentVelocity - ApplyFrameIndependentAccelaration();
-        
-        // Player hasn't pressed any button for this axis but was moving in the positive direction.
-        else if (currentVelocity > _player.MovementHandler.THRESH)
-            velocity = currentVelocity - ApplyFrameIndependentDecelaration();
-        
-        // Player hasn't pressed any button for this axis but was moving in the negative direction.
-        else if (currentVelocity < -_player.MovementHandler.THRESH)
-            velocity = currentVelocity + ApplyFrameIndependentDecelaration();
-        
+        if (_player.InputHandler.IsInputActiveRun && !_player.StatusHandler.Stamina.IsEmpty())
+        {
+            UpdateVelocity();
+            _player.StatusHandler.DepleteStamina();
+        }
         else
-            velocity = 0;
-
-        velocity = Mathf.Clamp(velocity, -_player.Config.run.maxVelocity, _player.Config.run.maxVelocity);
-        return velocity;
+            Decelarate();
     }
-
-    private float ApplyFrameIndependentAccelaration() { return _player.Config.run.accelaration * Time.deltaTime; }
-
-    private new float ApplyFrameIndependentDecelaration() { return _player.Config.run.decelaration * Time.deltaTime; }
 }
