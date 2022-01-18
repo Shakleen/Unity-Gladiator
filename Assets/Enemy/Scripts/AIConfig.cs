@@ -19,10 +19,22 @@ public class AIConfig : ScriptableObject {
     [Tooltip("Health the enemy starts with")]
     [SerializeField] private float _health = 100.0f;
 
-    public float MinimumUpdateWaitTime { get { return _minimumUpdateWaitTime; } }
-    public float MinimumUpdateDistance { get { return _minimumUpdateDistance; } }
-    public float AwarenessRadius { get { return _awarenessRadius; } }
-    public float AttackRadius { get { return _attackRadius; } }
-    public float Health { get { return _health; } }
-    
+    [Tooltip("Probability that enemy will transition to attack and not taunt")]
+    [SerializeField] [Range(0.0f, 1.0f)] private float _attackChance = 0.5f;
+
+    [Tooltip("Minimum amount of time to wait before initiating next attack")]
+    [SerializeField] private float _attackCoolDown = 1.0f;
+
+    [Tooltip("Minimum amount of time to wait before initiating next taunt")]
+    [SerializeField] private float _tauntCoolDown = 1.0f;
+
+    public float MinimumUpdateWaitTime { get => _minimumUpdateWaitTime; }
+    public float MinimumUpdateDistance { get => _minimumUpdateDistance; }
+    public float AwarenessRadius { get => _awarenessRadius; }
+    public float AttackRadius { get => _attackRadius; }
+    public float AttackChance { get => _attackChance; }
+    public float AttackCoolDown { get => _attackCoolDown; }
+    public float TauntCoolDown { get => _tauntCoolDown; }
+    public float Health { get => _health; }
+
 }

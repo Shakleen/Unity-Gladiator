@@ -611,6 +611,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Rig
       objectReference: {fileID: 0}
+    - target: {fileID: 2934077880791361306, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
 --- !u!114 &420177287 stripped
@@ -4274,9 +4278,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 7268081840943836663, guid: 56cd909294774c841a8b27717f1c8b8d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7501871340276781272, guid: 56cd909294774c841a8b27717f1c8b8d, type: 3}
+      propertyPath: m_Acceleration
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7501871340276781272, guid: 56cd909294774c841a8b27717f1c8b8d, type: 3}
       propertyPath: m_StoppingDistance
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7501871340276781276, guid: 56cd909294774c841a8b27717f1c8b8d, type: 3}
       propertyPath: _playerTransform
