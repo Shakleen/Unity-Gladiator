@@ -17,7 +17,7 @@ public class AITauntState : AIBaseState
 
     public override Enum GetStateType() => AIStateType.taunt;
 
-    public override void OnEnterState() => _aiAgent.AnimationHandler.SetAnimationValueIsTaunting(true);
+    public override void OnEnterState() {}
 
     private void OnExitState() => _aiAgent.AnimationHandler.SetAnimationValueIsTaunting(false);
 

@@ -38,7 +38,7 @@ public class AIAnimationHandler : MonoBehaviour
     #region Animation event callbacks
     private void AnimationEventTauntStart() => _isTaunting = true;
     private void AnimationEventTauntEnd() => _isTaunting = false;
-    private void AnimationEventMeleeAttackStart() => _isAttacking = false;
+    private void AnimationEventMeleeAttackStart() => _isAttacking = true;
     private void AnimationEventMeleeAttackEnd() => _isAttacking = false;
     #endregion
 }

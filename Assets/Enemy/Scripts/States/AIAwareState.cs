@@ -3,10 +3,11 @@ using UnityEngine;
 
 public class AIAwareState : AIBaseState
 {
-    private const float TIMER_THRESH = 1e-5f;
+    private const float TIMER_THRESH = 1e-3f;
     private float _attackTimer, _tauntTimer;
     private float _distanceFromPlayer, _attackCoolDown;
-    private bool _isWithInAwareness, _isWithInAttackRadius, _willAttack, _attackCoolDownOver;
+    private bool _isWithInAwareness, _isWithInAttackRadius, _willAttack, _attackCoolDownOver, _reachedMaxTaunts;
+    private int _tauntCount;
 
     public AIAwareState(AIAgent aiAgent, AIStateMachine stateMachine) : base(aiAgent, stateMachine) {}
 
@@ -36,7 +37,8 @@ public class AIAwareState : AIBaseState
     private bool ToTauntCondition()
     {
         _isWithInAttackRadius = DistanceFromPlayer() <= _aiAgent.Config.AttackRadius;
-        return _isWithInAttackRadius && HasTimerRunOut(_tauntTimer);
+        _reachedMaxTaunts = _tauntCount == _aiAgent.Config.MaxTaunts;
+        return _isWithInAttackRadius && !_reachedMaxTaunts && HasTimerRunOut(_tauntTimer);
     }
 
     private float DistanceFromPlayer()=> (_aiAgent.PlayerTransform.position - _aiAgent.transform.position).magnitude;
@@ -45,9 +47,19 @@ public class AIAwareState : AIBaseState
     private bool HasTimerRunOut(float timer) => timer <= TIMER_THRESH;
 
     #region Transition On Exit functions
-    private void OnExitToAttack() => _attackTimer = _aiAgent.Config.AttackCoolDown;
+    private void OnExitToAttack() 
+    { 
+        _attackTimer = _aiAgent.Config.AttackCoolDown; 
+        _tauntCount = 0;
+        _aiAgent.AnimationHandler.SetAnimationValueIsAttacking(true); 
+    }
 
-    private void OnExitToTaunt() => _tauntTimer = _aiAgent.Config.TauntCoolDown;
+    private void OnExitToTaunt() 
+    { 
+        _tauntTimer = _aiAgent.Config.TauntCoolDown;
+        _tauntCount++;
+        _aiAgent.AnimationHandler.SetAnimationValueIsTaunting(true); 
+    }
     #endregion
 
     public override Enum GetStateType() => AIStateType.aware;
@@ -62,13 +74,13 @@ public class AIAwareState : AIBaseState
         _tauntTimer = TimerCountDown(_tauntTimer);
     }
 
-    private float TimerCountDown(float tiemr)
+    private float TimerCountDown(float timer)
     {
-        if (tiemr > TIMER_THRESH)
-            tiemr -= Time.deltaTime;
+        if (HasTimerRunOut(timer))
+            timer = 0f;
         else
-            tiemr = 0f;
+            timer -= Time.deltaTime;
         
-        return tiemr;
+        return timer;
     }
 }
