@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerAttackHandler : MonoBehaviour
@@ -18,9 +19,23 @@ public class PlayerAttackHandler : MonoBehaviour
     
     public bool InAttackState() => _attackStarted || _attacking || _attackEnded;
 
-    private void OnEnable() => PlayerInputHandler.OnAttackPressed += RequestQueueNextAttack;
+    private void OnEnable() 
+    {
+        PlayerInputHandler.OnAttackPressed += RequestQueueNextAttack;
+        PlayerAnimationHandler.OnAttackSlashStart += OnSlashStart;
+        PlayerAnimationHandler.OnAttackSlashEnd += OnSlashEnd;
+    }
 
-    private void OnDisable() => PlayerInputHandler.OnAttackPressed -= RequestQueueNextAttack;
+    private void OnDisable() 
+    {
+        PlayerInputHandler.OnAttackPressed -= RequestQueueNextAttack;
+        PlayerAnimationHandler.OnAttackSlashStart += OnSlashStart;
+        PlayerAnimationHandler.OnAttackSlashEnd += OnSlashEnd;
+    }
+
+    private void OnSlashStart() => _weapon.SetTrailActive(true);
+
+    private void OnSlashEnd() => _weapon.SetTrailActive(false);
 
     #region Attacking queuing
     private void RequestQueueNextAttack()

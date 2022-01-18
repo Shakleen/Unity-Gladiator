@@ -1,7 +1,13 @@
+using System;
 using UnityEngine;
 
 public class PlayerAnimationHandler : MonoBehaviour
 {
+    #region Events
+    public static event Action OnAttackSlashStart;
+    public static event Action OnAttackSlashEnd;
+    #endregion
+
     #region Component references
     [SerializeField] private Animator _animator;
     [SerializeField] private Player _player;
@@ -128,8 +134,13 @@ public class PlayerAnimationHandler : MonoBehaviour
     {
         _player.AttackHandler.SetAttackBools(happening : true);
         _player.StatusHandler.UseStamina(_player.Config.staminaCost.idleMeleeAttack);
+        OnAttackSlashStart?.Invoke();
     }
-    private void AnimationEventMeleeAttackEnd() => _player.AttackHandler.SetAttackBools(ended : true);
+    private void AnimationEventMeleeAttackEnd() 
+    {
+        _player.AttackHandler.SetAttackBools(ended : true);
+        OnAttackSlashEnd?.Invoke();
+    }
     #endregion
 
     #endregion
