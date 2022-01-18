@@ -8,12 +8,7 @@ public class AITauntState : AIBaseState
 
     public override void InitializeTransitions() => _transtions.Add(new Transition(AIStateType.aware, ToAwareCondition, OnExitState));
     
-    private bool ToAwareCondition()
-    {
-        _isAnimationPlaying = _aiAgent.AnimationHandler.IsAnimationPlaying();
-        _isTaunting = _aiAgent.AnimationHandler.IsTaunting;
-        return !_isAnimationPlaying && !_isTaunting;
-    }
+    private bool ToAwareCondition() => !_aiAgent.AnimationHandler.IsTaunting;
 
     public override Enum GetStateType() => AIStateType.taunt;
 

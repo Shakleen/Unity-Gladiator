@@ -29,8 +29,9 @@ public class AIAgent : MonoBehaviour
         _health = new BaseStatus(_config.Health);
     }
 
-    private void Update() 
-    { 
-        _stateMachine.ExecuteState(); 
+    private void Update()
+    {
+        _stateMachine.ExecuteState();
+        _aiLocomotion.DecreaseTimer();
     }
 }

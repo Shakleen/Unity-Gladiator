@@ -3,12 +3,6 @@ using UnityEngine;
 
 public class AIAwareState : AIBaseState
 {
-    private const float TIMER_THRESH = 1e-3f;
-    private float _attackTimer, _tauntTimer;
-    private float _distanceFromPlayer, _attackCoolDown;
-    private bool _isWithInAwareness, _isWithInAttackRadius, _willAttack, _attackCoolDownOver, _reachedMaxTaunts;
-    private int _tauntCount;
-
     public AIAwareState(AIAgent aiAgent, AIStateMachine stateMachine) : base(aiAgent, stateMachine) {}
 
     public override void InitializeTransitions()
@@ -19,45 +13,51 @@ public class AIAwareState : AIBaseState
     }
 
     #region Transition conditions
-    public bool ToChaseCondition()
-    {
-        _distanceFromPlayer = DistanceFromPlayer();
-        _isWithInAwareness = _distanceFromPlayer <= _aiAgent.Config.AwarenessRadius;
-        _isWithInAttackRadius = _distanceFromPlayer <= _aiAgent.Config.AttackRadius;
-        return _isWithInAwareness && !_isWithInAttackRadius;
-    }
+    public bool ToChaseCondition() => IsWithInAwarenessRadius() && !IsWithInAttackRadius();
 
     private bool ToAttackCondition()
     {
-        _willAttack = UnityEngine.Random.Range(0f, 1f) <= _aiAgent.Config.AttackChance;
-        _isWithInAttackRadius = DistanceFromPlayer() <= _aiAgent.Config.AttackRadius;
-        return _willAttack && _isWithInAttackRadius & HasTimerRunOut(_attackTimer);
+        bool willAttack = UnityEngine.Random.Range(0f, 1f) <= _aiAgent.Config.AttackChance;
+        bool isCoolDownOver = _aiAgent.AILocomotion.HasTimerRunOut(_aiAgent.AILocomotion.AttackCoolDownTimer);
+        return IsWithInAttackRadius() && willAttack && isCoolDownOver;
     }
 
     private bool ToTauntCondition()
     {
-        _isWithInAttackRadius = DistanceFromPlayer() <= _aiAgent.Config.AttackRadius;
-        _reachedMaxTaunts = _tauntCount == _aiAgent.Config.MaxTaunts;
-        return _isWithInAttackRadius && !_reachedMaxTaunts && HasTimerRunOut(_tauntTimer);
+        bool reachedMaxTaunts = _aiAgent.AILocomotion.ReachedMaxTaunts();
+        bool isCoolDownOver = _aiAgent.AILocomotion.HasTimerRunOut(_aiAgent.AILocomotion.TauntCoolDownTimer);
+        return IsWithInAttackRadius() && !reachedMaxTaunts && isCoolDownOver;
     }
+
+    private bool IsWithInAttackRadius()
+    {
+        float distanceFromPlayer = _aiAgent.AILocomotion.DistanceFromPlayerSqrMagnitude();
+        return distanceFromPlayer <= Square(_aiAgent.Config.AttackRadius);
+    }
+
+    private bool IsWithInAwarenessRadius()
+    {
+        float distanceFromPlayer = _aiAgent.AILocomotion.DistanceFromPlayerSqrMagnitude();
+        return distanceFromPlayer <= Square(_aiAgent.Config.AwarenessRadius);
+    }
+
+    private float Square(float value) => value * value;
 
     private float DistanceFromPlayer()=> (_aiAgent.PlayerTransform.position - _aiAgent.transform.position).magnitude;
     #endregion
 
-    private bool HasTimerRunOut(float timer) => timer <= TIMER_THRESH;
-
     #region Transition On Exit functions
     private void OnExitToAttack() 
     { 
-        _attackTimer = _aiAgent.Config.AttackCoolDown; 
-        _tauntCount = 0;
+        _aiAgent.AILocomotion.ResetAttackCoolDown();
+        _aiAgent.AILocomotion.ResetTauntCount();
         _aiAgent.AnimationHandler.SetAnimationValueIsAttacking(true); 
     }
 
     private void OnExitToTaunt() 
     { 
-        _tauntTimer = _aiAgent.Config.TauntCoolDown;
-        _tauntCount++;
+        _aiAgent.AILocomotion.ResetTauntCoolDown();
+        _aiAgent.AILocomotion.IncremetTauntCount();
         _aiAgent.AnimationHandler.SetAnimationValueIsTaunting(true); 
     }
     #endregion
@@ -70,17 +70,5 @@ public class AIAwareState : AIBaseState
     { 
         CheckSwitchState(); 
         _aiAgent.AnimationHandler.SetAnimationValueMovementSpeed(0f);
-        _attackTimer = TimerCountDown(_attackTimer);
-        _tauntTimer = TimerCountDown(_tauntTimer);
-    }
-
-    private float TimerCountDown(float timer)
-    {
-        if (HasTimerRunOut(timer))
-            timer = 0f;
-        else
-            timer -= Time.deltaTime;
-        
-        return timer;
     }
 }

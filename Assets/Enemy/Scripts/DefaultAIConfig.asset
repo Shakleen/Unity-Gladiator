@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da18848dd9300c3469bc9ab8e547b5bc, type: 3}
   m_Name: DefaultAIConfig
   m_EditorClassIdentifier: 
-  _minimumUpdateWaitTime: 1
+  _minimumUpdateWaitTime: 3
   _minimumUpdateDistance: 5
+  _awarenessRadius: 1000
+  _attackRadius: 2
   _health: 100
+  _attackChance: 0.5
+  _attackCoolDown: 5
+  _tauntCoolDown: 3
+  _maxTaunts: 3

@@ -23,10 +23,10 @@ public class AIConfig : ScriptableObject {
     [SerializeField] [Range(0.0f, 1.0f)] private float _attackChance = 0.5f;
 
     [Tooltip("Minimum amount of time to wait before initiating next attack")]
-    [SerializeField] private float _attackCoolDown = 3.0f;
+    [SerializeField] private float _attackCoolDown = 5.0f;
 
     [Tooltip("Minimum amount of time to wait before initiating next taunt")]
-    [SerializeField] private float _tauntCoolDown = 2.0f;
+    [SerializeField] private float _tauntCoolDown = 3.0f;
 
     [Tooltip("Maximum taunts in a row before an attack")]
     [SerializeField] private int _maxTaunts = 3;

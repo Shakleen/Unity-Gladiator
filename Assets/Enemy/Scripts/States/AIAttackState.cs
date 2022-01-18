@@ -8,12 +8,7 @@ public class AIAttackState : AIBaseState
 
     public override void InitializeTransitions() => _transtions.Add(new Transition(AIStateType.aware, ToAwareCondition, OnExitState));
 
-    private bool ToAwareCondition() 
-    {
-        _isAnimationPlaying = _aiAgent.AnimationHandler.IsAnimationPlaying();
-        _isAttacking = _aiAgent.AnimationHandler.IsAttacking;
-        return !_isAnimationPlaying && !_isAttacking;
-    }
+    private bool ToAwareCondition() => !_aiAgent.AnimationHandler.IsAttacking;
 
     public override Enum GetStateType() => AIStateType.attack;
 

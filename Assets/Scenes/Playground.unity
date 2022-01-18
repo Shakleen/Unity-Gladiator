@@ -4142,6 +4142,30 @@ PrefabInstance:
       propertyPath: _statusHandler
       value: 
       objectReference: {fileID: 420177287}
+    - target: {fileID: 3393931402689345364, guid: 25c3e12338463424a9f69e4faa320073, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3393931402689345364, guid: 25c3e12338463424a9f69e4faa320073, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3393931402835480497, guid: 25c3e12338463424a9f69e4faa320073, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3393931402835480497, guid: 25c3e12338463424a9f69e4faa320073, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3393931403004675650, guid: 25c3e12338463424a9f69e4faa320073, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3393931403004675650, guid: 25c3e12338463424a9f69e4faa320073, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3393931403583410155, guid: 25c3e12338463424a9f69e4faa320073, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4291,12 +4315,16 @@ PrefabInstance:
       value: -0.022045696
       objectReference: {fileID: 0}
     - target: {fileID: 7501871340276781272, guid: 56cd909294774c841a8b27717f1c8b8d, type: 3}
+      propertyPath: m_Speed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7501871340276781272, guid: 56cd909294774c841a8b27717f1c8b8d, type: 3}
       propertyPath: m_Acceleration
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7501871340276781272, guid: 56cd909294774c841a8b27717f1c8b8d, type: 3}
       propertyPath: m_StoppingDistance
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7501871340276781276, guid: 56cd909294774c841a8b27717f1c8b8d, type: 3}
       propertyPath: _playerTransform
