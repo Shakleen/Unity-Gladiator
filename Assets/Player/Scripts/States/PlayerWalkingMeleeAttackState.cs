@@ -14,17 +14,18 @@ public class PlayerWalkingMeleeAttackState : PlayerBaseMeleeAttackState
 
     public override Enum GetStateType() => PlayerStateType.melee_walking;
 
-    public override void OnEnterState() 
-    { 
-        _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(true); 
-        _player.StatusHandler.UseStamina(_player.Config.staminaCost.walkingMeleeAttack);
-    }
+    public override void OnEnterState() {}
 
-    private void OnExitState() => _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false);
+    private void OnExitState() 
+    {
+        _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false);
+        _player.AttackHandler.SetWeaponDamageMode(false);
+    }
 
     public override void ExecuteState() 
     { 
         CheckSwitchState(); 
         Decelarate();
+        _player.AttackHandler.ChargeAttack();
     }
 }

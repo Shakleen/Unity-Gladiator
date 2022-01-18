@@ -16,7 +16,11 @@ public class PlayerIdleMeleeAttackState : PlayerBaseMeleeAttackState
 
     public override void OnEnterState() {}
 
-    private void OnExitState() => _player.AttackHandler.ResetCombo();
+    private void OnExitState() 
+    {
+        _player.AttackHandler.ResetCombo();
+        _player.AttackHandler.SetWeaponDamageMode(false);
+    }
 
     public override void ExecuteState()
     {

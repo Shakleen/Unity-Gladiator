@@ -5,6 +5,7 @@ public class PlayerAttackHandler : MonoBehaviour
     #region Variables
     private const float THRESH = 1e-5f;
     [SerializeField] private Player _player;
+    [SerializeField] private MeleeWeaponHandler _weapon;
 
     private int _comboCounter;
     private float _comboTimer;
@@ -54,16 +55,25 @@ public class PlayerAttackHandler : MonoBehaviour
         _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false);
         _player.AnimatorHandler.ResetMeleeAttackNumber();
         SetAttackBools();
+        _weapon.canDamage = false;
     }
 
     public void Attack()
     {
         if (IsNextAttackQueued())
         {
-            _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(true);
             _player.AnimatorHandler.IncrementMeleeAttackNumber();
+            _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(true);
+            SetWeaponDamageMode(true);
         }
     }
+
+    public void ChargeAttack()
+    {
+        _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(true);
+        SetWeaponDamageMode(true);
+    }
+    
 
     public void DecreaseAttackComboTimer()
     {
@@ -81,4 +91,6 @@ public class PlayerAttackHandler : MonoBehaviour
         _attacking = happening;
         _attackEnded = ended;
     }
+
+    public void SetWeaponDamageMode(bool mode) => _weapon.canDamage = mode;
 }
