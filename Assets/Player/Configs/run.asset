@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89d8c3ea305a2154e984a72f01f308c9, type: 3}
-  m_Name: player_status_stamina
+  m_Script: {fileID: 11500000, guid: 99ef895c9e7d4184ea81052b9440d21e, type: 3}
+  m_Name: run
   m_EditorClassIdentifier: 
-  _initialCapacity: 50
-  _regenPerSec: 10
-  _depletePerSec: 10
+  _maxVelocity: 8
+  _accelaration: 4
+  _decelaration: 6

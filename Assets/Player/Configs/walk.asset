@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d2374cce37c2e24c8c575da968e1c85, type: 3}
-  m_Name: player_walk
+  m_Script: {fileID: 11500000, guid: 99ef895c9e7d4184ea81052b9440d21e, type: 3}
+  m_Name: walk
   m_EditorClassIdentifier: 
-  _maxVelocity: 2
-  _accelaration: 4
-  _decelaration: 6
+  _maxVelocity: 4
+  _accelaration: 6
+  _decelaration: 4

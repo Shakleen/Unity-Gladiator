@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d2374cce37c2e24c8c575da968e1c85, type: 3}
-  m_Name: player_run
+  m_Script: {fileID: 11500000, guid: 1fc624462263aad4a8bb2c3b246db951, type: 3}
+  m_Name: mana
   m_EditorClassIdentifier: 
-  _maxVelocity: 8
-  _accelaration: 4
-  _decelaration: 6
+  _initialCapacity: 25
+  _regenPerSec: 5
+  _depletePerSec: 5

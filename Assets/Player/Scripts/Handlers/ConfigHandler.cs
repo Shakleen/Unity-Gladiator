@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Config : MonoBehaviour 
+public class ConfigHandler : MonoBehaviour 
 {
     [SerializeField] public MoveConfig walk;
     [SerializeField] public MoveConfig run;
@@ -14,4 +14,5 @@ public class Config : MonoBehaviour
     [SerializeField] public StaminaCost staminaCost;
     
     [SerializeField] public PlayerConfig misc;
+    [SerializeField] public AttackConfig attack;
 }

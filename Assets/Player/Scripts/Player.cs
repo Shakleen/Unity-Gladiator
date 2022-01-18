@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerStatusHandler _statusHandler;
     [SerializeField] private PlayerAttackHandler _attackHandler;
     [SerializeField] private PlayerStateType _currentStateType;
-    [SerializeField] private Config _config;
+    [SerializeField] private ConfigHandler _config;
     private PlayerStateMachine _stateMachine;
     #endregion
 
@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
     public PlayerStatusHandler StatusHandler { get => _statusHandler; }
     public PlayerAttackHandler AttackHandler { get => _attackHandler; }
     public PlayerStateType CurrentState { get => _currentStateType; set => _currentStateType = value; }
-    public Config Config { get => _config; }
+    public ConfigHandler Config { get => _config; }
     #endregion
     
     private void Awake() 

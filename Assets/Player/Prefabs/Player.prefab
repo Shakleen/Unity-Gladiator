@@ -2148,7 +2148,7 @@ GameObject:
   - component: {fileID: 7773229217061563743}
   - component: {fileID: 420177286}
   - component: {fileID: 615096659}
-  - component: {fileID: 615096660}
+  - component: {fileID: 1910869794018698803}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2258,7 +2258,7 @@ MonoBehaviour:
   _statusHandler: {fileID: 615096659}
   _attackHandler: {fileID: 420177286}
   _currentStateType: 0
-  _config: {fileID: 615096660}
+  _config: {fileID: 1910869794018698803}
 --- !u!114 &7773229217061563742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2292,7 +2292,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 7773229217061563745}
   _controller: {fileID: 7431334212993110031}
-  _currentMovementVelocity: {x: 0, y: 0, z: 0}
 --- !u!114 &7773229217061563743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2307,7 +2306,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animator: {fileID: 3912487547609673116}
   _player: {fileID: 7773229217061563745}
-  _meleeAttackNumber: 0
 --- !u!114 &420177286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2321,11 +2319,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 7773229217061563745}
-  _comboCounter: 0
-  _comboTimer: 0
-  _attackStarted: 0
-  _attacking: 0
-  _attackEnded: 0
 --- !u!114 &615096659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2339,8 +2332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 7773229217061563745}
-  _hud: {fileID: 0}
---- !u!114 &615096660
+--- !u!114 &1910869794018698803
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2349,17 +2341,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 7773229217061563740}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2caefba11d51f804d970a9fa88e7da5e, type: 3}
+  m_Script: {fileID: 11500000, guid: 6e0faa34100de974298ac7adfd4cd0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walk: {fileID: 11400000, guid: f62fba306a1ee0941b3e6bf36315e3fe, type: 2}
-  run: {fileID: 11400000, guid: cf9fafd21d52126428695191efbc7c58, type: 2}
-  health: {fileID: 11400000, guid: d2fc1f1e729bb5b48952c798ae1f6e29, type: 2}
-  stamina: {fileID: 11400000, guid: 2da655266bd1a994ca9424f4af3fdb97, type: 2}
-  mana: {fileID: 11400000, guid: a16a7b6813cc0fc48a3651995610a79d, type: 2}
-  animationSpeed: {fileID: 11400000, guid: fc21a5a3b22d351489568f19a8256e5a, type: 2}
-  staminaCost: {fileID: 11400000, guid: 40b81eb44284a294496b165502aa17b1, type: 2}
-  misc: {fileID: 11400000, guid: 3598afa24dfc76347b34089f13334416, type: 2}
+  walk: {fileID: 11400000, guid: 8def1d63dc050d540929ae35caf4648c, type: 2}
+  run: {fileID: 11400000, guid: fa926c187effece47824b4714122a78c, type: 2}
+  health: {fileID: 11400000, guid: 00547c89bfe305e4594a95f53cfa0a5f, type: 2}
+  stamina: {fileID: 11400000, guid: 399339405019b934787932ad53ddad2b, type: 2}
+  mana: {fileID: 11400000, guid: 3c2def986f5e57d4fbc8f8de834de13a, type: 2}
+  animationSpeed: {fileID: 11400000, guid: eebb367d80d4a2b4cb4658fe1ec75402, type: 2}
+  staminaCost: {fileID: 11400000, guid: fca58321b7e6b6745974811e17180573, type: 2}
+  misc: {fileID: 11400000, guid: 46af4611e9ac3bc448a43532d8d4b6e8, type: 2}
   attack: {fileID: 11400000, guid: 68298aa6c8a906349a51becb83f375f8, type: 2}
 --- !u!1 &8133813132844900486
 GameObject:
