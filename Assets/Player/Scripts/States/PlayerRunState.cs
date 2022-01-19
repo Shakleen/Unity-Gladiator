@@ -3,11 +3,12 @@ using UnityEngine;
 
 public class PlayerRunState : PlayerBaseState
 {
-    private Transition _toDodge, _toAttack, _toWalk;
+    private Transition _toDodge, _toAttack, _toWalk, _toDeath;
     private bool _hasVelocityX, _hasVelocityZ;
 
     public PlayerRunState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) 
     {
+        _toDeath = new Transition(GetStateType(), PlayerStateEnum.death);
         _toDodge = new Transition(GetStateType(), PlayerStateEnum.dodge);
         _toAttack = new Transition(GetStateType(), PlayerStateEnum.melee_running);
         _toWalk = new Transition(GetStateType(), PlayerStateEnum.walk);
@@ -34,6 +35,8 @@ public class PlayerRunState : PlayerBaseState
     #region Switch state conditions
     public override Transition GetTransition()
     {
+        if (IsDeath())
+            return _toDeath;
         if (hasStamina())
         {
             if (isDodgePressed())

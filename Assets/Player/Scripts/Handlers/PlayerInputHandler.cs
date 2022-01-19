@@ -48,8 +48,22 @@ public class PlayerInputHandler : MonoBehaviour
         _inputActionAttack = _playerInput.actions["Attack"];
     }
 
-    private void OnEnable() 
-    { 
+    private void OnEnable()
+    {
+        EnableInputActions();
+        SetupInputCallbacks();
+        PlayerStatusHandler.OnDeath += DisableInputActions;
+    }
+
+    private void OnDisable() 
+    {
+        DisableInputActions();
+        PlayerStatusHandler.OnDeath -= DisableInputActions;
+    }
+
+    #region Input callbacks
+    private void SetupInputCallbacks()
+    {
         // Setup movement callbacks
         _inputActionMove.started += InputCallbackMovement;
         _inputActionMove.canceled += InputCallbackMovement;
@@ -70,6 +84,7 @@ public class PlayerInputHandler : MonoBehaviour
         _inputActionAttack.started += InputCallbackAttack;
         _inputActionAttack.canceled += InputCallbackAttack;
     }
+
 
     private void InputCallbackMovement(InputAction.CallbackContext context)
     {
@@ -96,5 +111,24 @@ public class PlayerInputHandler : MonoBehaviour
     { 
         _isInputActiveAttack = context.ReadValueAsButton(); 
         if (_isInputActiveAttack) OnAttackPressed?.Invoke();
+    }
+    #endregion
+
+    private void EnableInputActions()
+    {
+        _inputActionLook.Enable();
+        _inputActionMove.Enable();
+        _inputActionRun.Enable();
+        _inputActionDodge.Enable();
+        _inputActionAttack.Enable();
+    }
+
+    private void DisableInputActions()
+    {
+        _inputActionLook.Disable();
+        _inputActionMove.Disable();
+        _inputActionRun.Disable();
+        _inputActionDodge.Disable();
+        _inputActionAttack.Disable();
     }
 }

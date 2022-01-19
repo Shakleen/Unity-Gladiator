@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PlayerStatusHandler : MonoBehaviour
 {
+    public static event Action OnDeath;
+
     #region references
     [SerializeField] private Player _player;
     private RegenStatus _health;
@@ -12,12 +14,14 @@ public class PlayerStatusHandler : MonoBehaviour
     private float _staminaRegenDelay;
     private float _healthRegenDelay;
     private float _manaRegenDelay;
+    private bool _isDead;
     #endregion
 
     #region getters
-    public RegenStatus Health { get { return _health; } }
-    public RegenStatus Stamina { get { return _stamina; } }
-    public RegenStatus Mana { get { return _mana; } }
+    public RegenStatus Health { get => _health; }
+    public RegenStatus Stamina { get => _stamina; }
+    public RegenStatus Mana { get => _mana; }
+    public bool IsDead { get => _isDead; set => _isDead = value; }
     #endregion
 
     #region Events
@@ -79,4 +83,13 @@ public class PlayerStatusHandler : MonoBehaviour
 
     private float CountDownTimer(float value) => value <= 0f ? value : value - Time.deltaTime;
     #endregion
+
+    public void Die() 
+    {
+        if (!_isDead)
+        {
+            _isDead = true;
+            OnDeath?.Invoke();
+        }
+    }
 }

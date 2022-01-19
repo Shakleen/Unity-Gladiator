@@ -2,10 +2,11 @@ using System;
 
 public class PlayerWalkState : PlayerBaseState
 {
-    private Transition _toDodge, _toAttack, _toRun, _toIdle;
+    private Transition _toDodge, _toAttack, _toRun, _toIdle, _toDeath;
 
     public PlayerWalkState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine)
     {
+        _toDeath = new Transition(GetStateType(), PlayerStateEnum.death);
         _toDodge = new Transition(GetStateType(), PlayerStateEnum.dodge);
         _toAttack = new Transition(GetStateType(), PlayerStateEnum.melee_walking);
         _toRun = new Transition(GetStateType(), PlayerStateEnum.run);
@@ -27,6 +28,8 @@ public class PlayerWalkState : PlayerBaseState
 
     public override Transition GetTransition()
     {
+        if (IsDeath())
+            return _toDeath;
         if (hasStamina())
         {
             if (isDodgePressed())

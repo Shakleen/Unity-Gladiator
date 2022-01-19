@@ -1,4 +1,4 @@
-public enum PlayerStateEnum { idle, walk, run, dodge, melee_idle, melee_walking, melee_running }
+public enum PlayerStateEnum { idle, walk, run, dodge, melee_idle, melee_walking, melee_running, death }
 
 public abstract class PlayerBaseState : BaseStateClass
 {
@@ -22,6 +22,7 @@ public abstract class PlayerBaseState : BaseStateClass
     }
 
     #region Common transition conditions
+    protected bool IsDeath() => _hasStamina = _player.StatusHandler.Health.IsEmpty();
     protected bool hasStamina() => _hasStamina = !_player.StatusHandler.Stamina.IsEmpty();
     protected bool isRunPressed() => _player.InputHandler.IsInputActiveRun;
     protected bool isMovePressed() => _player.InputHandler.IsInputActiveMovement;

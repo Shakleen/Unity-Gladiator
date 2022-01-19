@@ -2,10 +2,11 @@ using System;
 
 public class PlayerRunningMeleeAttackState : PlayerBaseState
 {
-    private Transition _toIdle;
+    private Transition _toIdle, _toDeath;
 
     public PlayerRunningMeleeAttackState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine)
     {
+        _toDeath = new Transition(GetStateType(), PlayerStateEnum.death);
         _toIdle = new Transition(GetStateType(), PlayerStateEnum.idle);
     }
 
@@ -22,6 +23,8 @@ public class PlayerRunningMeleeAttackState : PlayerBaseState
 
     public override Transition GetTransition()
     {
+        if (IsDeath())
+            return _toDeath;
         if (_player.AttackHandler.NoAttackActivity())
             return _toIdle;
         
