@@ -2,12 +2,11 @@ using System;
 
 public class PlayerWalkingMeleeAttackState : PlayerBaseState
 {
-    private Transition _toDodge, _toRun, _toWalk, _toIdle;
+    private Transition _toDodge, _toWalk, _toIdle;
 
     public PlayerWalkingMeleeAttackState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) 
     {
         _toDodge = new Transition(GetStateType(), PlayerStateEnum.dodge);
-        _toRun = new Transition(GetStateType(), PlayerStateEnum.run);
         _toWalk = new Transition(GetStateType(), PlayerStateEnum.walk);
         _toIdle = new Transition(GetStateType(), PlayerStateEnum.idle);
     }
@@ -27,15 +26,9 @@ public class PlayerWalkingMeleeAttackState : PlayerBaseState
     {
         if (_player.AttackHandler.NoAttackActivity())
         {
-            if (hasStamina())
-            {
-                if (isDodgePressed())
-                    return _toDodge;
-                else if (isRunPressed() && isMovePressed())
-                    return _toRun;
-            }
-
-            if (isMovePressed())
+            if (hasStamina() && isDodgePressed())
+                return _toDodge;
+            else if (isMovePressed())
                 return _toWalk;
             else
                 return _toIdle;

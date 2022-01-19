@@ -2,7 +2,7 @@ using System;
 
 public class PlayerRunningMeleeAttackState : PlayerBaseState
 {
-    private Transition _toRun, _toWalk, _toIdle;
+    private Transition _toIdle;
 
     public PlayerRunningMeleeAttackState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine)
     {

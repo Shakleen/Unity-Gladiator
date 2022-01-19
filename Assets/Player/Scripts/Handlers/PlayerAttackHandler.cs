@@ -8,15 +8,15 @@ public class PlayerAttackHandler : MonoBehaviour
     [SerializeField] private Player _player;
     [SerializeField] private MeleeWeaponHandler _weapon;
 
-    private int _comboCounter;
-    private float _comboTimer;
-    private bool _attackStarted;
-    private bool _attacking;
-    private bool _attackEnded;
+    [SerializeField] private int _comboCounter;
+    [SerializeField] private float _comboTimer;
+    [SerializeField] private bool _attackStarted;
+    [SerializeField] private bool _attacking;
+    [SerializeField] private bool _attackEnded;
     #endregion
     
     public bool IsAttacking { get => _attacking; }
-
+    public bool IsAttackComplete() => !(_attackStarted || _attacking || _attackEnded);
     public bool NoAttackActivity() => !_player.InputHandler.IsInputActiveMeleeAttack && !_player.AttackHandler.IsAttacking;
 
     private void OnEnable() 

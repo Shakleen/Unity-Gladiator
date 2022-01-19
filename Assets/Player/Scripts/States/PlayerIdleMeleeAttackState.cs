@@ -2,12 +2,11 @@ using System;
 
 public class PlayerIdleMeleeAttackState : PlayerBaseState
 {
-    private Transition _toDodge, _toRun, _toWalk, _toIdle;
+    private Transition _toDodge, _toWalk, _toIdle;
     
     public PlayerIdleMeleeAttackState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine)
     {
         _toDodge = new Transition(GetStateType(), PlayerStateEnum.dodge);
-        _toRun = new Transition(GetStateType(), PlayerStateEnum.run);
         _toWalk = new Transition(GetStateType(), PlayerStateEnum.walk);
         _toIdle = new Transition(GetStateType(), PlayerStateEnum.idle);
     }
@@ -27,17 +26,11 @@ public class PlayerIdleMeleeAttackState : PlayerBaseState
     {
         if (_player.AttackHandler.NoAttackActivity())
         {
-            if (hasStamina())
-            {
-                if (isDodgePressed())
-                    return _toDodge;
-                else if (isRunPressed() && isMovePressed())
-                    return _toRun;
-            }
-
-            if (isMovePressed())
+            if (hasStamina() && isDodgePressed())
+                return _toDodge;
+            else if (isMovePressed())
                 return _toWalk;
-            else
+            else if (_player.AttackHandler.IsAttackComplete())
                 return _toIdle;
         }
 
@@ -46,19 +39,12 @@ public class PlayerIdleMeleeAttackState : PlayerBaseState
 
     public override void OnExitState(Transition transition)
     {
-        switch((PlayerStateEnum) transition.destination)
-        {
-            case PlayerStateEnum.idle:
-                break;
-            case PlayerStateEnum.walk:
-            case PlayerStateEnum.run:
-                _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false);
-                _player.AttackHandler.SetWeaponDamageMode(false);
-                break;
-            default:
-                _player.AttackHandler.ResetCombo();
-                _player.AttackHandler.SetWeaponDamageMode(false);
-                break;
-        }
+        if (IsEqual(transition, PlayerStateEnum.run) || IsEqual(transition, PlayerStateEnum.dodge))
+            _player.AttackHandler.ResetCombo();
+
+        _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false);
+        _player.AttackHandler.SetWeaponDamageMode(false);
     }
+
+    private bool IsEqual(Transition transition, PlayerStateEnum state) => state.CompareTo(transition.destination) == 0;
 }

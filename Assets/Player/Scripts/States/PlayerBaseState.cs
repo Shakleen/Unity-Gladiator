@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using UnityEngine;
-
 public enum PlayerStateEnum { idle, walk, run, dodge, melee_idle, melee_walking, melee_running }
 
 public abstract class PlayerBaseState : BaseStateClass
