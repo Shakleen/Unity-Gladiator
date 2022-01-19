@@ -53,32 +53,4 @@ public abstract class PlayerBaseState : BaseState
         return _hasStamina && _movePressed && _runPressed;
     }
     #endregion
-
-    #region Decelaration logic
-    protected void Decelarate()
-    {
-        _velocityX = DecelarateAlongAxis(_player.MovementHandler.CurrentMovementVelocity.x);
-        _velocityZ = DecelarateAlongAxis(_player.MovementHandler.CurrentMovementVelocity.z);
-        _player.MovementHandler.CurrentMovementVelocity = new Vector3(_velocityX, 0, _velocityZ);
-    }
-
-    private float DecelarateAlongAxis(float currentVelocity)
-    {
-        float velocity = currentVelocity;
-
-        if (currentVelocity > _player.MovementHandler.THRESH)
-            velocity = currentVelocity - ApplyFrameIndependentDecelaration();
-        
-        else if (currentVelocity < -_player.MovementHandler.THRESH)
-            velocity = currentVelocity + ApplyFrameIndependentDecelaration();
-        
-        else
-            velocity = 0;
-
-        velocity = Mathf.Clamp(velocity, -_player.Config.run.maxVelocity, _player.Config.run.maxVelocity);
-        return velocity;
-    }
-
-    private float ApplyFrameIndependentDecelaration() => _player.Config.run.decelaration * Time.deltaTime;
-    #endregion
 }

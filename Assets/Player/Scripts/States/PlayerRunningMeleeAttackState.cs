@@ -23,8 +23,8 @@ public class PlayerRunningMeleeAttackState : PlayerBaseMeleeAttackState
 
     public override void ExecuteState() 
     { 
-        CheckSwitchState(); 
-        Decelarate();
+        CheckSwitchState();
+        _player.MovementHandler.Decelarate();
         _player.AttackHandler.ChargeAttack();
     }
 }

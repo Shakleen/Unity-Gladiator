@@ -23,17 +23,6 @@ public class PlayerIdleState : PlayerBaseState
     public override void ExecuteState() 
     { 
         CheckSwitchState(); 
-        
-        if (HasMovementVelocity())
-            Decelarate();
-        else
-            _player.MovementHandler.StopMovement();
-    }
-
-    private bool HasMovementVelocity()
-    {
-        _hasVelocityX = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocity.x) > _player.MovementHandler.THRESH;
-        _hasVelocityZ = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocity.z) > _player.MovementHandler.THRESH;
-        return _hasVelocityX || _hasVelocityZ;
+        _player.MovementHandler.Decelarate();
     }
 }

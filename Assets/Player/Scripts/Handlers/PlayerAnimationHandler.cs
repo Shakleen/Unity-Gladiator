@@ -75,13 +75,12 @@ public class PlayerAnimationHandler : MonoBehaviour
         PlayerInputHandler.OnDodgePressed -= OnDodgePressed;
     }
 
+    #region Event Callbacks
     private void OnCurrentMovementChange()
     {
         SetAnimationValueVelocityX(_player.MovementHandler.CurrentMovementVelocity.x);
         SetAnimationValueVelocityZ(_player.MovementHandler.CurrentMovementVelocity.z);
     }
-
-    #region Input Event Callbacks
     private void OnRunPressed() => SetAnimationValueIsRunning(_player.InputHandler.IsInputActiveRun);
     private void OnMovePressed() => SetAnimationValueIsMoving(_player.InputHandler.IsInputActiveMovement);
     private void OnDodgePressed() => SetAnimationValueIsDodging(_player.InputHandler.IsInputActiveDodge);

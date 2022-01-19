@@ -1,11 +1,11 @@
 using System;
 using UnityEngine;
 
-public class PlayerRunState : PlayerBaseMovementState
+public class PlayerRunState : PlayerBaseState
 {
     private bool _hasVelocityX, _hasVelocityZ;
 
-    public PlayerRunState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine, player.Config.run) {}
+    public PlayerRunState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) {}
 
     public override void InitializeTransitions()
     {
@@ -52,10 +52,10 @@ public class PlayerRunState : PlayerBaseMovementState
         
         if (_player.InputHandler.IsInputActiveRun && !_player.StatusHandler.Stamina.IsEmpty())
         {
-            UpdateVelocity();
+        _player.MovementHandler.UpdateVelocity(_player.Config.run);
             _player.StatusHandler.DepleteStamina();
         }
         else
-            Decelarate();
+            _player.MovementHandler.Decelarate();
     }
 }

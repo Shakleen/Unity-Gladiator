@@ -1,10 +1,10 @@
 using System;
 
-public class PlayerWalkState : PlayerBaseMovementState
+public class PlayerWalkState : PlayerBaseState
 {
     protected const float THRESH = 1e-3f;
 
-    public PlayerWalkState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine, player.Config.walk) {}
+    public PlayerWalkState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) {}
 
     public override void InitializeTransitions()
     {
@@ -24,6 +24,6 @@ public class PlayerWalkState : PlayerBaseMovementState
     {
         CheckSwitchState();
         _player.MovementHandler.RotateTowardsCameraDirection();
-        UpdateVelocity();
+        _player.MovementHandler.UpdateVelocity(_player.Config.walk);
     }
 }
