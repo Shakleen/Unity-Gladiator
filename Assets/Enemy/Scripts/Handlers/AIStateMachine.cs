@@ -10,12 +10,12 @@ public class AIStateMachine
     {
         _aiAgent = aiAgent;
         InitializeStates();
-        _currentState = _states[GetIndex(AIStateType.aware)];
+        _currentState = _states[GetIndex(AIStateEnum.aware)];
     }
 
     private void InitializeStates()
     {
-        _states = new AIBaseState[System.Enum.GetNames(typeof(AIStateType)).Length];
+        _states = new AIBaseState[System.Enum.GetNames(typeof(AIStateEnum)).Length];
         var assembly = typeof(AIBaseState).Assembly;
 
         foreach(var type in assembly.GetExportedTypes())
@@ -23,34 +23,26 @@ public class AIStateMachine
             if (type.IsSubclassOf(typeof(AIBaseState)))
             {
                 AIBaseState state = (AIBaseState) Activator.CreateInstance(type, _aiAgent, this);
-                int index = GetIndex(CastStateType(state.GetStateType()));
+                int index = GetIndex(CastStateEnum(state.GetStateType()));
                 _states[index] = state;
             }
         }
     }
 
-    public void ExecuteState() 
-    { 
-        if (CastStateType(_currentState.GetStateType()) != AIStateType.death)
-        {
-            if (_aiAgent.Health.IsEmpty())
-                SwitchState(AIStateType.death);
-            else
-                _currentState.ExecuteState();
-        }
-    }
+    public void ExecuteState() => _currentState.ExecuteState();
 
-    public void SwitchState(AIStateType newStateType)
+    public void SwitchState(Transition transition)
     {
-        AIBaseState newState = _states[GetIndex(newStateType)];
-        newState.OnEnterState();
-        _currentState = newState;
-        _aiAgent.CurrentState = newStateType;
+        AIStateEnum newStateEnum = CastStateEnum(transition.destination);
+        _currentState.OnExitState(transition);
+        _currentState = _states[GetIndex(newStateEnum)];
+        _currentState.OnEnterState(transition);
+        _aiAgent.CurrentState = newStateEnum;
     }
 
-    public AIStateType GetCurrentStateType() => CastStateType(_currentState.GetStateType());
+    public AIStateEnum GetCurrentStateType() => CastStateEnum(_currentState.GetStateType());
 
-    private AIStateType CastStateType(Enum state) => (AIStateType) state;
+    private AIStateEnum CastStateEnum(Enum state) => (AIStateEnum) state;
 
-    private static int GetIndex(AIStateType stateType) => (int)(object)stateType;
+    private static int GetIndex(AIStateEnum stateType) => (int)(object)stateType;
 }

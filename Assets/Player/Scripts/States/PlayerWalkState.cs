@@ -2,23 +2,21 @@ using System;
 
 public class PlayerWalkState : PlayerBaseState
 {
-    protected const float THRESH = 1e-3f;
+    private Transition _toDodge, _toAttack, _toRun, _toIdle;
 
-    public PlayerWalkState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) {}
-
-    public override void InitializeTransitions()
+    public PlayerWalkState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine)
     {
-        _transtions.Add(new Transition(PlayerStateType.dodge, ToDodgeCondition));
-        _transtions.Add(new Transition(PlayerStateType.melee_walking, ToMeleeCondition));
-        _transtions.Add(new Transition(PlayerStateType.run, ToRunCondition));
-        _transtions.Add(new Transition(PlayerStateType.idle, ToIdleCondition));
+        _toDodge = new Transition(GetStateType(), PlayerStateEnum.dodge);
+        _toAttack = new Transition(GetStateType(), PlayerStateEnum.melee_walking);
+        _toRun = new Transition(GetStateType(), PlayerStateEnum.run);
+        _toIdle = new Transition(GetStateType(), PlayerStateEnum.idle);
     }
 
     private bool ToIdleCondition() => !_player.InputHandler.IsInputActiveMovement;
 
-    public override Enum GetStateType() => PlayerStateType.walk;
+    public override void OnEnterState(Transition transition) {}
 
-    public override void OnEnterState() {}
+    public override Enum GetStateType() => PlayerStateEnum.walk;
 
     public override void ExecuteState()
     {
@@ -26,4 +24,24 @@ public class PlayerWalkState : PlayerBaseState
         _player.MovementHandler.RotateTowardsCameraDirection();
         _player.MovementHandler.UpdateVelocity(_player.Config.walk);
     }
+
+    public override Transition GetTransition()
+    {
+        if (hasStamina())
+        {
+            if (isDodgePressed())
+                return _toDodge;
+            else if (isAttackPressed())
+                return _toAttack;
+            else if (isRunPressed() && isMovePressed())
+                return _toRun;
+        }
+        
+        if (!isMovePressed())
+            return _toIdle;
+
+        return null;
+    }
+
+    public override void OnExitState(Transition transition) {}
 }

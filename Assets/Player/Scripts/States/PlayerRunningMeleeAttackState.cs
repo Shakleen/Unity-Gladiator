@@ -1,30 +1,36 @@
 using System;
 
-public class PlayerRunningMeleeAttackState : PlayerBaseMeleeAttackState
+public class PlayerRunningMeleeAttackState : PlayerBaseState
 {
-    public PlayerRunningMeleeAttackState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) {}
+    private Transition _toRun, _toWalk, _toIdle;
 
-    public override void InitializeTransitions()
+    public PlayerRunningMeleeAttackState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine)
     {
-        _transtions.Add(new Transition(PlayerStateType.run, AttackToRunCondition, OnExitState));
-        _transtions.Add(new Transition(PlayerStateType.walk, AttackToWalkCondition, OnExitState));
-        _transtions.Add(new Transition(PlayerStateType.idle, AttackToIdleCondition, OnExitState));
+        _toIdle = new Transition(GetStateType(), PlayerStateEnum.idle);
     }
 
-    public override Enum GetStateType() => PlayerStateType.melee_running;
+    public override Enum GetStateType() => PlayerStateEnum.melee_running;
 
-    public override void OnEnterState() {} 
-
-    private void OnExitState() 
-    {
-        _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false);
-        _player.AttackHandler.SetWeaponDamageMode(false);
-    }
+    public override void OnEnterState(Transition transition) {}
 
     public override void ExecuteState() 
     { 
         CheckSwitchState();
         _player.MovementHandler.Decelarate();
         _player.AttackHandler.ChargeAttack();
+    }
+
+    public override Transition GetTransition()
+    {
+        if (_player.AttackHandler.NoAttackActivity())
+            return _toIdle;
+        
+        return null;
+    }
+
+    public override void OnExitState(Transition transition) 
+    {
+        _player.AnimatorHandler.SetAnimationValueIsMeleeAttacking(false);
+        _player.AttackHandler.SetWeaponDamageMode(false);
     }
 }

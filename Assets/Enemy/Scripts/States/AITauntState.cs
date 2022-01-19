@@ -2,23 +2,29 @@ using System;
 
 public class AITauntState : AIBaseState
 {
-    private bool _isAnimationPlaying, _isTaunting;
+    private Transition _toAware, _toDeath;
 
     public AITauntState(AIAgent aiAgent, AIStateMachine stateMachine) : base(aiAgent, stateMachine) {}
 
-    public override void InitializeTransitions() => _transtions.Add(new Transition(AIStateType.aware, ToAwareCondition, OnExitState));
-    
-    private bool ToAwareCondition() => !_aiAgent.AnimationHandler.IsTaunting;
+    public override Enum GetStateType() => AIStateEnum.taunt;
 
-    public override Enum GetStateType() => AIStateType.taunt;
-
-    public override void OnEnterState() {}
-
-    private void OnExitState() => _aiAgent.AnimationHandler.SetAnimationValueIsTaunting(false);
-
-    public override void ExecuteState() => CheckSwitchState();
+    public override void OnEnterState(Transition transition) {}
 
     private bool IsWithInAttackRadius() => GetDistanceFromPlayer() <= _aiAgent.Config.AttackRadius;
 
     private float GetDistanceFromPlayer() => (_aiAgent.PlayerTransform.position - _aiAgent.transform.position).magnitude;
+
+    public override void ExecuteState() => CheckSwitchState();
+
+    public override Transition GetTransition()
+    {
+        if (_aiAgent.Health.IsEmpty())
+            return _toDeath;
+        else if (!_aiAgent.AnimationHandler.IsAttacking)
+            return _toAware;
+        
+        return null;
+    }
+
+    public override void OnExitState(Transition transition) => _aiAgent.AnimationHandler.SetAnimationValueIsTaunting(false);
 }

@@ -16,8 +16,8 @@ public class PlayerAttackHandler : MonoBehaviour
     #endregion
     
     public bool IsAttacking { get => _attacking; }
-    
-    public bool InAttackState() => _attackStarted || _attacking || _attackEnded;
+
+    public bool NoAttackActivity() => !_player.InputHandler.IsInputActiveMeleeAttack && !_player.AttackHandler.IsAttacking;
 
     private void OnEnable() 
     {
@@ -89,7 +89,6 @@ public class PlayerAttackHandler : MonoBehaviour
         SetWeaponDamageMode(true);
     }
     
-
     public void DecreaseAttackComboTimer()
     {
         if (_comboTimer > THRESH)

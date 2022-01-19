@@ -3,33 +3,51 @@ using UnityEngine;
 
 public class PlayerRunState : PlayerBaseState
 {
+    private Transition _toDodge, _toAttack, _toWalk;
     private bool _hasVelocityX, _hasVelocityZ;
 
-    public PlayerRunState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) {}
-
-    public override void InitializeTransitions()
+    public PlayerRunState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) 
     {
-        _transtions.Add(new Transition(PlayerStateType.walk, ToWalkCondition));
-        _transtions.Add(new Transition(PlayerStateType.dodge, ToDodgeCondition));
-        _transtions.Add(new Transition(PlayerStateType.melee_running, ToMeleeCondition));
+        _toDodge = new Transition(GetStateType(), PlayerStateEnum.dodge);
+        _toAttack = new Transition(GetStateType(), PlayerStateEnum.melee_running);
+        _toWalk = new Transition(GetStateType(), PlayerStateEnum.walk);
     }
 
-    #region Transition condition
-    private bool ToWalkCondition()
-    {
-        _hasStamina = !_player.StatusHandler.Stamina.IsEmpty();
-        _runPressed = _player.InputHandler.IsInputActiveRun;
-        return (!_hasStamina || !_runPressed) && !HasRunVelocity();
+    public override Enum GetStateType() => PlayerStateEnum.run;
+
+    public override void OnEnterState(Transition transition) {}
+
+    public override void ExecuteState() 
+    { 
+        CheckSwitchState();
+        _player.MovementHandler.RotateTowardsCameraDirection();
+        
+        if (_player.InputHandler.IsInputActiveRun && !_player.StatusHandler.Stamina.IsEmpty())
+        {
+            _player.MovementHandler.UpdateVelocity(_player.Config.run);
+            _player.StatusHandler.DepleteStamina();
+        }
+        else
+            _player.MovementHandler.Decelarate();
     }
 
-    private new bool ToMeleeCondition() => base.ToMeleeCondition() && HasReachedMaxVelocity();
-    #endregion
+    #region Switch state conditions
+    public override Transition GetTransition()
+    {
+        if (hasStamina())
+        {
+            if (isDodgePressed())
+                return _toDodge;
+            if (isAttackPressed() && HasReachedMaxVelocity())
+                return _toAttack;
+        }
+        
+        if ((!hasStamina() || !isRunPressed()) && !HasRunVelocity())
+            return _toWalk;
 
-    public override Enum GetStateType() => PlayerStateType.run;
+        return null;
+    }
 
-    public override void OnEnterState() {}
-
-    #region Velocity checks
     private bool HasReachedMaxVelocity()
     {
         _hasVelocityX = Mathf.Abs(_player.MovementHandler.CurrentMovementVelocity.x) == _player.Config.run.maxVelocity;
@@ -45,17 +63,5 @@ public class PlayerRunState : PlayerBaseState
     }
     #endregion
 
-    public override void ExecuteState() 
-    { 
-        CheckSwitchState();
-        _player.MovementHandler.RotateTowardsCameraDirection();
-        
-        if (_player.InputHandler.IsInputActiveRun && !_player.StatusHandler.Stamina.IsEmpty())
-        {
-        _player.MovementHandler.UpdateVelocity(_player.Config.run);
-            _player.StatusHandler.DepleteStamina();
-        }
-        else
-            _player.MovementHandler.Decelarate();
-    }
+    public override void OnExitState(Transition transition) {}
 }

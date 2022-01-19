@@ -1,52 +1,81 @@
 using System;
-using UnityEngine;
 
 public class AIAwareState : AIBaseState
 {
-    public AIAwareState(AIAgent aiAgent, AIStateMachine stateMachine) : base(aiAgent, stateMachine) {}
+    private bool _reachedMaxTaunts, _isCoolDownOver, _willAttack;
+    private Transition _toChase, _toDeath, _toTaunt, _toAttack;
 
-    public override void InitializeTransitions()
+    public AIAwareState(AIAgent aiAgent, AIStateMachine stateMachine) : base(aiAgent, stateMachine)
     {
-        _transtions.Add(new Transition(AIStateType.chase, ToChaseCondition));
-        _transtions.Add(new Transition(AIStateType.attack, ToAttackCondition, OnExitToAttack));
-        _transtions.Add(new Transition(AIStateType.taunt, ToTauntCondition, OnExitToTaunt));
+        _toChase = new Transition(GetStateType(), AIStateEnum.chase);
+        _toDeath = new Transition(GetStateType(), AIStateEnum.death);
+        _toTaunt = new Transition(GetStateType(), AIStateEnum.taunt);
+        _toAttack = new Transition(GetStateType(), AIStateEnum.attack);
     }
 
-    #region Transition conditions
-    public bool ToChaseCondition() => IsWithInAwarenessRadius() && !IsWithInAttackRadius();
+    public override Enum GetStateType() => AIStateEnum.aware;
 
-    private bool ToAttackCondition()
+    public override void OnEnterState(Transition transition) {}
+
+    public override void ExecuteState() 
+    { 
+        CheckSwitchState(); 
+        _aiAgent.AnimationHandler.SetAnimationValueMovementSpeed(0f);
+    }
+
+    #region Switch state conditions
+
+    public override Transition GetTransition()
     {
-        bool willAttack = UnityEngine.Random.Range(0f, 1f) <= _aiAgent.Config.AttackChance;
-        bool isCoolDownOver = _aiAgent.AILocomotion.HasTimerRunOut(_aiAgent.AILocomotion.AttackCoolDownTimer);
-        return IsWithInAttackRadius() && willAttack && isCoolDownOver;
+        if (_aiAgent.Health.IsEmpty())
+            return _toDeath;
+        else if (IsWithInRadius(_aiAgent.Config.AttackChance))
+        {
+            if (ToAttackCondition())
+                return _toAttack;
+            else if (ToTauntCondition())
+                return _toTaunt;
+        }
+        else if (IsWithInRadius(_aiAgent.Config.AwarenessRadius))
+            return _toChase;
+
+        return null;
     }
 
     private bool ToTauntCondition()
     {
-        bool reachedMaxTaunts = _aiAgent.AILocomotion.ReachedMaxTaunts();
-        bool isCoolDownOver = _aiAgent.AILocomotion.HasTimerRunOut(_aiAgent.AILocomotion.TauntCoolDownTimer);
-        return IsWithInAttackRadius() && !reachedMaxTaunts && isCoolDownOver;
+        _reachedMaxTaunts = _aiAgent.AILocomotion.ReachedMaxTaunts();
+        _isCoolDownOver = _aiAgent.AILocomotion.HasTimerRunOut(_aiAgent.AILocomotion.TauntCoolDownTimer);
+        return !_reachedMaxTaunts && _isCoolDownOver;
     }
 
-    private bool IsWithInAttackRadius()
+    private bool ToAttackCondition()
     {
-        float distanceFromPlayer = _aiAgent.AILocomotion.DistanceFromPlayerSqrMagnitude();
-        return distanceFromPlayer <= Square(_aiAgent.Config.AttackRadius);
+        _willAttack = UnityEngine.Random.Range(0f, 1f) <= _aiAgent.Config.AttackChance;
+        _isCoolDownOver = _aiAgent.AILocomotion.HasTimerRunOut(_aiAgent.AILocomotion.AttackCoolDownTimer);
+        return _willAttack && _isCoolDownOver;
     }
 
-    private bool IsWithInAwarenessRadius()
-    {
-        float distanceFromPlayer = _aiAgent.AILocomotion.DistanceFromPlayerSqrMagnitude();
-        return distanceFromPlayer <= Square(_aiAgent.Config.AwarenessRadius);
-    }
+    private bool IsWithInRadius(float radius) => _aiAgent.AILocomotion.DistanceFromPlayerSqrMagnitude() <= Square(radius);
 
     private float Square(float value) => value * value;
-
-    private float DistanceFromPlayer()=> (_aiAgent.PlayerTransform.position - _aiAgent.transform.position).magnitude;
     #endregion
 
+
     #region Transition On Exit functions
+    public override void OnExitState(Transition transition)
+    {
+        switch(transition.destination)
+        {
+            case AIStateEnum.attack:
+                OnExitToAttack();
+                break;
+            case AIStateEnum.taunt:
+                OnExitToTaunt();
+                break;
+        }
+    }
+
     private void OnExitToAttack() 
     { 
         _aiAgent.AILocomotion.ResetAttackCoolDown();
@@ -61,14 +90,4 @@ public class AIAwareState : AIBaseState
         _aiAgent.AnimationHandler.SetAnimationValueIsTaunting(true); 
     }
     #endregion
-
-    public override Enum GetStateType() => AIStateType.aware;
-
-    public override void OnEnterState() {}
-
-    public override void ExecuteState() 
-    { 
-        CheckSwitchState(); 
-        _aiAgent.AnimationHandler.SetAnimationValueMovementSpeed(0f);
-    }
 }

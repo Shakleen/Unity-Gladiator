@@ -8,7 +8,7 @@ public class AIAgent : MonoBehaviour
     [SerializeField] private AIAnimationHandler _animationHandler;
     [SerializeField] private RagDollHandler _ragDollHandler;
     [SerializeField] private AILocomotion _aiLocomotion;
-    [SerializeField] private AIStateType _currentStateType;
+    [SerializeField] private AIStateEnum _currentStateType;
     private AIStateMachine _stateMachine;
     private BaseStatus _health;
     #endregion
@@ -19,7 +19,7 @@ public class AIAgent : MonoBehaviour
     public AIAnimationHandler AnimationHandler { get => _animationHandler; }
     public RagDollHandler RagDollHandler { get => _ragDollHandler; }
     public AILocomotion AILocomotion { get => _aiLocomotion; }
-    public AIStateType CurrentState { get => _currentStateType; set => _currentStateType = value; }
+    public AIStateEnum CurrentState { get => _currentStateType; set => _currentStateType = value; }
     public BaseStatus Health { get => _health; }
     #endregion
 

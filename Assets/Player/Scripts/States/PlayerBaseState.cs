@@ -1,9 +1,10 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PlayerStateType { idle, walk, run, dodge, melee_idle, melee_walking, melee_running }
+public enum PlayerStateEnum { idle, walk, run, dodge, melee_idle, melee_walking, melee_running }
 
-public abstract class PlayerBaseState : BaseState
+public abstract class PlayerBaseState : BaseStateClass
 {
     protected Player _player;
     protected PlayerStateMachine _stateMachine;
@@ -17,40 +18,18 @@ public abstract class PlayerBaseState : BaseState
         _stateMachine = stateMachine;
     }
 
-    public void CheckSwitchState() 
+    public override void CheckSwitchState()
     {
-        foreach(Transition transition in _transtions)
-        {
-            if (transition.Condition())
-            {
-                if (transition.OnExit != null) transition.OnExit();
-                _stateMachine.SwitchState((PlayerStateType) transition.destination);
-                return;
-            }
-        }
+        Transition _transition = GetTransition();
+        if (_transition != null)
+            _stateMachine.SwitchState(_transition);
     }
 
     #region Common transition conditions
-    protected bool ToDodgeCondition()
-    {
-        _hasStamina = !_player.StatusHandler.Stamina.IsEmpty();
-        _dodgePressed = _player.InputHandler.IsInputActiveDodge;
-        return _hasStamina && _dodgePressed;
-    }
-
-    protected bool ToMeleeCondition()
-    {
-        _hasStamina = !_player.StatusHandler.Stamina.IsEmpty();
-        _attackPressed = _player.InputHandler.IsInputActiveMeleeAttack;
-        return _hasStamina && _attackPressed;
-    }
-
-    protected bool ToRunCondition()
-    {
-        _hasStamina = !_player.StatusHandler.Stamina.IsEmpty();
-        _movePressed = _player.InputHandler.IsInputActiveMovement; 
-        _runPressed = _player.InputHandler.IsInputActiveRun;
-        return _hasStamina && _movePressed && _runPressed;
-    }
+    protected bool hasStamina() => _hasStamina = !_player.StatusHandler.Stamina.IsEmpty();
+    protected bool isRunPressed() => _player.InputHandler.IsInputActiveRun;
+    protected bool isMovePressed() => _player.InputHandler.IsInputActiveMovement;
+    protected bool isDodgePressed() => _player.InputHandler.IsInputActiveDodge;
+    protected bool isAttackPressed() => _player.InputHandler.IsInputActiveMeleeAttack;
     #endregion
 }
