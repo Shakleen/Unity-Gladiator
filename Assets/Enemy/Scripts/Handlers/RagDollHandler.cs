@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RagDollHandler : MonoBehaviour
@@ -16,7 +14,13 @@ public class RagDollHandler : MonoBehaviour
         AddHitBoxHandler();
     }
 
-    private void Start() { SetRagDollStatus(false); }
+    private void OnEnable() => AIAgent.OnDeath += HandleOnDeath;
+
+    private void OnDisable() => AIAgent.OnDeath -= HandleOnDeath;
+
+    private void HandleOnDeath() => SetRagDollStatus(true);
+
+    private void Start() => SetRagDollStatus(false);
 
     public void SetRagDollStatus(bool status)
     {

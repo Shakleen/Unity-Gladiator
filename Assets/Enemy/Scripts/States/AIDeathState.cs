@@ -11,7 +11,7 @@ public class AIDeathState : AIBaseState
     public override void ExecuteState() 
     {
         if (!_aiAgent.AnimationHandler.IsAnimationPlaying() && !_aiAgent.RagDollHandler.IsRagDollActive)
-            _aiAgent.RagDollHandler.SetRagDollStatus(true);
+            _aiAgent.Die();
     }
 
     public override void OnExitState(Transition transition) {}

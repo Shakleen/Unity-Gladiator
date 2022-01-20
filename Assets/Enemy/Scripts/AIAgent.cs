@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 
 public class AIAgent : MonoBehaviour
 {
+    public static event Action OnDeath;
+    
     #region Component references
     [SerializeField] private AIConfig _config;
     [SerializeField] private Transform _playerTransform;
@@ -12,6 +15,7 @@ public class AIAgent : MonoBehaviour
     [SerializeField] private AIInteractionHandler _interactionHandler;
     private AIStateMachine _stateMachine;
     private BaseStatus _health;
+    private bool _hasDied = false;
     #endregion
 
     #region Getters and setter
@@ -33,8 +37,17 @@ public class AIAgent : MonoBehaviour
 
     private void Update()
     {
-        _stateMachine.ExecuteState();
-        _aiLocomotion.DecreaseTimer();
-        _aiLocomotion.MoveAgent();
+        if (!_hasDied)
+        {
+            _stateMachine.ExecuteState();
+            _aiLocomotion.DecreaseTimer();
+            _aiLocomotion.MoveAgent();
+        }
+    }
+
+    public void Die()
+    {
+        _hasDied = true;
+        OnDeath?.Invoke();
     }
 }

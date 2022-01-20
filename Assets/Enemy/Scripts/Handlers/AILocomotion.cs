@@ -11,10 +11,10 @@ public class AILocomotion : MonoBehaviour
     #endregion
 
     // TODO: Remove SerializeFields
-    [SerializeField] private float _updatePathTimer;
-    [SerializeField] private float _attackCoolDownTimer;
-    [SerializeField] private float _tauntCoolDownTimer;
-    [SerializeField] private int _tauntCount;
+    private float _updatePathTimer;
+    private float _attackCoolDownTimer;
+    private float _tauntCoolDownTimer;
+    private int _tauntCount;
     
     public NavMeshAgent NavMeshAgent { get => _navMeshAgent; }
     public float AttackCoolDownTimer { get => _attackCoolDownTimer; }
