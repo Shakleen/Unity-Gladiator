@@ -15,7 +15,7 @@ public class PlayerAnimationHandler : MonoBehaviour
 
     #region Animation paramter hash variables
     private int _hashVelocityX, _hashVelocityZ;
-    private int _hashIsMoving, _hashIsRunning, _hashIsDodging, _hashIsMeleeAttacking;
+    private int _hashIsMoving, _hashIsRunning, _hashIsDodging, _hashIsMeleeAttacking, _hashIsDead;
     private int _hashMeleeAttackNumber;
     private int _hashMultiplierMove, _hashMultiplierDodgeNormal, _hashMultiplierDodgeRun;
     private int _hashMultiplierIdleMelee, _hashMultiplierWalkMelee, _hashMultiplierRunMelee;
@@ -38,6 +38,7 @@ public class PlayerAnimationHandler : MonoBehaviour
         _hashIsMoving = Animator.StringToHash("isMoving");
         _hashIsRunning = Animator.StringToHash("isRunning");
         _hashIsDodging = Animator.StringToHash("isDodging");
+        _hashIsDead = Animator.StringToHash("isDead");
         _hashIsMeleeAttacking = Animator.StringToHash("isMeleeAttacking");
         _hashMeleeAttackNumber = Animator.StringToHash("meleeAttackNumber");
         _hashMultiplierMove = Animator.StringToHash("moveSpeedMultiplier");
@@ -55,6 +56,7 @@ public class PlayerAnimationHandler : MonoBehaviour
         PlayerInputHandler.OnRunPressed += OnRunPressed;
         PlayerInputHandler.OnMovePressed += OnMovePressed;
         PlayerInputHandler.OnDodgePressed += OnDodgePressed;
+        PlayerStatusHandler.OnDeath += OnDeath;
     }
 
     private void SetMultipliers()
@@ -73,6 +75,7 @@ public class PlayerAnimationHandler : MonoBehaviour
         PlayerInputHandler.OnRunPressed -= OnRunPressed;
         PlayerInputHandler.OnMovePressed -= OnMovePressed;
         PlayerInputHandler.OnDodgePressed -= OnDodgePressed;
+        PlayerStatusHandler.OnDeath -= OnDeath;
     }
 
     #region Event Callbacks
@@ -84,6 +87,7 @@ public class PlayerAnimationHandler : MonoBehaviour
     private void OnRunPressed() => SetAnimationValueIsRunning(_player.InputHandler.IsInputActiveRun);
     private void OnMovePressed() => SetAnimationValueIsMoving(_player.InputHandler.IsInputActiveMovement);
     private void OnDodgePressed() => SetAnimationValueIsDodging(_player.InputHandler.IsInputActiveDodge);
+    private void OnDeath() => _player.AnimatorHandler.SetAnimationValueIsDead(true);
     #endregion
 
     #region Animation speed multiplier setters
@@ -101,6 +105,7 @@ public class PlayerAnimationHandler : MonoBehaviour
     private void SetAnimationValueIsMoving(bool value) => _animator.SetBool(_hashIsMoving, value);
     private void SetAnimationValueIsRunning(bool value) => _animator.SetBool(_hashIsRunning, value);
     private void SetAnimationValueIsDodging(bool value) => _animator.SetBool(_hashIsDodging, value);
+    public void SetAnimationValueIsDead(bool value) => _animator.SetBool(_hashIsDead, value);
     public void SetAnimationValueIsMeleeAttacking(bool value) => _animator.SetBool(_hashIsMeleeAttacking, value);
     public void IncrementMeleeAttackNumber()
     {

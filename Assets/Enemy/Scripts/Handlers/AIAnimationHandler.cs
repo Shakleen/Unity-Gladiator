@@ -39,7 +39,15 @@ public class AIAnimationHandler : MonoBehaviour
     #region Animation event callbacks
     private void AnimationEventTauntStart() => _isTaunting = true;
     private void AnimationEventTauntEnd() => _isTaunting = false;
-    private void AnimationEventMeleeAttackStart() => _isAttacking = true;
-    private void AnimationEventMeleeAttackEnd() => _isAttacking = false;
+    private void AnimationEventMeleeAttackStart() 
+    {
+        _isAttacking = true;
+        _aiAgent.InteractionHandler.SetWeaponDamageStatus(true);
+    }
+    private void AnimationEventMeleeAttackEnd() 
+    {
+        _isAttacking = false;
+        _aiAgent.InteractionHandler.SetWeaponDamageStatus(false);
+    }
     #endregion
 }

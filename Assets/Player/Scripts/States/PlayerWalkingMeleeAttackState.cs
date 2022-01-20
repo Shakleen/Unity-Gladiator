@@ -33,7 +33,7 @@ public class PlayerWalkingMeleeAttackState : PlayerBaseState
                 return _toDodge;
             else if (isMovePressed())
                 return _toWalk;
-            else
+            else if (_player.AttackHandler.IsAttackComplete())
                 return _toIdle;
         }
 

@@ -18,6 +18,8 @@ public class AIInteractionHandler : MonoBehaviour
 
     private void Start() => _healthBar.InitializeBar(_aiAgent.Health);
 
+    public void SetWeaponDamageStatus(bool status) => _weapon.canDamage = status;
+
     public void TakeDamage(float damage)
     {
         _aiAgent.Health.Take(damage);
@@ -37,13 +39,10 @@ public class AIInteractionHandler : MonoBehaviour
         canvas.gameObject.SetActive(status);
     }
 
-    public void SetWeaponGravity(bool status)
+    private void SetWeaponGravity(bool status)
     {
-        Rigidbody _rbody = _weapon.GetComponent<Rigidbody>();
-        if (_rbody != null) _rbody.useGravity = status;
-
-        BoxCollider _bColl = _weapon.GetComponent<BoxCollider>();
-        if (_bColl != null) _bColl.isTrigger = !status;
+        _weapon.GetComponent<Rigidbody>().useGravity = status;
+        _weapon.GetComponent<BoxCollider>().isTrigger = !status;
     }
     #endregion
 }

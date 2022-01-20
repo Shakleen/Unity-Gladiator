@@ -42,6 +42,14 @@ public class PlayerStatusHandler : MonoBehaviour
     private RegenStatus MakeStatus(StatusConfig config) => new RegenStatus(config.initialCapacity, config.regenPerSec, config.depletePerSec);
     #endregion
 
+    #region Take Damage
+    public void TakeDamage(float damage)
+    {
+        _health.Take(damage);
+        OnHealthChange?.Invoke();
+    }
+    #endregion
+
     #region Stamina consumption
     public void DepleteStamina()
     {

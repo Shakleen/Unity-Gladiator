@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerStatusHandler _statusHandler;
     [SerializeField] private PlayerAttackHandler _attackHandler;
     [SerializeField] private PlayerStateEnum _currentStateType;
+    [SerializeField] private PlayerInteractionHandler _interactionhandler;
     [SerializeField] private ConfigHandler _config;
     private PlayerStateMachine _stateMachine;
     #endregion
@@ -20,7 +21,12 @@ public class Player : MonoBehaviour
     public PlayerAnimationHandler AnimatorHandler { get => _animationHandler; }
     public PlayerStatusHandler StatusHandler { get => _statusHandler; }
     public PlayerAttackHandler AttackHandler { get => _attackHandler; }
-    public PlayerStateEnum CurrentState { get => _currentStateType; set => _currentStateType = value; }
+    public PlayerInteractionHandler Interactionhandler { get => _interactionhandler; }
+    
+    public PlayerStateEnum CurrentState { 
+        get => _currentStateType; 
+        set => _currentStateType = value;
+    }
     public ConfigHandler Config { get => _config; }
     #endregion
     

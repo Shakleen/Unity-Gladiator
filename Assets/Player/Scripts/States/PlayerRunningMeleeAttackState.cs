@@ -25,7 +25,7 @@ public class PlayerRunningMeleeAttackState : PlayerBaseState
     {
         if (IsDeath())
             return _toDeath;
-        if (_player.AttackHandler.NoAttackActivity())
+        if (_player.AttackHandler.IsAttackComplete())
             return _toIdle;
         
         return null;

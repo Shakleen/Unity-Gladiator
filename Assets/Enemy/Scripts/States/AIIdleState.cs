@@ -26,10 +26,10 @@ public class AIIdleState : AIBaseState
             return _toDeath;
         else if (IsInReach())
         {
-            if (ToAttackCondition())
+            // if (ToAttackCondition())
                 return _toAttack;
-            else if (ToTauntCondition())
-                return _toTaunt;
+            // else if (ToTauntCondition())
+            //     return _toTaunt;
         }
         else if (IsInAwareness() && !IsInReach())
             return _toChase;
