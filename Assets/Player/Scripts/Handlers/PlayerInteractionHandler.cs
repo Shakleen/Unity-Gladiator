@@ -15,6 +15,7 @@ public class PlayerInteractionHandler : MonoBehaviour
     {
         _weapon.GetComponent<Rigidbody>().useGravity = status;
         _weapon.GetComponent<BoxCollider>().isTrigger = !status;
+        _weapon.transform.parent = null;
     }
 
     private void OnTriggerEnter(Collider other)

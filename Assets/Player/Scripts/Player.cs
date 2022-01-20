@@ -38,9 +38,12 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        _stateMachine.ExecuteState();
-        _movementController.MoveCharacter();
-        _statusHandler.Regenerate();
-        _attackHandler.DecreaseAttackComboTimer();
+        if (!_statusHandler.IsDead)
+        {
+            _stateMachine.ExecuteState();
+            _movementController.MoveCharacter();
+            _statusHandler.Regenerate();
+            _attackHandler.DecreaseAttackComboTimer();
+        }
     }
 }

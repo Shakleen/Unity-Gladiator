@@ -43,6 +43,7 @@ public class AIInteractionHandler : MonoBehaviour
     {
         _weapon.GetComponent<Rigidbody>().useGravity = status;
         _weapon.GetComponent<BoxCollider>().isTrigger = !status;
+        if (status) _weapon.transform.parent = null;
     }
     #endregion
 }

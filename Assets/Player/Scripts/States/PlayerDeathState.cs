@@ -4,7 +4,7 @@ public class PlayerDeathState : PlayerBaseState
 {
     public PlayerDeathState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) {}
 
-    public override Enum GetStateType() => PlayerStateEnum.idle;
+    public override Enum GetStateType() => PlayerStateEnum.death;
 
     public override void OnEnterState(Transition transition) {}
 
