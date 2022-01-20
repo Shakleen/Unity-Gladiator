@@ -31,6 +31,9 @@ public class AIConfig : ScriptableObject {
     [Tooltip("Maximum taunts in a row before an attack")]
     [SerializeField] private int _maxTaunts = 3;
 
+    [Tooltip("Amount of points an enemy will give to the player on death")]
+    [SerializeField] private int _enemyValue = 10;
+
     public float MinimumUpdateWaitTime { get => _minimumUpdateWaitTime; }
     public float MinimumUpdateDistance { get => _minimumUpdateDistance; }
     public float AwarenessRadius { get => _awarenessRadius; }
@@ -40,5 +43,6 @@ public class AIConfig : ScriptableObject {
     public float TauntCoolDown { get => _tauntCoolDown; }
     public float MaxTaunts { get => _maxTaunts; }
     public float Health { get => _health; }
+    public int EnemyValue { get => _enemyValue; }
 
 }

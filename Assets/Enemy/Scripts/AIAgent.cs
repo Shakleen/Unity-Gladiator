@@ -48,6 +48,7 @@ public class AIAgent : MonoBehaviour
     public void Die()
     {
         _hasDied = true;
+        FindObjectOfType<GameManager>().AddScore(Config.EnemyValue);
         OnDeath?.Invoke();
     }
 }
