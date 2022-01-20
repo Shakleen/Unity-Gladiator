@@ -22,11 +22,7 @@ public class Player : MonoBehaviour
     public PlayerStatusHandler StatusHandler { get => _statusHandler; }
     public PlayerAttackHandler AttackHandler { get => _attackHandler; }
     public PlayerInteractionHandler Interactionhandler { get => _interactionhandler; }
-    
-    public PlayerStateEnum CurrentState { 
-        get => _currentStateType; 
-        set => _currentStateType = value;
-    }
+    public PlayerStateEnum CurrentState { get => _currentStateType; set => _currentStateType = value; }
     public ConfigHandler Config { get => _config; }
     #endregion
     

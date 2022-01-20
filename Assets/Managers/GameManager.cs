@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     #endregion
 
     [SerializeField] private int _waveTimeLimit = 180;
+    [SerializeField] private UIHandlerHUD _hudScreen;
+    [SerializeField] private UIHandlerGameOver _gameOverScreen;
 
     private int _waveNo, _score, _waveTimer;
 
@@ -20,8 +22,13 @@ public class GameManager : MonoBehaviour
     public int WaveTimeRemaining { get => _waveTimer; }
     #endregion
 
+    private void OnEnable() => PlayerStatusHandler.OnDeath += GameOver;
+
+    private void OnDisable() => PlayerStatusHandler.OnDeath -= GameOver;
+
     private void Start() 
     {
+        SetScreenActive(hud: true);
         InitializeWaveTimer();  
         IncrementWaveNumber();
         AddScore(0);
@@ -53,5 +60,18 @@ public class GameManager : MonoBehaviour
     {
         _score += value;
         OnScoreChange?.Invoke();
+    }
+
+    private void SetScreenActive(bool hud = false, bool gameover = false)
+    {
+        _hudScreen.gameObject.SetActive(hud);
+        _gameOverScreen.gameObject.SetActive(gameover);
+    }
+
+    public void GameOver()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        _gameOverScreen.ShowGameOverDetails(_score, _waveNo);
+        SetScreenActive(gameover: true);
     }
 }
