@@ -40,14 +40,14 @@ public class AIIdleState : AIBaseState
     private bool ToAttackCondition()
     {
         _willAttack = UnityEngine.Random.Range(0f, 1f) <= _aiAgent.Config.AttackChance;
-        _isCoolDownOver = _aiAgent.AILocomotion.HasTimerRunOut(_aiAgent.AILocomotion.AttackCoolDownTimer);
+        _isCoolDownOver = _aiAgent.locomotion.HasTimerRunOut(_aiAgent.locomotion.AttackCoolDownTimer);
         return _willAttack && _isCoolDownOver;
     }
 
     private bool ToTauntCondition()
     {
-        _reachedMaxTaunts = _aiAgent.AILocomotion.ReachedMaxTaunts();
-        _isCoolDownOver = _aiAgent.AILocomotion.HasTimerRunOut(_aiAgent.AILocomotion.TauntCoolDownTimer);
+        _reachedMaxTaunts = _aiAgent.locomotion.ReachedMaxTaunts();
+        _isCoolDownOver = _aiAgent.locomotion.HasTimerRunOut(_aiAgent.locomotion.TauntCoolDownTimer);
         return !_reachedMaxTaunts && _isCoolDownOver;
     }
     #endregion
@@ -63,15 +63,15 @@ public class AIIdleState : AIBaseState
 
     private void OnExitToAttack() 
     { 
-        _aiAgent.AILocomotion.ResetAttackCoolDown();
-        _aiAgent.AILocomotion.ResetTauntCount();
+        _aiAgent.locomotion.ResetAttackCoolDown();
+        _aiAgent.locomotion.ResetTauntCount();
         _aiAgent.AnimationHandler.SetAnimationValueIsAttacking(true); 
     }
 
     private void OnExitToTaunt() 
     { 
-        _aiAgent.AILocomotion.ResetTauntCoolDown();
-        _aiAgent.AILocomotion.IncremetTauntCount();
+        _aiAgent.locomotion.ResetTauntCoolDown();
+        _aiAgent.locomotion.IncremetTauntCount();
         _aiAgent.AnimationHandler.SetAnimationValueIsTaunting(true); 
     }
     #endregion

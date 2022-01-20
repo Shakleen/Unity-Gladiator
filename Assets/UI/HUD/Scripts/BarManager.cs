@@ -19,11 +19,8 @@ public class BarManager : MonoBehaviour
     {
         _leftSlider.value = status.CurrentCapacity;
         _rightSlider.value = status.CurrentCapacity;
-        _value.text = FormatStatusDisplayString(status);
-    }
 
-    private string FormatStatusDisplayString(BaseStatus status) 
-    {
-        return string.Format("{0} / {1}", (int)status.CurrentCapacity, (int)status.MaxCapacity);
+        if (_value != null)
+            _value.text = string.Format("{0} / {1}", (int)status.CurrentCapacity, (int)status.MaxCapacity);
     }
 }

@@ -17,7 +17,7 @@ public class AIChaseState : AIBaseState
     public override void ExecuteState()
     {
         CheckSwitchState();
-        _aiAgent.AILocomotion.UpdateAgentPath();
+        _aiAgent.locomotion.UpdateAgentPath();
     }
 
     public override Transition GetTransition()
