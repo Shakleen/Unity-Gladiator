@@ -912,6 +912,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _aiAgent: {fileID: 0}
   _animator: {fileID: 0}
+  _isTaunting: 0
+  _isAttacking: 0
 --- !u!1 &610867228
 GameObject:
   m_ObjectHideFlags: 0
@@ -4274,57 +4276,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 9171100155578697, guid: 56cd909294774c841a8b27717f1c8b8d, type: 3}
-      propertyPath: m_ConnectedAnchor.z
-      value: -0.040014356
-      objectReference: {fileID: 0}
-    - target: {fileID: 152878827129374201, guid: 56cd909294774c841a8b27717f1c8b8d, type: 3}
-      propertyPath: m_ConnectedAnchor.z
-      value: -0.022320768
-      objectReference: {fileID: 0}
-    - target: {fileID: 2853286957571294645, guid: 56cd909294774c841a8b27717f1c8b8d, type: 3}
-      propertyPath: m_ConnectedAnchor.z
-      value: -0.040013872
-      objectReference: {fileID: 0}
-    - target: {fileID: 3052746999178216895, guid: 56cd909294774c841a8b27717f1c8b8d, type: 3}
-      propertyPath: m_ConnectedAnchor.z
-      value: 0.002846202
-      objectReference: {fileID: 0}
-    - target: {fileID: 3135921509465378197, guid: 56cd909294774c841a8b27717f1c8b8d, type: 3}
-      propertyPath: m_ConnectedAnchor.z
-      value: -0.015995674
-      objectReference: {fileID: 0}
-    - target: {fileID: 4890665111545490167, guid: 56cd909294774c841a8b27717f1c8b8d, type: 3}
-      propertyPath: m_ConnectedAnchor.z
-      value: 0.0028615417
-      objectReference: {fileID: 0}
-    - target: {fileID: 6136935971061494583, guid: 56cd909294774c841a8b27717f1c8b8d, type: 3}
-      propertyPath: m_ConnectedAnchor.z
-      value: -0.015995681
-      objectReference: {fileID: 0}
     - target: {fileID: 7268081840943836663, guid: 56cd909294774c841a8b27717f1c8b8d, type: 3}
       propertyPath: m_Name
       value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 7268081840943836663, guid: 56cd909294774c841a8b27717f1c8b8d, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7442015436850300123, guid: 56cd909294774c841a8b27717f1c8b8d, type: 3}
-      propertyPath: m_ConnectedAnchor.z
-      value: -0.022045696
-      objectReference: {fileID: 0}
-    - target: {fileID: 7501871340276781272, guid: 56cd909294774c841a8b27717f1c8b8d, type: 3}
-      propertyPath: m_Speed
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7501871340276781272, guid: 56cd909294774c841a8b27717f1c8b8d, type: 3}
-      propertyPath: m_Acceleration
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 7501871340276781272, guid: 56cd909294774c841a8b27717f1c8b8d, type: 3}
-      propertyPath: m_StoppingDistance
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7501871340276781276, guid: 56cd909294774c841a8b27717f1c8b8d, type: 3}
       propertyPath: _playerTransform
@@ -4373,14 +4327,6 @@ PrefabInstance:
     - target: {fileID: 8040817876717598541, guid: 56cd909294774c841a8b27717f1c8b8d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8817898888122348094, guid: 56cd909294774c841a8b27717f1c8b8d, type: 3}
-      propertyPath: m_ConnectedAnchor.z
-      value: -0.022321025
-      objectReference: {fileID: 0}
-    - target: {fileID: 9019515343065197499, guid: 56cd909294774c841a8b27717f1c8b8d, type: 3}
-      propertyPath: m_ConnectedAnchor.z
-      value: -0.008692915
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56cd909294774c841a8b27717f1c8b8d, type: 3}

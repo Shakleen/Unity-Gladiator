@@ -2,11 +2,11 @@ using System;
 
 public class AIAttackState : AIBaseState
 {
-    private Transition _toAware, _toDeath;
+    private Transition _toIdle, _toDeath;
 
     public AIAttackState(AIAgent aiAgent, AIStateMachine stateMachine) : base(aiAgent, stateMachine) 
     {
-        _toAware = new Transition(GetStateType(), AIStateEnum.aware);
+        _toIdle = new Transition(GetStateType(), AIStateEnum.idle);
         _toDeath = new Transition(GetStateType(), AIStateEnum.death);
     }
 
@@ -18,10 +18,10 @@ public class AIAttackState : AIBaseState
 
     public override Transition GetTransition()
     {
-        if (_aiAgent.Health.IsEmpty())
+        if (IsDead())
             return _toDeath;
         else if (!_aiAgent.AnimationHandler.IsAttacking)
-            return _toAware;
+            return _toIdle;
         
         return null;
     }

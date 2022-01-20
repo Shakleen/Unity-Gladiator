@@ -2,15 +2,17 @@ using System;
 
 public class AITauntState : AIBaseState
 {
-    private Transition _toAware, _toDeath;
+    private Transition _toIdle, _toDeath;
 
-    public AITauntState(AIAgent aiAgent, AIStateMachine stateMachine) : base(aiAgent, stateMachine) {}
+    public AITauntState(AIAgent aiAgent, AIStateMachine stateMachine) : base(aiAgent, stateMachine)
+    {
+        _toIdle = new Transition(GetStateType(), AIStateEnum.idle);
+        _toDeath = new Transition(GetStateType(), AIStateEnum.death);
+    }
 
     public override Enum GetStateType() => AIStateEnum.taunt;
 
     public override void OnEnterState(Transition transition) {}
-
-    private bool IsWithInAttackRadius() => GetDistanceFromPlayer() <= _aiAgent.Config.AttackRadius;
 
     private float GetDistanceFromPlayer() => (_aiAgent.PlayerTransform.position - _aiAgent.transform.position).magnitude;
 
@@ -18,10 +20,10 @@ public class AITauntState : AIBaseState
 
     public override Transition GetTransition()
     {
-        if (_aiAgent.Health.IsEmpty())
+        if (IsDead())
             return _toDeath;
-        else if (!_aiAgent.AnimationHandler.IsAttacking)
-            return _toAware;
+        else if (!_aiAgent.AnimationHandler.IsTaunting)
+            return _toIdle;
         
         return null;
     }

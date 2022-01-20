@@ -10,7 +10,7 @@ public class AIStateMachine
     {
         _aiAgent = aiAgent;
         InitializeStates();
-        _currentState = _states[GetIndex(AIStateEnum.aware)];
+        _currentState = _states[GetIndex(AIStateEnum.idle)];
     }
 
     private void InitializeStates()
@@ -36,8 +36,8 @@ public class AIStateMachine
         AIStateEnum newStateEnum = CastStateEnum(transition.destination);
         _currentState.OnExitState(transition);
         _currentState = _states[GetIndex(newStateEnum)];
-        _currentState.OnEnterState(transition);
         _aiAgent.CurrentState = newStateEnum;
+        _currentState.OnEnterState(transition);
     }
 
     public AIStateEnum GetCurrentStateType() => CastStateEnum(_currentState.GetStateType());

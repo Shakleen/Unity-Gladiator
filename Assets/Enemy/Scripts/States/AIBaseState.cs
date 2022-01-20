@@ -1,4 +1,4 @@
-public enum AIStateEnum { aware, chase, attack, taunt, death }
+public enum AIStateEnum { idle, chase, attack, taunt, death }
 
 public abstract class AIBaseState : BaseStateClass
 {
@@ -17,4 +17,8 @@ public abstract class AIBaseState : BaseStateClass
         if (_transition != null)
             _stateMachine.SwitchState(_transition);
     }
+
+    protected bool IsDead() => _aiAgent.Health.IsEmpty();
+    protected bool IsInAwareness() => _aiAgent.AILocomotion.IsInRadius(_aiAgent.Config.AwarenessRadius);
+    protected bool IsInReach() => _aiAgent.AILocomotion.IsInRadius(_aiAgent.Config.AttackRadius);
 }

@@ -33,5 +33,6 @@ public class AIAgent : MonoBehaviour
     {
         _stateMachine.ExecuteState();
         _aiLocomotion.DecreaseTimer();
+        _aiLocomotion.MoveAgent();
     }
 }

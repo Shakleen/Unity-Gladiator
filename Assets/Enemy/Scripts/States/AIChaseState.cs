@@ -1,13 +1,12 @@
 using System;
-using UnityEngine;
 
 public class AIChaseState : AIBaseState
 {
-    private Transition _toAware, _toDeath;
+    private Transition _toIdle, _toDeath;
     
     public AIChaseState(AIAgent aiAgent, AIStateMachine stateMachine) : base(aiAgent, stateMachine) 
     {
-        _toAware = new Transition(GetStateType(), AIStateEnum.aware);
+        _toIdle = new Transition(GetStateType(), AIStateEnum.idle);
         _toDeath = new Transition(GetStateType(), AIStateEnum.death);
     }
 
@@ -19,24 +18,16 @@ public class AIChaseState : AIBaseState
     {
         CheckSwitchState();
         _aiAgent.AILocomotion.UpdateAgentPath();
-        _aiAgent.AnimationHandler.SetAnimationValueMovementSpeed(_aiAgent.AILocomotion.NavMeshAgent.velocity.magnitude);
     }
 
     public override Transition GetTransition()
     {
-        if (_aiAgent.Health.IsEmpty())
+        if (IsDead())
             return _toDeath;
-        else if (!ToAwareCondition())
-            return _toAware;
+        else if (IsInReach())
+            return _toIdle;
 
         return null;
-    }
-
-    private bool ToAwareCondition()
-    {
-        Vector3 distanceFromPlayer = _aiAgent.PlayerTransform.position - _aiAgent.transform.position;
-        bool isWithInAttackDistance = distanceFromPlayer.magnitude <= _aiAgent.Config.AttackRadius;
-        return isWithInAttackDistance;
     }
 
     public override void OnExitState(Transition transition) {}

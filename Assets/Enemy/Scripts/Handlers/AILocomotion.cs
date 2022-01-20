@@ -27,14 +27,19 @@ public class AILocomotion : MonoBehaviour
         if (HasTimerRunOut(_updatePathTimer))
         {
             _updatePathTimer = _aiAgent.Config.MinimumUpdateWaitTime;
-            float thresh = _aiAgent.Config.MinimumUpdateDistance * _aiAgent.Config.MinimumUpdateDistance;
 
-            if (DistanceFromPlayerSqrMagnitude() >= thresh)
+            if (PlayerPositionChange() >= Square(_aiAgent.Config.MinimumUpdateDistance))
                 _navMeshAgent.destination = _aiAgent.PlayerTransform.position;
         }
     }
 
-    public float DistanceFromPlayerSqrMagnitude() => (_aiAgent.PlayerTransform.position - _navMeshAgent.destination).sqrMagnitude;
+    public float PlayerPositionChange() => (_aiAgent.PlayerTransform.position - _navMeshAgent.destination).sqrMagnitude;
+
+    public float DistanceBetweenPlayerAndAgent() => (_aiAgent.PlayerTransform.position - transform.position).sqrMagnitude;
+
+    public bool IsInRadius(float radius) => DistanceBetweenPlayerAndAgent() <= Square(radius);
+
+    private float Square(float value) => value * value;
     
     public void DecreaseTimer()
     {
@@ -52,6 +57,8 @@ public class AILocomotion : MonoBehaviour
         
         return timer;
     }
+
+    public void MoveAgent() => _aiAgent.AnimationHandler.SetAnimationValueMovementSpeed(_navMeshAgent.velocity.magnitude);
 
     public bool HasTimerRunOut(float timer) => timer <= TIMER_THRESH;
 

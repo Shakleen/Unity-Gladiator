@@ -18,6 +18,6 @@ MonoBehaviour:
   _attackRadius: 2
   _health: 100
   _attackChance: 0.5
-  _attackCoolDown: 5
-  _tauntCoolDown: 3
-  _maxTaunts: 3
+  _attackCoolDown: 15
+  _tauntCoolDown: 10
+  _maxTaunts: 2

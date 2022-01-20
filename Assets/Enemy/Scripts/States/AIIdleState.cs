@@ -1,11 +1,11 @@
 using System;
 
-public class AIAwareState : AIBaseState
+public class AIIdleState : AIBaseState
 {
     private bool _reachedMaxTaunts, _isCoolDownOver, _willAttack;
     private Transition _toChase, _toDeath, _toTaunt, _toAttack;
 
-    public AIAwareState(AIAgent aiAgent, AIStateMachine stateMachine) : base(aiAgent, stateMachine)
+    public AIIdleState(AIAgent aiAgent, AIStateMachine stateMachine) : base(aiAgent, stateMachine)
     {
         _toChase = new Transition(GetStateType(), AIStateEnum.chase);
         _toDeath = new Transition(GetStateType(), AIStateEnum.death);
@@ -13,40 +13,28 @@ public class AIAwareState : AIBaseState
         _toAttack = new Transition(GetStateType(), AIStateEnum.attack);
     }
 
-    public override Enum GetStateType() => AIStateEnum.aware;
+    public override Enum GetStateType() => AIStateEnum.idle;
 
     public override void OnEnterState(Transition transition) {}
 
-    public override void ExecuteState() 
-    { 
-        CheckSwitchState(); 
-        _aiAgent.AnimationHandler.SetAnimationValueMovementSpeed(0f);
-    }
+    public override void ExecuteState() => CheckSwitchState();
 
     #region Switch state conditions
-
     public override Transition GetTransition()
     {
-        if (_aiAgent.Health.IsEmpty())
+        if (IsDead())
             return _toDeath;
-        else if (IsWithInRadius(_aiAgent.Config.AttackChance))
+        else if (IsInReach())
         {
             if (ToAttackCondition())
                 return _toAttack;
             else if (ToTauntCondition())
                 return _toTaunt;
         }
-        else if (IsWithInRadius(_aiAgent.Config.AwarenessRadius))
+        else if (IsInAwareness() && !IsInReach())
             return _toChase;
 
         return null;
-    }
-
-    private bool ToTauntCondition()
-    {
-        _reachedMaxTaunts = _aiAgent.AILocomotion.ReachedMaxTaunts();
-        _isCoolDownOver = _aiAgent.AILocomotion.HasTimerRunOut(_aiAgent.AILocomotion.TauntCoolDownTimer);
-        return !_reachedMaxTaunts && _isCoolDownOver;
     }
 
     private bool ToAttackCondition()
@@ -56,24 +44,21 @@ public class AIAwareState : AIBaseState
         return _willAttack && _isCoolDownOver;
     }
 
-    private bool IsWithInRadius(float radius) => _aiAgent.AILocomotion.DistanceFromPlayerSqrMagnitude() <= Square(radius);
-
-    private float Square(float value) => value * value;
+    private bool ToTauntCondition()
+    {
+        _reachedMaxTaunts = _aiAgent.AILocomotion.ReachedMaxTaunts();
+        _isCoolDownOver = _aiAgent.AILocomotion.HasTimerRunOut(_aiAgent.AILocomotion.TauntCoolDownTimer);
+        return !_reachedMaxTaunts && _isCoolDownOver;
+    }
     #endregion
-
 
     #region Transition On Exit functions
     public override void OnExitState(Transition transition)
     {
-        switch(transition.destination)
-        {
-            case AIStateEnum.attack:
-                OnExitToAttack();
-                break;
-            case AIStateEnum.taunt:
-                OnExitToTaunt();
-                break;
-        }
+        if (transition.destination.CompareTo(AIStateEnum.attack) == 0)
+            OnExitToAttack();
+        else if (transition.destination.CompareTo(AIStateEnum.taunt) == 0)
+            OnExitToTaunt();
     }
 
     private void OnExitToAttack() 

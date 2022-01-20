@@ -14,7 +14,8 @@ public class AIAnimationHandler : MonoBehaviour
     private int _animationHashIsAttacking;
     #endregion
 
-    private bool _isTaunting, _isAttacking;
+    [SerializeField] private bool _isTaunting;
+    [SerializeField] private bool _isAttacking;
 
     public bool IsTaunting { get => _isTaunting; }
     public bool IsAttacking { get => _isAttacking; }
@@ -24,7 +25,7 @@ public class AIAnimationHandler : MonoBehaviour
         _animationHashMovementSpeed = Animator.StringToHash("movementSpeed");
         _animationHashIsTaunting = Animator.StringToHash("isTaunting");
         _animationHashIsAttacking = Animator.StringToHash("isAttacking");
-        _animationHashIsDead = Animator.StringToHash("IsDead");
+        _animationHashIsDead = Animator.StringToHash("isDead");
     }
 
     public void SetAnimationValueMovementSpeed(float value) => _animator.SetFloat(_animationHashMovementSpeed, value);
