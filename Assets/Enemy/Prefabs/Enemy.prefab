@@ -2748,10 +2748,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _aiAgent: {fileID: 7501871340276781276}
   _navMeshAgent: {fileID: 7501871340276781272}
-  _updatePathTimer: 0
-  _attackCoolDownTimer: 0
-  _tauntCoolDownTimer: 0
-  _tauntCount: 0
 --- !u!114 &1364059913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3386,7 +3382,7 @@ PrefabInstance:
       objectReference: {fileID: 7268081840943836663}
     - target: {fileID: 3725605260525956139, guid: b3826f6779cd6c14eb062bc4dd7a8835, type: 3}
       propertyPath: _damagePerHit
-      value: 10
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 8032765951118384975, guid: b3826f6779cd6c14eb062bc4dd7a8835, type: 3}
       propertyPath: m_Name

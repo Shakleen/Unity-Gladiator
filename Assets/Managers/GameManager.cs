@@ -10,9 +10,11 @@ public class GameManager : MonoBehaviour
     public static event Action OnScoreChange;
     #endregion
 
+    #region Serialize Fields
     [SerializeField] private int _waveTimeLimit = 180;
     [SerializeField] private UIHandlerHUD _hudScreen;
     [SerializeField] private UIHandlerGameOver _gameOverScreen;
+    #endregion
 
     private int _waveNo, _score, _waveTimer;
 
@@ -74,4 +76,6 @@ public class GameManager : MonoBehaviour
         _gameOverScreen.ShowGameOverDetails(_score, _waveNo);
         SetScreenActive(gameover: true);
     }
+
+
 }
