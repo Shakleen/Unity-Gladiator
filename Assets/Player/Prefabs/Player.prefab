@@ -2258,6 +2258,7 @@ MonoBehaviour:
   _statusHandler: {fileID: 615096659}
   _attackHandler: {fileID: 420177286}
   _currentStateType: 0
+  _interactionhandler: {fileID: 0}
   _config: {fileID: 1910869794018698803}
 --- !u!114 &7773229217061563742
 MonoBehaviour:
@@ -2292,6 +2293,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 7773229217061563745}
   _controller: {fileID: 7431334212993110031}
+  _currentMovementVelocity: {x: 0, y: 0, z: 0}
 --- !u!114 &7773229217061563743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2320,6 +2322,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 7773229217061563745}
   _weapon: {fileID: 3836309259004445477}
+  _comboCounter: 0
+  _comboTimer: 0
+  _attackStarted: 0
+  _attacking: 0
+  _attackEnded: 0
 --- !u!114 &615096659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2622,6 +2629,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -96.878
       objectReference: {fileID: 0}
+    - target: {fileID: 3725605260525956139, guid: b3826f6779cd6c14eb062bc4dd7a8835, type: 3}
+      propertyPath: _rigidBody
+      value: 
+      objectReference: {fileID: 4603089433703430076}
+    - target: {fileID: 3725605260525956139, guid: b3826f6779cd6c14eb062bc4dd7a8835, type: 3}
+      propertyPath: _boxCollider
+      value: 
+      objectReference: {fileID: 5052182397220891054}
     - target: {fileID: 8032765951118384975, guid: b3826f6779cd6c14eb062bc4dd7a8835, type: 3}
       propertyPath: m_Name
       value: Weapon
@@ -2631,6 +2646,11 @@ PrefabInstance:
 --- !u!4 &2001506214742114341 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2112060134414462763, guid: b3826f6779cd6c14eb062bc4dd7a8835, type: 3}
+  m_PrefabInstance: {fileID: 470992078474145550}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &5052182397220891054 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 4653830108793816736, guid: b3826f6779cd6c14eb062bc4dd7a8835, type: 3}
   m_PrefabInstance: {fileID: 470992078474145550}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &3836309259004445477 stripped
@@ -2644,3 +2664,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f05e4d22d7420674abaa73177f3f5bb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &4603089433703430076 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 4136619752057886898, guid: b3826f6779cd6c14eb062bc4dd7a8835, type: 3}
+  m_PrefabInstance: {fileID: 470992078474145550}
+  m_PrefabAsset: {fileID: 0}

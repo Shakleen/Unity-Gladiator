@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class AIAgent : MonoBehaviour
@@ -10,6 +11,7 @@ public class AIAgent : MonoBehaviour
     [SerializeField] private AILocomotion _aiLocomotion;
     [SerializeField] private AIStateEnum _currentStateType;
     [SerializeField] private AIInteractionHandler _interactionHandler;
+    private GameManager _gameManager;
     private Transform _playerTransform;
     private AIStateMachine _stateMachine;
     private BaseStatus _health;
@@ -29,9 +31,18 @@ public class AIAgent : MonoBehaviour
 
     private void Awake() 
     { 
+        _gameManager = FindObjectOfType<GameManager>();
         _playerTransform = FindObjectOfType<Player>().transform;
         _stateMachine = new AIStateMachine(this); 
         _health = new BaseStatus(_config.Health);
+    }
+
+    private void OnEnable() 
+    {
+        _hasDied = false;
+        _ragDollHandler.enabled = true;
+        _aiLocomotion.enabled = true;
+        _interactionHandler.enabled = true;
     }
 
     private void Update()
@@ -49,9 +60,20 @@ public class AIAgent : MonoBehaviour
         if (!_hasDied)
         {
             _hasDied = true;
-            FindObjectOfType<GameManager>().AddScore(Config.EnemyValue);
+            _gameManager.AddScore(Config.EnemyValue);
             _ragDollHandler.SetRagDollStatus(true);
             _interactionHandler.HideHealthBarAndDropWeapon();
+            StartCoroutine(DeactivateAgent());
         }
+    }
+
+    private IEnumerator DeactivateAgent()
+    {
+        yield return new WaitForSeconds(_config.DeactivateDelay);
+        _interactionHandler.AttachWeapon();
+        _ragDollHandler.enabled = false;
+        _aiLocomotion.enabled = false;
+        _interactionHandler.enabled = false;
+        gameObject.SetActive(false);
     }
 }

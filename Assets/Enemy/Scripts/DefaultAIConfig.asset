@@ -21,3 +21,5 @@ MonoBehaviour:
   _attackCoolDown: 15
   _tauntCoolDown: 10
   _maxTaunts: 2
+  _enemyValue: 10
+  _deactivateDelay: 10

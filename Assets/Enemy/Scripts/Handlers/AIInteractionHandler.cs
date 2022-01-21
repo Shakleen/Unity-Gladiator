@@ -7,13 +7,11 @@ public class AIInteractionHandler : MonoBehaviour
     [SerializeField] private MeleeWeaponHandler _weapon;
     private float _cumulativeDamage;
 
-    private void OnEnable()
+    private void Start()
     {
         SetActiveHealthBarUI(true);
-        SetWeaponGravity(false);
+        _healthBar.InitializeBar(_aiAgent.Health);
     }
-
-    private void Start() => _healthBar.InitializeBar(_aiAgent.Health);
 
     public void SetWeaponDamageStatus(bool status) => _weapon.canDamage = status;
 
@@ -26,20 +24,15 @@ public class AIInteractionHandler : MonoBehaviour
             _aiAgent.Die();
     }
 
+    public void AttachWeapon() => _weapon.ReturnToWeilder();
+
     #region Handling Death
     public void HideHealthBarAndDropWeapon()
     {
         SetActiveHealthBarUI(false);
-        SetWeaponGravity(true);
+        _weapon.DropWeapon();
     }
 
     public void SetActiveHealthBarUI(bool status) => _healthBar.gameObject.SetActive(status);
-
-    private void SetWeaponGravity(bool status)
-    {
-        _weapon.GetComponent<Rigidbody>().useGravity = status;
-        _weapon.GetComponent<BoxCollider>().isTrigger = !status;
-        if (status) _weapon.transform.parent = null;
-    }
     #endregion
 }

@@ -796,7 +796,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyPrefab: {fileID: 7268081840943836663, guid: 56cd909294774c841a8b27717f1c8b8d, type: 3}
-  _maxClones: 1000
+  _maxClones: 10
   _spawnDelay: 0.5
   _spawnLocations:
   - {fileID: 122199617}
@@ -805,6 +805,7 @@ MonoBehaviour:
   - {fileID: 151032633}
   _cloneParent: {fileID: 952286991}
   _gameManager: {fileID: 929934370}
+  _enemiesSpawned: 0
 --- !u!1001 &476424636
 PrefabInstance:
   m_ObjectHideFlags: 0
