@@ -6,15 +6,13 @@ public class RagDollHandler : MonoBehaviour
     private Rigidbody[] _rigidBodies;
     private bool _isRagDollActive = false;
 
-    public bool IsRagDollActive { get { return _isRagDollActive; } }
+    public bool IsRagDollActive { get => _isRagDollActive; }
 
     private void Awake() 
     { 
         _rigidBodies = GetComponentsInChildren<Rigidbody>(); 
         AddHitBoxHandler();
     }
-
-    private void Start() => SetRagDollStatus(false);
 
     public void SetRagDollStatus(bool status)
     {

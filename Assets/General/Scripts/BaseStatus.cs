@@ -24,7 +24,9 @@ public class BaseStatus
         _currentCapacity = IsEmpty() ? 0 : _currentCapacity;
     }
 
-    public bool IsEmpty() { return _currentCapacity <= THRESH; }
+    public void Reset() => _currentCapacity = _maxCapacity;
 
-    public bool IsFull() { return _currentCapacity >= _maxCapacity; }
+    public bool IsEmpty() => _currentCapacity <= THRESH; 
+
+    public bool IsFull() => _currentCapacity >= _maxCapacity; 
 }

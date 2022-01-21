@@ -4,7 +4,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     #region Serialize Field properties
-    [Tooltip("Enemy prefab to spawn")] [SerializeField] private GameObject _enemyPrefab;
+    [Tooltip("Enemy prefab to spawn")] [SerializeField] private AIAgent _enemyPrefab;
     [Tooltip("Maximum number of clones to create and reuse for spawning")] [SerializeField] private int _maxClones = 10;
     [Tooltip("Time gap between successive sapwns")] [SerializeField] private float _spawnDelay = 0.5f;
     [Tooltip("Places where enemies will be spawned")] [SerializeField] private Transform[] _spawnLocations;
@@ -16,7 +16,7 @@ public class EnemySpawner : MonoBehaviour
 
     public int EnemiesALive { get => _enemiesSpawned; set => _enemiesSpawned = value; }
 
-    private GameObject[] _enemyClones;
+    private AIAgent[] _enemyClones;
 
     private void Awake() => CreateClones();
 
@@ -42,7 +42,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void CreateClones()
     {
-        _enemyClones = new GameObject[_maxClones];
+        _enemyClones = new AIAgent[_maxClones];
 
         for (int i = 0; i < _maxClones; ++i)
         {
@@ -59,11 +59,12 @@ public class EnemySpawner : MonoBehaviour
 
         for (int i = 0; i < _enemiesSpawned; ++i)
         {
-            if (!_enemyClones[i].activeInHierarchy)
+            if (!_enemyClones[i].gameObject.activeInHierarchy)
             {
                 _enemyClones[i].transform.position = _spawnLocations[GetRandomSpawnPoint()].position;
                 _enemyClones[i].transform.rotation = Quaternion.identity;
                 _enemyClones[i].gameObject.SetActive(true);
+                _enemyClones[i].Init();
                 yield return new WaitForSeconds(_spawnDelay);
             }
         }

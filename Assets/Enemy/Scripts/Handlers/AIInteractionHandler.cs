@@ -7,12 +7,6 @@ public class AIInteractionHandler : MonoBehaviour
     [SerializeField] private MeleeWeaponHandler _weapon;
     private float _cumulativeDamage;
 
-    private void Start()
-    {
-        SetActiveHealthBarUI(true);
-        _healthBar.InitializeBar(_aiAgent.Health);
-    }
-
     public void SetWeaponDamageStatus(bool status) => _weapon.canDamage = status;
 
     public void TakeDamage(float damage)
@@ -24,15 +18,17 @@ public class AIInteractionHandler : MonoBehaviour
             _aiAgent.Die();
     }
 
-    public void AttachWeapon() => _weapon.ReturnToWeilder();
-
     #region Handling Death
-    public void HideHealthBarAndDropWeapon()
+    public void ShowHealthBarAndWeapon(bool status)
     {
-        SetActiveHealthBarUI(false);
-        _weapon.DropWeapon();
+        SetActiveHealthBarUI(status);
+        _weapon.gameObject.SetActive(status);
     }
 
-    public void SetActiveHealthBarUI(bool status) => _healthBar.gameObject.SetActive(status);
+    public void SetActiveHealthBarUI(bool status) 
+    {
+        _healthBar.gameObject.SetActive(status);
+        _healthBar.InitializeBar(_aiAgent.Health);
+    }
     #endregion
 }

@@ -37,12 +37,18 @@ public class AIAgent : MonoBehaviour
         _health = new BaseStatus(_config.Health);
     }
 
-    private void OnEnable() 
+    private void Start() => Init();
+
+    public void Init() 
     {
         _hasDied = false;
         _ragDollHandler.enabled = true;
         _aiLocomotion.enabled = true;
         _interactionHandler.enabled = true;
+        _interactionHandler.ShowHealthBarAndWeapon(true);
+        _ragDollHandler.SetRagDollStatus(false);
+        _health.Reset();
+        _interactionHandler.SetActiveHealthBarUI(true);
     }
 
     private void Update()
@@ -62,7 +68,7 @@ public class AIAgent : MonoBehaviour
             _hasDied = true;
             _gameManager.AddScore(Config.EnemyValue);
             _ragDollHandler.SetRagDollStatus(true);
-            _interactionHandler.HideHealthBarAndDropWeapon();
+            _interactionHandler.ShowHealthBarAndWeapon(false);
             StartCoroutine(DeactivateAgent());
         }
     }
@@ -70,7 +76,6 @@ public class AIAgent : MonoBehaviour
     private IEnumerator DeactivateAgent()
     {
         yield return new WaitForSeconds(_config.DeactivateDelay);
-        _interactionHandler.AttachWeapon();
         _ragDollHandler.enabled = false;
         _aiLocomotion.enabled = false;
         _interactionHandler.enabled = false;

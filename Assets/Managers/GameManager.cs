@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     private int _waveNo, _score, _waveTimer;
+    private IEnumerator _timerCoroutine;
 
     #region Getters
     public int WaveNo { get => _waveNo; }
@@ -39,8 +40,12 @@ public class GameManager : MonoBehaviour
 
     private void SetWaveTimer(int time) 
     {
+        if (_timerCoroutine != null)
+            StopCoroutine(_timerCoroutine);
+
         _waveTimer = time;
-        StartCoroutine(CountDownWaveTimer());
+        _timerCoroutine = CountDownWaveTimer();
+        StartCoroutine(_timerCoroutine);
     }
 
     private IEnumerator CountDownWaveTimer()
