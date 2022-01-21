@@ -735,7 +735,7 @@ PrefabInstance:
       objectReference: {fileID: 307104068}
     - target: {fileID: 8392999303233934462, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
       propertyPath: _damagePerHit
-      value: 10
+      value: 1000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 08884dc0fa5abe14f821f6690488a701, type: 3}
@@ -796,7 +796,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyPrefab: {fileID: 7268081840943836663, guid: 56cd909294774c841a8b27717f1c8b8d, type: 3}
-  _maxClones: 20
+  _maxClones: 1000
   _spawnDelay: 0.5
   _spawnLocations:
   - {fileID: 122199617}
@@ -1718,6 +1718,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _waveTimeLimit: 180
+  _nextWaveLoadTime: 30
   _hudScreen: {fileID: 4275242363681609234}
   _gameOverScreen: {fileID: 2021003996}
 --- !u!4 &929934371

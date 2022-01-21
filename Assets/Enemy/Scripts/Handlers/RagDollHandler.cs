@@ -14,12 +14,6 @@ public class RagDollHandler : MonoBehaviour
         AddHitBoxHandler();
     }
 
-    private void OnEnable() => AIAgent.OnDeath += HandleOnDeath;
-
-    private void OnDisable() => AIAgent.OnDeath -= HandleOnDeath;
-
-    private void HandleOnDeath() => SetRagDollStatus(true);
-
     private void Start() => SetRagDollStatus(false);
 
     public void SetRagDollStatus(bool status)

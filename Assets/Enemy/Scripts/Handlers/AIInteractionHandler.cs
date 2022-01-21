@@ -11,10 +11,7 @@ public class AIInteractionHandler : MonoBehaviour
     {
         SetActiveHealthBarUI(true);
         SetWeaponGravity(false);
-        AIAgent.OnDeath += HandleOnDeath;
     }
-
-    private void OnDisable() => AIAgent.OnDeath -= HandleOnDeath;
 
     private void Start() => _healthBar.InitializeBar(_aiAgent.Health);
 
@@ -24,20 +21,19 @@ public class AIInteractionHandler : MonoBehaviour
     {
         _aiAgent.Health.Take(damage);
         _healthBar.UpdateBar(_aiAgent.Health);
+
+        if (_aiAgent.Health.IsEmpty())
+            _aiAgent.Die();
     }
 
     #region Handling Death
-    private void HandleOnDeath()
+    public void HideHealthBarAndDropWeapon()
     {
         SetActiveHealthBarUI(false);
         SetWeaponGravity(true);
     }
 
-    public void SetActiveHealthBarUI(bool status) 
-    {
-        Canvas canvas = _healthBar.GetComponentInParent<Canvas>();
-        canvas.gameObject.SetActive(status);
-    }
+    public void SetActiveHealthBarUI(bool status) => _healthBar.gameObject.SetActive(status);
 
     private void SetWeaponGravity(bool status)
     {

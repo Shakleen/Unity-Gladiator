@@ -3,16 +3,14 @@ using UnityEngine;
 
 public class AIAgent : MonoBehaviour
 {
-    public static event Action OnDeath;
-    
     #region Component references
     [SerializeField] private AIConfig _config;
-    [SerializeField] private Transform _playerTransform;
     [SerializeField] private AIAnimationHandler _animationHandler;
     [SerializeField] private RagDollHandler _ragDollHandler;
     [SerializeField] private AILocomotion _aiLocomotion;
     [SerializeField] private AIStateEnum _currentStateType;
     [SerializeField] private AIInteractionHandler _interactionHandler;
+    private Transform _playerTransform;
     private AIStateMachine _stateMachine;
     private BaseStatus _health;
     private bool _hasDied = false;
@@ -31,6 +29,7 @@ public class AIAgent : MonoBehaviour
 
     private void Awake() 
     { 
+        _playerTransform = FindObjectOfType<Player>().transform;
         _stateMachine = new AIStateMachine(this); 
         _health = new BaseStatus(_config.Health);
     }
@@ -47,8 +46,12 @@ public class AIAgent : MonoBehaviour
 
     public void Die()
     {
-        _hasDied = true;
-        FindObjectOfType<GameManager>().AddScore(Config.EnemyValue);
-        OnDeath?.Invoke();
+        if (!_hasDied)
+        {
+            _hasDied = true;
+            FindObjectOfType<GameManager>().AddScore(Config.EnemyValue);
+            _ragDollHandler.SetRagDollStatus(true);
+            _interactionHandler.HideHealthBarAndDropWeapon();
+        }
     }
 }
