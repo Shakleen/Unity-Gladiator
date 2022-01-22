@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: player_attack
   m_EditorClassIdentifier: 
   _idleAttackComboMaxTime: 3
-  _maxCombos: 4
+  _maxCombos: 3
