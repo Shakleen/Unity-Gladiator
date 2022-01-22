@@ -1719,7 +1719,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _waveTimeLimit: 180
-  _nextWaveLoadTime: 30
+  _nextWaveLoadTime: 15
   _hudScreen: {fileID: 4275242363681609234}
   _gameOverScreen: {fileID: 2021003996}
 --- !u!4 &929934371
