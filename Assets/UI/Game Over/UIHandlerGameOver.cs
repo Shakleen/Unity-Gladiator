@@ -6,9 +6,6 @@ public class UIHandlerGameOver : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeField] private TextMeshProUGUI _waveText;
-    [SerializeField] private GameManager _gameManager;
-
-    private int _score, _wave;
 
     private void Awake() 
     {
@@ -27,23 +24,9 @@ public class UIHandlerGameOver : MonoBehaviour
         GameManager.OnScoreChange -= SetScoreText;
     }
 
-    private void Start() 
-    {
-        SetWaveText();    
-        SetScoreText();
-    }
+    private void SetWaveText(int value) => _waveText.text = value.ToString("D2");
 
-    private void SetWaveText() 
-    {
-        _wave = _gameManager.WaveNo;
-        _waveText.text = _wave.ToString("D2");
-    }
-
-    private void SetScoreText() 
-    {
-        _score = _gameManager.Score;
-        _scoreText.text = _score.ToString();
-    }
+    private void SetScoreText(int value) => _scoreText.text = value.ToString();
 
     public void MainMenuButton() => SceneManager.LoadScene(0);
 

@@ -1,23 +1,29 @@
-using System;
 using UnityEngine;
 
+[RequireComponent(typeof(Player))]
 public class PlayerAttackHandler : MonoBehaviour
 {
     #region Variables
     private const float THRESH = 1e-5f;
-    [SerializeField] private Player _player;
-    [SerializeField] private MeleeWeaponHandler _weapon;
+    private Player _player;
+    private MeleeWeaponHandler _weapon;
 
-    [SerializeField] private int _comboCounter;
-    [SerializeField] private float _comboTimer;
-    [SerializeField] private bool _attackStarted;
-    [SerializeField] private bool _attacking;
-    [SerializeField] private bool _attackEnded;
+    private int _comboCounter;
+    private float _comboTimer;
+    private bool _attackStarted;
+    private bool _attacking;
+    private bool _attackEnded;
     #endregion
     
     public bool IsAttacking { get => _attacking; }
     public bool IsAttackComplete() => !(_attackStarted || _attacking || _attackEnded);
     public bool NoAttackActivity() => !_player.InputHandler.IsInputActiveMeleeAttack && !_player.AttackHandler.IsAttacking;
+
+    private void Awake() 
+    {
+        _player = GetComponent<Player>();
+        _weapon = GetComponentInChildren<MeleeWeaponHandler>();    
+    }
 
     private void OnEnable() 
     {

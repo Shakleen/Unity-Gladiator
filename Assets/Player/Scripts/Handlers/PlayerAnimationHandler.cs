@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 
+[RequireComponent(typeof(Player))]
+[RequireComponent(typeof(Animator))]
 public class PlayerAnimationHandler : MonoBehaviour
 {
     #region Events
@@ -9,8 +11,8 @@ public class PlayerAnimationHandler : MonoBehaviour
     #endregion
 
     #region Component references
-    [SerializeField] private Animator _animator;
-    [SerializeField] private Player _player;
+    private Animator _animator;
+    private Player _player;
     #endregion
 
     #region Animation paramter hash variables
@@ -18,7 +20,7 @@ public class PlayerAnimationHandler : MonoBehaviour
     private int _hashIsMoving, _hashIsRunning, _hashIsDodging, _hashIsMeleeAttacking, _hashIsDead;
     private int _hashMeleeAttackNumber;
     private int _hashMultiplierMove, _hashMultiplierDodgeNormal, _hashMultiplierDodgeRun;
-    private int _hashMultiplierIdleMelee, _hashMultiplierWalkMelee, _hashMultiplierRunMelee;
+    private int _hashMultiplierIdleMelee, _hashMultiplierRunMelee;
     #endregion
 
     #region Member variables
@@ -31,7 +33,19 @@ public class PlayerAnimationHandler : MonoBehaviour
     public int MeleeAttackNumber { get => _meleeAttackNumber; }
     #endregion
 
-    private void Awake() 
+    private void Awake()
+    {
+        GetComponentReferences();
+        SetAnimationHashes();
+    }
+
+    private void GetComponentReferences()
+    {
+        _player = GetComponent<Player>();
+        _animator = GetComponent<Animator>();
+    }
+
+    private void SetAnimationHashes()
     {
         _hashVelocityX = Animator.StringToHash("velocityX");
         _hashVelocityZ = Animator.StringToHash("velocityZ");
@@ -43,30 +57,19 @@ public class PlayerAnimationHandler : MonoBehaviour
         _hashMeleeAttackNumber = Animator.StringToHash("meleeAttackNumber");
         _hashMultiplierMove = Animator.StringToHash("moveSpeedMultiplier");
         _hashMultiplierIdleMelee = Animator.StringToHash("idleMeleeAttackSpeedMultiplier");
-        _hashMultiplierWalkMelee = Animator.StringToHash("walkMeleeAttackSpeedMultiplier");
         _hashMultiplierRunMelee = Animator.StringToHash("runMeleeAttackSpeedMultiplier");
         _hashMultiplierDodgeNormal = Animator.StringToHash("normalDodgeSpeedMultiplier");
         _hashMultiplierDodgeRun = Animator.StringToHash("runDodgeSpeedMultiplier");
     }
 
+    #region Event Callbacks
     private void OnEnable()
     {
-        SetMultipliers();
         PlayerMovementHandler.OnCurrentMovementChange += OnCurrentMovementChange;
         PlayerInputHandler.OnRunPressed += OnRunPressed;
         PlayerInputHandler.OnMovePressed += OnMovePressed;
         PlayerInputHandler.OnDodgePressed += OnDodgePressed;
         PlayerStatusHandler.OnDeath += OnDeath;
-    }
-
-    private void SetMultipliers()
-    {
-        SetMoveAnimationSpeedMultiplier(_player.Config.animationSpeed.move);
-        SetIdleMeleeAnimationSpeedMultiplier(_player.Config.animationSpeed.idleMeleeAttack);
-        SetWalkMeleeAnimationSpeedMultiplier(_player.Config.animationSpeed.walkMeleeAttack);
-        SetRunMeleeAnimationSpeedMultiplier(_player.Config.animationSpeed.runMeleeAttack);
-        SetNormalDodgeAnimationSpeedMultiplier(_player.Config.animationSpeed.normalDodge);
-        SetRunDodgeAnimationSpeedMultiplier(_player.Config.animationSpeed.runDodge);
     }
 
     private void OnDisable() 
@@ -77,8 +80,6 @@ public class PlayerAnimationHandler : MonoBehaviour
         PlayerInputHandler.OnDodgePressed -= OnDodgePressed;
         PlayerStatusHandler.OnDeath -= OnDeath;
     }
-
-    #region Event Callbacks
     private void OnCurrentMovementChange()
     {
         SetAnimationValueVelocityX(_player.MovementHandler.CurrentMovementVelocity.x);
@@ -91,9 +92,18 @@ public class PlayerAnimationHandler : MonoBehaviour
     #endregion
 
     #region Animation speed multiplier setters
+    private void Start() => SetMultipliers();
+
+    private void SetMultipliers()
+    {
+        SetMoveAnimationSpeedMultiplier(_player.Config.animationSpeed.move);
+        SetIdleMeleeAnimationSpeedMultiplier(_player.Config.animationSpeed.idleMeleeAttack);
+        SetRunMeleeAnimationSpeedMultiplier(_player.Config.animationSpeed.runMeleeAttack);
+        SetNormalDodgeAnimationSpeedMultiplier(_player.Config.animationSpeed.normalDodge);
+        SetRunDodgeAnimationSpeedMultiplier(_player.Config.animationSpeed.runDodge);
+    }
     public void SetMoveAnimationSpeedMultiplier(float multiplier) => _animator.SetFloat(_hashMultiplierMove, multiplier);
     public void SetIdleMeleeAnimationSpeedMultiplier(float multiplier) => _animator.SetFloat(_hashMultiplierIdleMelee, multiplier);
-    public void SetWalkMeleeAnimationSpeedMultiplier(float multiplier) => _animator.SetFloat(_hashMultiplierWalkMelee, multiplier);
     public void SetRunMeleeAnimationSpeedMultiplier(float multiplier) => _animator.SetFloat(_hashMultiplierRunMelee, multiplier);
     public void SetNormalDodgeAnimationSpeedMultiplier(float multiplier) => _animator.SetFloat(_hashMultiplierDodgeNormal, multiplier);
     public void SetRunDodgeAnimationSpeedMultiplier(float multiplier) => _animator.SetFloat(_hashMultiplierDodgeRun, multiplier);
@@ -118,8 +128,6 @@ public class PlayerAnimationHandler : MonoBehaviour
         _animator.SetInteger(_hashMeleeAttackNumber, _meleeAttackNumber);
     }
     #endregion
-
-    public bool IsAnimationPlaying() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f;
 
     #region Animation Events
 

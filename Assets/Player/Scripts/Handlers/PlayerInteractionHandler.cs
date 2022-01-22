@@ -1,9 +1,16 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Player))]
 public class PlayerInteractionHandler : MonoBehaviour 
 {
-    [SerializeField] private Player _player; 
-    [SerializeField] private MeleeWeaponHandler _weapon;
+    private Player _player; 
+    private MeleeWeaponHandler _weapon;
+
+    private void Awake() 
+    {
+        _player = GetComponent<Player>();
+        _weapon = GetComponentInChildren<MeleeWeaponHandler>();    
+    }
 
     private void OnEnable() => PlayerStatusHandler.OnDeath += OnDeath;
 

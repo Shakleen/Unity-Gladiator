@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(PlayerInput))]
 public class PlayerInputHandler : MonoBehaviour
 {
     #region Action events
@@ -12,7 +13,7 @@ public class PlayerInputHandler : MonoBehaviour
     public static event Action<bool> OnPausePressed;
     #endregion
     
-    [SerializeField] private PlayerInput _playerInput;
+    private PlayerInput _playerInput;
     
     #region Input action variables
     private InputAction _inputActionMove;
@@ -45,6 +46,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void Awake() 
     {
+        _playerInput = GetComponent<PlayerInput>();
         _inputActionMove = _playerInput.actions["Move"];
         _inputActionRun = _playerInput.actions["Run"];
         _inputActionDodge = _playerInput.actions["Dodge"];

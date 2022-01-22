@@ -5,9 +5,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     #region Events
-    public static event Action OnWaveNoChange;
-    public static event Action OnTimerChange;
-    public static event Action OnScoreChange;
+    public static event Action<int> OnWaveNoChange;
+    public static event Action<int> OnTimerChange;
+    public static event Action<int> OnScoreChange;
     public static event Action OnGameOver;
     #endregion
 
@@ -21,13 +21,19 @@ public class GameManager : MonoBehaviour
 
     #region Getters
     public int WaveNo { get => _waveNo; }
-    public int Score { get => _score; }
-    public int WaveTimeRemaining { get => _waveTimer; }
     #endregion
 
-    private void OnEnable() => PlayerStatusHandler.OnDeath += GameOver;
+    private void OnEnable()
+    {
+        PlayerStatusHandler.OnDeath += GameOver;
+        EnemySpawner.WaveEnd += EndWave;
+    }
 
-    private void OnDisable() => PlayerStatusHandler.OnDeath -= GameOver;
+    private void OnDisable()
+    {
+        PlayerStatusHandler.OnDeath -= GameOver;
+        EnemySpawner.WaveEnd -= EndWave;
+    }
 
     private void Start() 
     {
@@ -51,12 +57,13 @@ public class GameManager : MonoBehaviour
         while (_waveTimer > 0)
         {
             _waveTimer--;
-            OnTimerChange?.Invoke();
+            OnTimerChange?.Invoke(_waveTimer);
             yield return new WaitForSeconds(1);
         }
     }
 
-    public void EndWave() => StartCoroutine(LoadNextWave());
+    #region Wave ending
+    private void EndWave() => StartCoroutine(LoadNextWave());
 
     private IEnumerator LoadNextWave()
     {
@@ -65,17 +72,18 @@ public class GameManager : MonoBehaviour
         IncrementWaveNumber();
         SetWaveTimer(_waveTimeLimit);
     }
+    #endregion
 
     private void IncrementWaveNumber()
     {
         _waveNo++;
-        OnWaveNoChange?.Invoke();
+        OnWaveNoChange?.Invoke(_waveNo);
     }
 
     public void AddScore(int value)
     {
         _score += value;
-        OnScoreChange?.Invoke();
+        OnScoreChange?.Invoke(_score);
     }
 
     public void GameOver() => OnGameOver?.Invoke();

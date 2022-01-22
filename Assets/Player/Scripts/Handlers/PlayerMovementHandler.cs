@@ -1,24 +1,28 @@
 using System;
 using UnityEngine;
 
+[RequireComponent(typeof(Player))]
+[RequireComponent(typeof(CharacterController))]
 public class PlayerMovementHandler : MonoBehaviour
 {
     public static event Action OnCurrentMovementChange;
     private const float THRESH = 1e-3f;
     
     #region Componenet References
-    [SerializeField] private Player _player;
-    [SerializeField] private CharacterController _controller;
+    private Player _player;
+    private CharacterController _controller;
     private Transform _cameraTransform;
     #endregion
 
-    [SerializeField] private Vector3 _currentMovementVelocity;
-    private Vector2 _dodgeDirection = Vector3.zero;
-    private Vector3 _applyMovement = Vector3.zero;
+    public Vector3 CurrentMovementVelocity { get; private set; }
+    private Vector3 _applyMovement;
+    private Vector2 _dodgeDirection;
 
-    #region Getters
-    public Vector3 CurrentMovementVelocity { get => _currentMovementVelocity; }
-    #endregion
+    private void Awake() 
+    {
+        _player = GetComponent<Player>();
+        _controller = GetComponent<CharacterController>();    
+    }
 
     private void OnEnable() => PlayerInputHandler.OnMovePressed += OnMovePressed;
 
@@ -30,7 +34,7 @@ public class PlayerMovementHandler : MonoBehaviour
 
     public void MoveCharacter() 
     { 
-        Vector3 movementVector = GetMoveVectorTowardsCameraDirection(_currentMovementVelocity);
+        Vector3 movementVector = GetMoveVectorTowardsCameraDirection(CurrentMovementVelocity);
         ApplyGravity(movementVector);
         _controller.Move(movementVector * Time.deltaTime); 
     }
@@ -81,12 +85,12 @@ public class PlayerMovementHandler : MonoBehaviour
         _applyMovement.x = UpdateVelocityAlongAxis(
             moveConfig, 
             _player.InputHandler.InputMoveVector.x, 
-            _currentMovementVelocity.x
+            CurrentMovementVelocity.x
         );
         _applyMovement.z = UpdateVelocityAlongAxis(
             moveConfig, 
             _player.InputHandler.InputMoveVector.y, 
-            _currentMovementVelocity.z
+            CurrentMovementVelocity.z
         );
 
         UpdateCurrentVelocity();
@@ -133,18 +137,18 @@ public class PlayerMovementHandler : MonoBehaviour
 
     public void Decelarate()
     {
-        if (IsVelocityNonZero(_currentMovementVelocity.x))
+        if (IsVelocityNonZero(CurrentMovementVelocity.x))
             _applyMovement.x = Mathf.Clamp(
-                DecelarateAlongAxis(_player.Config.run, _currentMovementVelocity.x), 
+                DecelarateAlongAxis(_player.Config.run, CurrentMovementVelocity.x), 
                 -_player.Config.run.maxVelocity, 
                 _player.Config.run.maxVelocity
             );
         else
             _applyMovement.x = 0f;
 
-        if (IsVelocityNonZero(_currentMovementVelocity.z))
+        if (IsVelocityNonZero(CurrentMovementVelocity.z))
             _applyMovement.z= Mathf.Clamp(
-                DecelarateAlongAxis(_player.Config.run, _currentMovementVelocity.z), 
+                DecelarateAlongAxis(_player.Config.run, CurrentMovementVelocity.z), 
                 -_player.Config.run.maxVelocity, 
                 _player.Config.run.maxVelocity
             );
@@ -160,7 +164,7 @@ public class PlayerMovementHandler : MonoBehaviour
 
     private void UpdateCurrentVelocity()
     {
-        _currentMovementVelocity = _applyMovement;
+        CurrentMovementVelocity = _applyMovement;
         OnCurrentMovementChange?.Invoke();
     }
     #endregion

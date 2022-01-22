@@ -6,9 +6,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private UIHandlerHUD _hudScreen;
     [SerializeField] private UIHandlerGameOver _gameOverScreen;
     [SerializeField] private UIHandlerPauseMenu _pauseScreen;
-    private GameManager _gameManager;
-
-    private void Awake() => _gameManager = GetComponent<GameManager>();
 
     private void OnEnable() 
     {

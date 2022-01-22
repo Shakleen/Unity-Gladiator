@@ -1,15 +1,17 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
+    public static event Action WaveEnd;
+    
     #region Serialize Field properties
     [Tooltip("Enemy prefab to spawn")] [SerializeField] private AIAgent _enemyPrefab;
     [Tooltip("Maximum number of clones to create and reuse for spawning")] [SerializeField] private int _maxClones = 10;
     [Tooltip("Time gap between successive sapwns")] [SerializeField] private float _spawnDelay = 0.5f;
     [Tooltip("Places where enemies will be spawned")] [SerializeField] private Transform[] _spawnLocations;
     [Tooltip("Object that will keep the enemies")] [SerializeField] private Transform _cloneParent;
-    [Tooltip("Game manager object")] [SerializeField] private GameManager _gameManager;
     #endregion
 
     [SerializeField] private int _enemiesSpawned;
@@ -32,12 +34,12 @@ public class EnemySpawner : MonoBehaviour
         GameManager.OnScoreChange -= DecrementEnemiesAlive;
     }
 
-    private void DecrementEnemiesAlive()
+    private void DecrementEnemiesAlive(int score)
     {
         _enemiesSpawned -= 1;
 
         if (_enemiesSpawned == 0)
-            _gameManager.EndWave();
+            WaveEnd?.Invoke();
     }
 
     private void CreateClones()
@@ -51,11 +53,11 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    private void Spawn() => StartCoroutine(SpawnEnemies());
+    private void Spawn(int waveNo) => StartCoroutine(SpawnEnemies(waveNo));
 
-    private IEnumerator SpawnEnemies()
+    private IEnumerator SpawnEnemies(int waveNo)
     {
-        _enemiesSpawned = _gameManager.WaveNo + 3;
+        _enemiesSpawned = waveNo + 3;
 
         for (int i = 0; i < _enemiesSpawned; ++i)
         {

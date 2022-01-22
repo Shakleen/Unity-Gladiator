@@ -1,15 +1,15 @@
 using System;
 using UnityEngine;
 
+[RequireComponent(typeof(Player))]
 public class PlayerStatusHandler : MonoBehaviour
 {
     public static event Action OnDeath;
 
     #region references
-    [SerializeField] private Player _player;
-    private RegenStatus _health;
-    private RegenStatus _stamina;
-    private RegenStatus _mana;
+    private Player _player;
+    public RegenStatus Health { get; private set; }
+    public RegenStatus Stamina { get; private set; }
     private float _regenDelay;
     private float _staminaRegenDelay;
     private float _healthRegenDelay;
@@ -18,35 +18,35 @@ public class PlayerStatusHandler : MonoBehaviour
     #endregion
 
     #region getters
-    public RegenStatus Health { get => _health; }
-    public RegenStatus Stamina { get => _stamina; }
-    public RegenStatus Mana { get => _mana; }
     public bool IsDead { get => _isDead; set => _isDead = value; }
     #endregion
 
     #region Events
-    public static event Action OnHealthChange;
-    public static event Action OnStaminaChange;
-    public static event Action OnManaChange;
+    public static event Action<BaseStatus> OnHealthChange;
+    public static event Action<BaseStatus> OnStaminaChange;
     #endregion
-
-    #region Awake
+    
     private void Awake() 
     {    
+        _player = GetComponent<Player>();
         _regenDelay = _player.Config.misc.regenDelay;
-        _health = MakeStatus(_player.Config.health);
-        _stamina = MakeStatus(_player.Config.stamina);
-        _mana = MakeStatus(_player.Config.mana);
+        Health = MakeStatus(_player.Config.health);
+        Stamina = MakeStatus(_player.Config.stamina);
     }
 
     private RegenStatus MakeStatus(StatusConfig config) => new RegenStatus(config.initialCapacity, config.regenPerSec, config.depletePerSec);
-    #endregion
+
+    private void Start() 
+    {
+        OnHealthChange?.Invoke(Health);
+        OnStaminaChange?.Invoke(Stamina);
+    }
 
     #region Take Damage
     public void TakeDamage(float damage)
     {
-        _health.Take(damage);
-        OnHealthChange?.Invoke();
+        Health.Take(damage);
+        OnHealthChange?.Invoke(Health);
     }
     #endregion
 
@@ -54,37 +54,34 @@ public class PlayerStatusHandler : MonoBehaviour
     public void DepleteStamina()
     {
         _staminaRegenDelay = _regenDelay;
-        _stamina.Deplete();
-        OnStaminaChange?.Invoke();
+        Stamina.Deplete();
+        OnStaminaChange?.Invoke(Stamina);
     }
 
     public void UseStamina(float value)
     {
         _staminaRegenDelay = _regenDelay;
-        _stamina.Take(value);
-        OnStaminaChange?.Invoke();
+        Stamina.Take(value);
+        OnStaminaChange?.Invoke(Stamina);
     }
     #endregion
 
     #region Regenerate status
     public void Regenerate()
     {
-        _healthRegenDelay = RegenerateStatus(_health, _healthRegenDelay, OnHealthChange);
-        _staminaRegenDelay = RegenerateStatus(_stamina, _staminaRegenDelay, OnStaminaChange);
-        _manaRegenDelay = RegenerateStatus(_mana, _manaRegenDelay, OnManaChange);
+        _healthRegenDelay = RegenerateStatus(Health, _healthRegenDelay, OnHealthChange);
+        _staminaRegenDelay = RegenerateStatus(Stamina, _staminaRegenDelay, OnStaminaChange);
     }
 
-    private float RegenerateStatus(RegenStatus status, float regenDelay, Action OnChange)
+    private float RegenerateStatus(RegenStatus status, float regenDelay, Action<BaseStatus> OnChange)
     {
         if (!status.IsFull() && regenDelay <= 0f)
         {
             status.Regenerate();
-            OnChange?.Invoke();
+            OnChange?.Invoke(status);
         }
         else
-        {
             regenDelay = CountDownTimer(regenDelay);
-        }
 
         return regenDelay;
     }

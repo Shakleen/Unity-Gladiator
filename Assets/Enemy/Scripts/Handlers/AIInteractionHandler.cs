@@ -29,6 +29,7 @@ public class AIInteractionHandler : MonoBehaviour
     {
         _healthBar.gameObject.SetActive(status);
         _healthBar.InitializeBar(_aiAgent.Health);
+        _healthBar.UpdateBar(_aiAgent.Health);
     }
     #endregion
 }
