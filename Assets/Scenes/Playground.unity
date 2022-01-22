@@ -4504,6 +4504,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 93632447}
     m_Modifications:
+    - target: {fileID: 6881399806446071407, guid: e6bbd9e856d371749875cc2c16147d80, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2796356890110556273}
+    - target: {fileID: 6881399806446071407, guid: e6bbd9e856d371749875cc2c16147d80, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MainMenuButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 6881399806446071407, guid: e6bbd9e856d371749875cc2c16147d80, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UIHandlerPauseMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 6881399806691440896, guid: e6bbd9e856d371749875cc2c16147d80, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4595,6 +4607,18 @@ PrefabInstance:
     - target: {fileID: 6881399806691440897, guid: e6bbd9e856d371749875cc2c16147d80, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6881399807319084904, guid: e6bbd9e856d371749875cc2c16147d80, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2796356890110556273}
+    - target: {fileID: 6881399807319084904, guid: e6bbd9e856d371749875cc2c16147d80, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RestartButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 6881399807319084904, guid: e6bbd9e856d371749875cc2c16147d80, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UIHandlerPauseMenu, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6881399807319084906, guid: e6bbd9e856d371749875cc2c16147d80, type: 3}
       propertyPath: m_Name

@@ -16,8 +16,13 @@ public class UIHandlerGameOver : MonoBehaviour
         GameManager.OnScoreChange += SetScoreText;
     }
 
+    private void OnEnable() => Cursor.lockState = CursorLockMode.None;
+
+    private void OnDisable() => Cursor.lockState = CursorLockMode.Locked;
+
     private void OnDestroy() 
     {
+        Cursor.lockState = CursorLockMode.None;
         GameManager.OnWaveNoChange -= SetWaveText;
         GameManager.OnScoreChange -= SetScoreText;
     }

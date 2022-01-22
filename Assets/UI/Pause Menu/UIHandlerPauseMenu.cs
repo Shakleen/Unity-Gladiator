@@ -17,8 +17,13 @@ public class UIHandlerPauseMenu : MonoBehaviour
         GameManager.OnScoreChange += SetScoreText;
     }
 
+    private void OnEnable() => Cursor.lockState = CursorLockMode.None;
+
+    private void OnDisable() => Cursor.lockState = CursorLockMode.Locked;
+
     private void OnDestroy() 
     {
+        Cursor.lockState = CursorLockMode.None;
         GameManager.OnWaveNoChange -= SetWaveText;
         GameManager.OnScoreChange -= SetScoreText;
     }
@@ -43,5 +48,5 @@ public class UIHandlerPauseMenu : MonoBehaviour
 
     public void MainMenuButton() => SceneManager.LoadScene(0);
 
-    public void ReplayButton() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    public void RestartButton() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 }

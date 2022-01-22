@@ -78,9 +78,5 @@ public class GameManager : MonoBehaviour
         OnScoreChange?.Invoke();
     }
 
-    public void GameOver()
-    {
-        Cursor.lockState = CursorLockMode.None;
-        OnGameOver?.Invoke();
-    }
+    public void GameOver() => OnGameOver?.Invoke();
 }

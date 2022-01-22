@@ -8,7 +8,7 @@ public class UIHandlerHUD : MonoBehaviour
     [SerializeField] private PlayerStatusHandler _statusHandler;
     [SerializeField] private GameManager _gameManager;
 
-    private void OnEnable() 
+    private void Awake() 
     {
         PlayerStatusHandler.OnHealthChange += UpdateHealthBar;
         PlayerStatusHandler.OnStaminaChange += UpdateStaminaBar;
@@ -17,7 +17,11 @@ public class UIHandlerHUD : MonoBehaviour
         GameManager.OnScoreChange += UpdateScore;
     }
 
-    private void OnDisable() 
+    private void OnEnable() => Cursor.lockState = CursorLockMode.Locked;
+
+    private void OnDisable() => Cursor.lockState = CursorLockMode.None;
+
+    private void OnDestroy() 
     {
         PlayerStatusHandler.OnHealthChange -= UpdateHealthBar;
         PlayerStatusHandler.OnStaminaChange -= UpdateStaminaBar;
