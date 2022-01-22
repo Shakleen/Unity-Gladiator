@@ -1,4 +1,4 @@
-public enum PlayerStateEnum { idle, walk, run, dodge, melee_idle, melee_walking, melee_running, death }
+public enum PlayerStateEnum { idle, walk, run, dodge, melee_idle, melee_running, death }
 
 public abstract class PlayerBaseState : BaseStateClass
 {
