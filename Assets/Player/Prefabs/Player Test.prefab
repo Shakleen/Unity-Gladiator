@@ -2149,8 +2149,9 @@ GameObject:
   - component: {fileID: 420177286}
   - component: {fileID: 615096659}
   - component: {fileID: 1910869794018698803}
+  - component: {fileID: 307104078}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Player Test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2258,7 +2259,7 @@ MonoBehaviour:
   _statusHandler: {fileID: 615096659}
   _attackHandler: {fileID: 420177286}
   _currentStateType: 0
-  _interactionhandler: {fileID: 0}
+  _interactionhandler: {fileID: 307104078}
   _config: {fileID: 1910869794018698803}
 --- !u!114 &7773229217061563742
 MonoBehaviour:
@@ -2361,6 +2362,20 @@ MonoBehaviour:
   staminaCost: {fileID: 11400000, guid: fca58321b7e6b6745974811e17180573, type: 2}
   misc: {fileID: 11400000, guid: 46af4611e9ac3bc448a43532d8d4b6e8, type: 2}
   attack: {fileID: 11400000, guid: 68298aa6c8a906349a51becb83f375f8, type: 2}
+--- !u!114 &307104078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7773229217061563740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f9c82e3798a384b8ec0c05135fa835, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 7773229217061563745}
+  _weapon: {fileID: 3836309259004445477}
 --- !u!1 &8133813132844900486
 GameObject:
   m_ObjectHideFlags: 0
@@ -2630,6 +2645,10 @@ PrefabInstance:
       value: -96.878
       objectReference: {fileID: 0}
     - target: {fileID: 3725605260525956139, guid: b3826f6779cd6c14eb062bc4dd7a8835, type: 3}
+      propertyPath: _wielder
+      value: 
+      objectReference: {fileID: 7773229217061563740}
+    - target: {fileID: 3725605260525956139, guid: b3826f6779cd6c14eb062bc4dd7a8835, type: 3}
       propertyPath: _rigidBody
       value: 
       objectReference: {fileID: 4603089433703430076}
@@ -2637,6 +2656,10 @@ PrefabInstance:
       propertyPath: _boxCollider
       value: 
       objectReference: {fileID: 5052182397220891054}
+    - target: {fileID: 3725605260525956139, guid: b3826f6779cd6c14eb062bc4dd7a8835, type: 3}
+      propertyPath: _damagePerHit
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 8032765951118384975, guid: b3826f6779cd6c14eb062bc4dd7a8835, type: 3}
       propertyPath: m_Name
       value: Weapon
