@@ -8,13 +8,12 @@ public class GameManager : MonoBehaviour
     public static event Action OnWaveNoChange;
     public static event Action OnTimerChange;
     public static event Action OnScoreChange;
+    public static event Action OnGameOver;
     #endregion
 
     #region Serialize Fields
     [SerializeField] private int _waveTimeLimit = 180;
     [SerializeField] private int _nextWaveLoadTime = 30;
-    [SerializeField] private UIHandlerHUD _hudScreen;
-    [SerializeField] private UIHandlerGameOver _gameOverScreen;
     #endregion
 
     private int _waveNo, _score, _waveTimer;
@@ -32,7 +31,6 @@ public class GameManager : MonoBehaviour
 
     private void Start() 
     {
-        SetScreenActive(hud: true);
         SetWaveTimer(_waveTimeLimit);  
         IncrementWaveNumber();
         AddScore(0);
@@ -80,18 +78,9 @@ public class GameManager : MonoBehaviour
         OnScoreChange?.Invoke();
     }
 
-    private void SetScreenActive(bool hud = false, bool gameover = false)
-    {
-        _hudScreen.gameObject.SetActive(hud);
-        _gameOverScreen.gameObject.SetActive(gameover);
-    }
-
     public void GameOver()
     {
         Cursor.lockState = CursorLockMode.None;
-        _gameOverScreen.ShowGameOverDetails(_score, _waveNo);
-        SetScreenActive(gameover: true);
+        OnGameOver?.Invoke();
     }
-
-
 }

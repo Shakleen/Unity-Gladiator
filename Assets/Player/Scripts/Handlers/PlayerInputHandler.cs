@@ -9,6 +9,7 @@ public class PlayerInputHandler : MonoBehaviour
     public static event Action OnDodgePressed;
     public static event Action OnRunPressed;
     public static event Action OnMovePressed;
+    public static event Action<bool> OnPausePressed;
     #endregion
     
     [SerializeField] private PlayerInput _playerInput;
@@ -19,6 +20,7 @@ public class PlayerInputHandler : MonoBehaviour
     private InputAction _inputActionDodge;
     private InputAction _inputActionLook;
     private InputAction _inputActionAttack;
+    private InputAction _inputActionPause;
     #endregion
     
     #region Input storing variables
@@ -39,6 +41,8 @@ public class PlayerInputHandler : MonoBehaviour
     public bool IsInputActiveMeleeAttack { get => _isInputActiveAttack; }
     #endregion
 
+    private bool _isPaused = false;
+
     private void Awake() 
     {
         _inputActionMove = _playerInput.actions["Move"];
@@ -46,6 +50,7 @@ public class PlayerInputHandler : MonoBehaviour
         _inputActionDodge = _playerInput.actions["Dodge"];
         _inputActionLook = _playerInput.actions["Look"];
         _inputActionAttack = _playerInput.actions["Attack"];
+        _inputActionPause = _playerInput.actions["Pause"];
     }
 
     private void OnEnable()
@@ -83,34 +88,58 @@ public class PlayerInputHandler : MonoBehaviour
         // Setup attack callbacks
         _inputActionAttack.started += InputCallbackAttack;
         _inputActionAttack.canceled += InputCallbackAttack;
-    }
 
+        // Setup pause callback
+        _inputActionPause.started += InputCallbackPause;
+    }
 
     private void InputCallbackMovement(InputAction.CallbackContext context)
     {
-        _inputMoveVector = context.ReadValue<Vector2>();
-        _isInputActiveMovement = _inputMoveVector != Vector2.zero;
-        OnMovePressed?.Invoke();
+        if (!_isPaused)
+        {
+            _inputMoveVector = context.ReadValue<Vector2>();
+            _isInputActiveMovement = _inputMoveVector != Vector2.zero;
+            OnMovePressed?.Invoke();
+        }
     }
 
-    private void InputCallbackLook(InputAction.CallbackContext context) { _inputLookVector = context.ReadValue<Vector2>(); }
+    private void InputCallbackLook(InputAction.CallbackContext context) 
+    {  
+        if (!_isPaused)
+            _inputLookVector = context.ReadValue<Vector2>();
+    }
 
     private void InputCallbackRun(InputAction.CallbackContext context) 
     { 
-        _isInputActiveRun = context.ReadValueAsButton(); 
-        OnRunPressed?.Invoke();
+        if (!_isPaused)
+        {
+            _isInputActiveRun = context.ReadValueAsButton(); 
+            OnRunPressed?.Invoke();
+        }
     }
 
     private void InputCallbackDodge(InputAction.CallbackContext context) 
     { 
-        _isInputActiveDodge = context.ReadValueAsButton(); 
-        OnDodgePressed?.Invoke();
+        if (!_isPaused)
+        {
+            _isInputActiveDodge = context.ReadValueAsButton(); 
+            OnDodgePressed?.Invoke();
+        }
     }
 
     private void InputCallbackAttack(InputAction.CallbackContext context) 
     { 
-        _isInputActiveAttack = context.ReadValueAsButton(); 
-        if (_isInputActiveAttack) OnAttackPressed?.Invoke();
+        if (!_isPaused)
+        {
+            _isInputActiveAttack = context.ReadValueAsButton(); 
+            if (_isInputActiveAttack) OnAttackPressed?.Invoke();
+        }
+    }
+
+    private void InputCallbackPause(InputAction.CallbackContext context) 
+    {
+        _isPaused = !_isPaused;
+        OnPausePressed?.Invoke(_isPaused);
     }
     #endregion
 

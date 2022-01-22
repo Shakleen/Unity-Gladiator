@@ -255,7 +255,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthBar: {fileID: 3487217729713438044}
   _staminaBar: {fileID: 2854988330899029085}
-  _details: {fileID: 0}
+  _details: {fileID: 2102000877176752093}
   _statusHandler: {fileID: 0}
   _gameManager: {fileID: 0}
 --- !u!1 &3487217731259371322
