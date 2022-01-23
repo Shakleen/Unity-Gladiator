@@ -60,6 +60,7 @@ crashlytics-build.properties
 
 # Model and animation files
 /Assets/Player/Models
+/Assets/Enemy/Models
 /Assets/Enemy/Model
 /Assets/Third Party
 /Assets/TextMesh Pro
