@@ -8,11 +8,11 @@ public class PlayerAttackHandler : MonoBehaviour
     private Player _player;
     private MeleeWeaponHandler _weapon;
 
-    private int _comboCounter;
-    private float _comboTimer;
-    private bool _attackStarted;
-    private bool _attacking;
-    private bool _attackEnded;
+    [SerializeField] private int _comboCounter;
+    [SerializeField] private float _comboTimer;
+    [SerializeField] private bool _attackStarted;
+    [SerializeField] private bool _attacking;
+    [SerializeField] private bool _attackEnded;
     #endregion
     
     public bool IsAttacking { get => _attacking; }
@@ -45,7 +45,16 @@ public class PlayerAttackHandler : MonoBehaviour
         _weapon.PlaySlashSound();
     }
 
-    private void OnSlashEnd() => _weapon.SetTrailActive(false);
+    private void OnSlashEnd() 
+    {
+        _weapon.SetTrailActive(false);
+        
+        if (_comboCounter == _player.Config.attack.maxCombos)
+        {
+            _comboCounter = 0;
+            _player.AnimatorHandler.ResetMeleeAttackNumber();
+        }
+    }
 
     #region Attacking queuing
     private void RequestQueueNextAttack()
