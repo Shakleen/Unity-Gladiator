@@ -49,5 +49,7 @@ public class AIAnimationHandler : MonoBehaviour
         _isAttacking = false;
         _aiAgent.InteractionHandler.SetWeaponDamageStatus(false);
     }
+
+    private void AnimationEventFootDown() => _aiAgent.audioSource.PlayOneShot(_aiAgent.Config.sounds.GetRandomFootStepSound());
     #endregion
 }

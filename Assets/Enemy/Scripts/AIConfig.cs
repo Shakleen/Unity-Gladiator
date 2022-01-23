@@ -20,6 +20,7 @@ public class AIConfig : ScriptableObject {
     [Tooltip("Maximum taunts in a row before an attack")] [SerializeField] private int _maxTaunts = 3;
     [Tooltip("Amount of points an enemy will give to the player on death")] [SerializeField] private int _enemyValue = 10;
     [Tooltip("Deactivation of enemy agent after death")] [SerializeField] private int _deactivateDelay = 10;
+    [SerializeField] public Sounds sounds;
 
     public float MinimumUpdateWaitTime { get => _minimumUpdateWaitTime; }
     public float MinimumUpdateDistance { get => _minimumUpdateDistance; }

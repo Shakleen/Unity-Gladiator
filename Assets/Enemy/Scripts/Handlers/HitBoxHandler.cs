@@ -16,6 +16,7 @@ public class HitBoxHandler : MonoBehaviour
             {
                 weapon.PlayHitSound();
                 _aiAgent.InteractionHandler.TakeDamage(weapon.DamagePerHit);
+                _aiAgent.audioSource.PlayOneShot(_aiAgent.Config.sounds.GetRandomPainSound());
             }
         }
     }

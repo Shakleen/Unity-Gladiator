@@ -35,6 +35,7 @@ public class PlayerInteractionHandler : MonoBehaviour
             {
                 weapon.PlayHitSound();
                 _player.StatusHandler.TakeDamage(weapon.DamagePerHit);
+                _player.audioSource.PlayOneShot(_player.Config.sounds.GetRandomPainSound());
             }
         }
     }

@@ -11,6 +11,7 @@ public class AIAgent : MonoBehaviour
     [SerializeField] private AILocomotion _aiLocomotion;
     [SerializeField] private AIStateEnum _currentStateType;
     [SerializeField] private AIInteractionHandler _interactionHandler;
+    [SerializeField] public AudioSource audioSource;
     private GameManager _gameManager;
     private Transform _playerTransform;
     private AIStateMachine _stateMachine;
