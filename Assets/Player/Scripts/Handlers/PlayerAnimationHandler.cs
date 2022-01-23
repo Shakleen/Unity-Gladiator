@@ -155,5 +155,6 @@ public class PlayerAnimationHandler : MonoBehaviour
     }
     #endregion
 
+    private void AnnimationEventFootDown() => _player.audioSource.PlayOneShot(_player.Config.sounds.GetRandomFootStepSound());
     #endregion
 }

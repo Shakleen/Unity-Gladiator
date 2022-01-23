@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerAttackHandler _attackHandler;
     [SerializeField] private PlayerStateEnum _currentStateType;
     [SerializeField] private PlayerInteractionHandler _interactionhandler;
+    [SerializeField] public AudioSource audioSource;
     [SerializeField] private ConfigHandler _config;
     private PlayerStateMachine _stateMachine;
     #endregion

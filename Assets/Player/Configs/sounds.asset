@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfbc53e135462a845a8d7db54e78d1d7, type: 3}
+  m_Name: sounds
+  m_EditorClassIdentifier: 
+  _footStepSounds:
+  - {fileID: 8300000, guid: c77b3fc0be1891042aeb38922c9c47fb, type: 3}
+  - {fileID: 8300000, guid: 104548b878bfdbb4d9fbd5cc168268e4, type: 3}
+  - {fileID: 8300000, guid: a937c027b86c9a744a8990ff87fb9554, type: 3}
+  - {fileID: 8300000, guid: 6cd31940aa3cba64a8fc72e32d7abdec, type: 3}
+  - {fileID: 8300000, guid: 2ce33b192a6a594409a5bf5a735e07e1, type: 3}
+  - {fileID: 8300000, guid: 0da85b301fd9afc428cea0dc4ea6a642, type: 3}
+  - {fileID: 8300000, guid: 4edbf00b843a7284ea836a08cd8f3bcb, type: 3}
+  - {fileID: 8300000, guid: 626922864cafa6847a30e99f64caab6d, type: 3}
+  - {fileID: 8300000, guid: 731d5662931b5bd4facd69e3f6824c8e, type: 3}
+  _painSounds:
+  - {fileID: 8300000, guid: 7165d10e20ba29e4f86bf157f72ed122, type: 3}
+  - {fileID: 8300000, guid: ae2933683dda8a14f9d1a8195b52b67b, type: 3}
+  _deathSound: {fileID: 0}

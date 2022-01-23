@@ -842,6 +842,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 518275529}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!82 &553320132 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1531663815188582583, guid: ecc6a818b968742498f55ef2c3cac4bb, type: 3}
+  m_PrefabInstance: {fileID: 9148160691960593041}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &566287389
 GameObject:
   m_ObjectHideFlags: 0
@@ -4940,6 +4945,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5280542561922567722, guid: ecc6a818b968742498f55ef2c3cac4bb, type: 3}
+      propertyPath: sounds
+      value: 
+      objectReference: {fileID: 11400000, guid: 03cdc3651c9322c4c956024af16d24e2, type: 2}
     - target: {fileID: 6381897685518841004, guid: ecc6a818b968742498f55ef2c3cac4bb, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -4988,5 +4997,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Rig
       objectReference: {fileID: 0}
+    - target: {fileID: 8377465612215751054, guid: ecc6a818b968742498f55ef2c3cac4bb, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 553320132}
+    - target: {fileID: 8377465612215751054, guid: ecc6a818b968742498f55ef2c3cac4bb, type: 3}
+      propertyPath: _audioSource
+      value: 
+      objectReference: {fileID: 553320132}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ecc6a818b968742498f55ef2c3cac4bb, type: 3}

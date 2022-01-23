@@ -15,4 +15,6 @@ public class ConfigHandler : MonoBehaviour
     
     [SerializeField] public PlayerConfig misc;
     [SerializeField] public AttackConfig attack;
+
+    [SerializeField] public Sounds sounds;
 }
