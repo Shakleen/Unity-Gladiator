@@ -39,7 +39,11 @@ public class PlayerAttackHandler : MonoBehaviour
         PlayerAnimationHandler.OnAttackSlashEnd += OnSlashEnd;
     }
 
-    private void OnSlashStart() => _weapon.SetTrailActive(true);
+    private void OnSlashStart() 
+    {
+        _weapon.SetTrailActive(true);
+        _weapon.PlaySlashSound();
+    }
 
     private void OnSlashEnd() => _weapon.SetTrailActive(false);
 

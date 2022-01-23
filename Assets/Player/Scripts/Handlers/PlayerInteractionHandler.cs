@@ -32,7 +32,10 @@ public class PlayerInteractionHandler : MonoBehaviour
             MeleeWeaponHandler weapon = other.GetComponent<MeleeWeaponHandler>();
 
             if (weapon != null && weapon.canDamage && DoesEnemyWieldWeapon(weapon))
+            {
+                weapon.PlayHitSound();
                 _player.StatusHandler.TakeDamage(weapon.DamagePerHit);
+            }
         }
     }
 

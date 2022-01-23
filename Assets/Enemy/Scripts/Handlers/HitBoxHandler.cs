@@ -13,7 +13,10 @@ public class HitBoxHandler : MonoBehaviour
             MeleeWeaponHandler weapon = other.GetComponent<MeleeWeaponHandler>();
 
             if (weapon != null && weapon.canDamage && DoesPlayerWieldWeapon(weapon))
+            {
+                weapon.PlayHitSound();
                 _aiAgent.InteractionHandler.TakeDamage(weapon.DamagePerHit);
+            }
         }
     }
 

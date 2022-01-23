@@ -23,7 +23,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6381897685518841005}
-  m_LocalRotation: {x: -0, y: 0.7933532, z: -0, w: 0.6087617}
+  m_LocalRotation: {x: 0, y: 0.7933534, z: 0, w: 0.6087614}
   m_LocalPosition: {x: -2.9447646, y: -0.00000023841858, z: 0.9838575}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -157,25 +157,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4463118548951284617, guid: 121443b553d576e45a849fc74c1355e9, type: 3}
-      propertyPath: _wielder
-      value: 
-      objectReference: {fileID: 6471225666026400236}
-    - target: {fileID: 7201533737742956151, guid: 121443b553d576e45a849fc74c1355e9, type: 3}
-      propertyPath: m_Actions
-      value: 
-      objectReference: {fileID: -944628639613478452, guid: 3554672c3a890a64bb9eaea0deffd324, type: 3}
-    - target: {fileID: 7201533737742956151, guid: 121443b553d576e45a849fc74c1355e9, type: 3}
-      propertyPath: m_DefaultActionMap
-      value: Player
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 121443b553d576e45a849fc74c1355e9, type: 3}
---- !u!1 &6471225666026400236 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3637556945046913992, guid: 121443b553d576e45a849fc74c1355e9, type: 3}
-  m_PrefabInstance: {fileID: 7761210352286706212}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5946363227193783126 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4121042596648098162, guid: 121443b553d576e45a849fc74c1355e9, type: 3}

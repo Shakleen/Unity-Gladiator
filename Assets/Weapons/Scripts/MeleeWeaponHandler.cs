@@ -5,8 +5,11 @@ public class MeleeWeaponHandler : MonoBehaviour
     [SerializeField] private GameObject _wielder;
     [SerializeField] private GameObject _trailObject;
     [SerializeField] private float _damagePerHit = 25.0f;
-    [SerializeField] private Rigidbody _rigidBody;
-    [SerializeField] private BoxCollider _boxCollider;
+    [SerializeField] private AudioClip _slashAudio;
+    [SerializeField] private AudioClip _hitAudio;
+    private Rigidbody _rigidBody;
+    private BoxCollider _boxCollider;
+    private AudioSource _audioSource;
     private Transform _startingTransform;
 
     public bool canDamage;
@@ -16,25 +19,16 @@ public class MeleeWeaponHandler : MonoBehaviour
 
     private void Awake() 
     {
+        _rigidBody = GetComponent<Rigidbody>();
+        _boxCollider = GetComponent<BoxCollider>();
+        _audioSource = GetComponent<AudioSource>();
         SetTrailActive(false);
         _startingTransform = gameObject.transform;
     }
 
+    public void PlaySlashSound() => _audioSource.PlayOneShot(_slashAudio);
+
+    public void PlayHitSound() => _audioSource.PlayOneShot(_hitAudio);
+
     public void SetTrailActive(bool status) => _trailObject.SetActive(status);
-
-    public void DropWeapon()
-    {
-        _rigidBody.useGravity = true;
-        _boxCollider.isTrigger = false;
-        transform.parent = null;
-    }
-
-    public void ReturnToWeilder()
-    {
-        _rigidBody.useGravity = false;
-        _boxCollider.isTrigger = true;
-        transform.parent = _wielder.transform;
-        transform.position = _startingTransform.position;
-        transform.rotation = _startingTransform.rotation;
-    }
 }

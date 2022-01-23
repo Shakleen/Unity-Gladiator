@@ -7,7 +7,12 @@ public class AIInteractionHandler : MonoBehaviour
     [SerializeField] private MeleeWeaponHandler _weapon;
     private float _cumulativeDamage;
 
-    public void SetWeaponDamageStatus(bool status) => _weapon.canDamage = status;
+    public void SetWeaponDamageStatus(bool status) 
+    {
+        _weapon.canDamage = status;
+
+        if (status) _weapon.PlaySlashSound();
+    }
 
     public void TakeDamage(float damage)
     {

@@ -1071,6 +1071,7 @@ GameObject:
   - component: {fileID: 4121042596648098162}
   - component: {fileID: 8057167043571172104}
   - component: {fileID: 7204413855507307505}
+  - component: {fileID: 9148160691960593043}
   - component: {fileID: 7201533737742956151}
   - component: {fileID: 2303563891076610986}
   - component: {fileID: -5108919237471451617}
@@ -1141,6 +1142,102 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!82 &9148160691960593043
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3637556945046913992}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 20
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &7201533737742956151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1153,7 +1250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: 0}
+  m_Actions: {fileID: -944628639613478452, guid: 3554672c3a890a64bb9eaea0deffd324, type: 3}
   m_NotificationBehavior: 0
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -1168,7 +1265,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: 
+  m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &2303563891076610986
@@ -1203,9 +1300,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 089325db0b5beb14eb265b98b8538179, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 2303563891076610986}
-  _controller: {fileID: 7204413855507307505}
-  _currentMovementVelocity: {x: 0, y: 0, z: 0}
 --- !u!114 &-4984850659276419798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1218,7 +1312,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f257fe19d1065254d937323647b9d189, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerInput: {fileID: 7201533737742956151}
   _inputMoveVector: {x: 0, y: 0}
   _inputLookVector: {x: 0, y: 0}
   _isInputActiveMovement: 0
@@ -1237,8 +1330,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d115bd53abf92d4bbea3fdff7b56994, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 8057167043571172104}
-  _player: {fileID: 2303563891076610986}
 --- !u!114 &8985780206847475950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1251,7 +1342,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43fea056af2d79e428722af5d23fa8b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 2303563891076610986}
 --- !u!114 &-4151840130963236351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1264,13 +1354,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2791a791f0833bd4f87dc6d0b8a479b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 2303563891076610986}
-  _weapon: {fileID: 4463118548951284617}
-  _comboCounter: 0
-  _comboTimer: 0
-  _attackStarted: 0
-  _attacking: 0
-  _attackEnded: 0
 --- !u!114 &8516524952545769873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1283,8 +1366,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1f9c82e3798a384b8ec0c05135fa835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 2303563891076610986}
-  _weapon: {fileID: 4463118548951284617}
 --- !u!114 &-6702171214168988658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1306,6 +1387,7 @@ MonoBehaviour:
   staminaCost: {fileID: 11400000, guid: fca58321b7e6b6745974811e17180573, type: 2}
   misc: {fileID: 11400000, guid: 46af4611e9ac3bc448a43532d8d4b6e8, type: 2}
   attack: {fileID: 11400000, guid: 68298aa6c8a906349a51becb83f375f8, type: 2}
+  sound: {fileID: 0}
 --- !u!1 &3709890224719960217
 GameObject:
   m_ObjectHideFlags: 0
@@ -2491,6 +2573,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6347455066608242932}
     m_Modifications:
+    - target: {fileID: 1024207520354320731, guid: c120156e4793bbf4ba23ebcc2f3b25a6, type: 3}
+      propertyPath: _wielder
+      value: 
+      objectReference: {fileID: 3637556945046913992}
     - target: {fileID: 3996169304796113152, guid: c120156e4793bbf4ba23ebcc2f3b25a6, type: 3}
       propertyPath: m_Name
       value: Weapon
@@ -2546,14 +2632,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7676304765089019851, guid: c120156e4793bbf4ba23ebcc2f3b25a6, type: 3}
   m_PrefabInstance: {fileID: 3730838650136722130}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4463118548951284617 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1024207520354320731, guid: c120156e4793bbf4ba23ebcc2f3b25a6, type: 3}
-  m_PrefabInstance: {fileID: 3730838650136722130}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f05e4d22d7420674abaa73177f3f5bb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
