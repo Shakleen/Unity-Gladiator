@@ -11,7 +11,7 @@ public class EnemyInteractionHandler : MonoBehaviour
         {
             if (weapon.canDamage && weapon.Wielder.TryGetComponent<Player>(out Player _))
             {
-                _enemy.Health.Take(weapon.DamagePerHit);
+                _enemy.Config.Health.Take(weapon.DamagePerHit);
                 _onHealthChange.Raise();
             }
         }

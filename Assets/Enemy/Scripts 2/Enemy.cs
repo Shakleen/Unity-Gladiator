@@ -4,14 +4,12 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private EnemyInteractionHandler _interactionHandler;
     [SerializeField] private EnemyAnimationHandler _animationHandler;
-    [SerializeField] private EnemyStateMachine _stateMachine;
     public EnemyAnimationHandler AnimationHandler { get => _animationHandler; }
+    [SerializeField] private EnemyStateMachine _stateMachine;
+    [SerializeField] private EnemyLocomotion _locomotion;
+    public EnemyLocomotion Locomotion { get => _locomotion; }
+    [SerializeField] private EnemyConfig _config;
+    public EnemyConfig Config { get => _config; }
 
-    [SerializeField] private StatusConfig _health;
-    public StatusConfig Health { get => _health; }
-
-    private void Update() 
-    {
-        _stateMachine.Execute();    
-    }
+    private void Update() => _stateMachine.Execute();
 }

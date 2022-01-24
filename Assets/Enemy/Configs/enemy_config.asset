@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8eb23c2df1dc9684d80268904396b724, type: 3}
-  m_Name: enemy_idle_state
+  m_Script: {fileID: 11500000, guid: 090b235a857489149b2d265b9b42e96b, type: 3}
+  m_Name: enemy_config
   m_EditorClassIdentifier: 
-  _destinationStates:
-  - {fileID: 11400000, guid: 3c01b924d04dbfa41aa76d62a3ac82a8, type: 2}
-  - {fileID: 11400000, guid: f55f5c9467954fc47be72f3aff6d0166, type: 2}
+  _timeBetweenUpdates: 1
+  _health: {fileID: 11400000, guid: 71d4481efe1a68f4c8dcabc8058d6367, type: 2}

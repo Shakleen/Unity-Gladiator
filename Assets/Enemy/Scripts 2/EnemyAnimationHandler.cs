@@ -8,15 +8,19 @@ public class EnemyAnimationHandler : MonoBehaviour
     #endregion
 
     #region Animation parameter hashes
-    private int _animationHashIsDead;
+    private int _hashIsDead;
+    private int _hashMovementSpeed;
     #endregion
 
     private void Awake()
     {
-        _animationHashIsDead = Animator.StringToHash("isDead");
+        _hashIsDead = Animator.StringToHash("isDead");
+        _hashMovementSpeed = Animator.StringToHash("movementSpeed");
     }
 
-    public void SetAnimationValueIsDead(bool value) => _animator.SetBool(_animationHashIsDead, value);
+    public void SetParameterIsDead(bool value) => _animator.SetBool(_hashIsDead, value);
+
+    public void SetParameterMovementSpeed(float value) => _animator.SetFloat(_hashMovementSpeed, value);
     
     public void SetAnimatorActiveStatus(bool status) => _animator.enabled = status;
 
