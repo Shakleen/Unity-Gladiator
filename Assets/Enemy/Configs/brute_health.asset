@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1fc624462263aad4a8bb2c3b246db951, type: 3}
-  m_Name: mana
+  m_Name: brute_health
   m_EditorClassIdentifier: 
-  _maxCapacity: 25
-  _currentCapacity: 25
-  _regenPerSec: 5
-  _depletePerSec: 5
+  _maxCapacity: 100
+  _currentCapacity: 100
+  _regenPerSec: 0
+  _depletePerSec: 0
   _regenDelay: 0

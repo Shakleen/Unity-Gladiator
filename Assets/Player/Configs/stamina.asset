@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fc624462263aad4a8bb2c3b246db951, type: 3}
   m_Name: stamina
   m_EditorClassIdentifier: 
-  _initialCapacity: 50
+  _maxCapacity: 50
+  _currentCapacity: 50
   _regenPerSec: 10
   _depletePerSec: 5
+  _regenDelay: 0

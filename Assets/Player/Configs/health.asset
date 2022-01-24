@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fc624462263aad4a8bb2c3b246db951, type: 3}
   m_Name: health
   m_EditorClassIdentifier: 
-  _initialCapacity: 100
+  _maxCapacity: 100
+  _currentCapacity: 100
   _regenPerSec: 10
   _depletePerSec: 0
+  _regenDelay: 0
