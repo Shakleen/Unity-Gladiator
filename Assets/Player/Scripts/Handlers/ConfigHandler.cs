@@ -7,7 +7,6 @@ public class ConfigHandler : MonoBehaviour
 
     [SerializeField] public StatusConfig health;
     [SerializeField] public StatusConfig stamina;
-    [SerializeField] public StatusConfig mana;
 
     [SerializeField] public AnimationSpeedConfig animationSpeed;
 

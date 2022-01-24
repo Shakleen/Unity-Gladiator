@@ -13,29 +13,25 @@ public class BarManager : MonoBehaviour
 
     public void UpdateBarValue()
     {
-        BaseStatus status = new BaseStatus(_status.maxCapacity);
-        status.Take(_status.maxCapacity - _status.initialCapacity);
-        UpdateBar(status);
-    }
-    
-    public void UpdateBar(BaseStatus status)
-    {
         if (!_initialized)
-        {
-            _initialized = true;
-            InitializeBar(status);
-        }
+            InitializeMaxValue();
 
-        _leftSlider.value = status.CurrentCapacity;
-        _rightSlider.value = status.CurrentCapacity;
+        UpdateValue();
+    }
+
+    private void UpdateValue()
+    {
+        _leftSlider.value = _status.currentCapacity;
+        _rightSlider.value = _status.currentCapacity;
 
         if (_value != null)
-            _value.text = string.Format("{0} / {1}", (int)status.CurrentCapacity, (int)status.MaxCapacity);
+            _value.text = string.Format("{0} / {1}", (int)_status.currentCapacity, (int)_status.maxCapacity);
     }
 
-    public void InitializeBar(BaseStatus status)
+    private void InitializeMaxValue()
     {
-        _leftSlider.maxValue = status.MaxCapacity;
-        _rightSlider.maxValue = status.MaxCapacity;
+        _initialized = true;
+        _leftSlider.maxValue = _status.maxCapacity;
+        _rightSlider.maxValue = _status.maxCapacity;
     }
 }

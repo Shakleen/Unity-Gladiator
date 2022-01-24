@@ -23,7 +23,7 @@ public class PlayerRunState : PlayerBaseState
         CheckSwitchState();
         _player.MovementHandler.RotateTowardsCameraDirection();
         
-        if (_player.InputHandler.IsInputActiveRun && !_player.StatusHandler.Stamina.IsEmpty())
+        if (_player.InputHandler.IsInputActiveRun && hasStamina())
         {
             _player.MovementHandler.UpdateVelocity(_player.Config.run);
             _player.StatusHandler.DepleteStamina();

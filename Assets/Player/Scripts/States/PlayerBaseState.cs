@@ -22,8 +22,8 @@ public abstract class PlayerBaseState : BaseStateClass
     }
 
     #region Common transition conditions
-    protected bool IsDeath() => _hasStamina = _player.StatusHandler.Health.IsEmpty();
-    protected bool hasStamina() => _hasStamina = !_player.StatusHandler.Stamina.IsEmpty();
+    protected bool IsDeath() => _hasStamina = _player.Config.health.IsEmpty();
+    protected bool hasStamina() => _hasStamina = !_player.Config.stamina.IsEmpty();
     protected bool isRunPressed() => _player.InputHandler.IsInputActiveRun;
     protected bool isMovePressed() => _player.InputHandler.IsInputActiveMovement;
     protected bool isDodgePressed() => _player.InputHandler.IsInputActiveDodge;

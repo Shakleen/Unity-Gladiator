@@ -17,7 +17,7 @@ public class AIInteractionHandler : MonoBehaviour
     public void TakeDamage(float damage)
     {
         _aiAgent.Health.Take(damage);
-        _healthBar.UpdateBar(_aiAgent.Health);
+        // _healthBar.UpdateValue(_aiAgent.Health);
 
         if (_aiAgent.Health.IsEmpty())
             _aiAgent.Die();
@@ -33,8 +33,8 @@ public class AIInteractionHandler : MonoBehaviour
     public void SetActiveHealthBarUI(bool status) 
     {
         _healthBar.gameObject.SetActive(status);
-        _healthBar.InitializeBar(_aiAgent.Health);
-        _healthBar.UpdateBar(_aiAgent.Health);
+        // _healthBar.InitializeMaxValue(_aiAgent.Health);
+        // _healthBar.UpdateValue(_aiAgent.Health);
     }
     #endregion
 }

@@ -9,11 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fc624462263aad4a8bb2c3b246db951, type: 3}
-  m_Name: health
+  m_Script: {fileID: 11500000, guid: 36ecc69126f93ef4cb9abec5b9f1cab3, type: 3}
+  m_Name: player_health_change
   m_EditorClassIdentifier: 
-  _maxCapacity: 100
-  _currentCapacity: 100
-  _regenPerSec: 10
-  _depletePerSec: 0
-  _regenDelay: 0

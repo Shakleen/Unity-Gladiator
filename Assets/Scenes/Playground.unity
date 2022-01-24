@@ -302,7 +302,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &93632444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3812,7 +3812,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6881399806691440897, guid: e6bbd9e856d371749875cc2c16147d80, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6881399807319084904, guid: e6bbd9e856d371749875cc2c16147d80, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -3879,28 +3879,36 @@ PrefabInstance:
       objectReference: {fileID: 2826750778220499841}
     - target: {fileID: 2854988330583645626, guid: 9b370d72b2be4134fa6b1f88abde314a, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2854988330583645626, guid: 9b370d72b2be4134fa6b1f88abde314a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2854988330899029085, guid: 9b370d72b2be4134fa6b1f88abde314a, type: 3}
+      propertyPath: _status
+      value: 
+      objectReference: {fileID: 11400000, guid: 399339405019b934787932ad53ddad2b, type: 2}
     - target: {fileID: 2854988331341479854, guid: 9b370d72b2be4134fa6b1f88abde314a, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2854988331341479854, guid: 9b370d72b2be4134fa6b1f88abde314a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3487217729500257467, guid: 9b370d72b2be4134fa6b1f88abde314a, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3487217729500257467, guid: 9b370d72b2be4134fa6b1f88abde314a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3487217729713438044, guid: 9b370d72b2be4134fa6b1f88abde314a, type: 3}
+      propertyPath: _status
+      value: 
+      objectReference: {fileID: 11400000, guid: 00547c89bfe305e4594a95f53cfa0a5f, type: 2}
     - target: {fileID: 3487217731014788624, guid: 9b370d72b2be4134fa6b1f88abde314a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3991,16 +3999,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3487217731014788631, guid: 9b370d72b2be4134fa6b1f88abde314a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3487217731162488495, guid: 9b370d72b2be4134fa6b1f88abde314a, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3487217731162488495, guid: 9b370d72b2be4134fa6b1f88abde314a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5249876861576981419, guid: 9b370d72b2be4134fa6b1f88abde314a, type: 3}
+      propertyPath: Event
+      value: 
+      objectReference: {fileID: 11400000, guid: 326b102090cce654f906f667d4be0ab5, type: 2}
+    - target: {fileID: 6854669943314246314, guid: 9b370d72b2be4134fa6b1f88abde314a, type: 3}
+      propertyPath: Event
+      value: 
+      objectReference: {fileID: 11400000, guid: 30a02bc0eeddebf4ab689aeb9fbee785, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b370d72b2be4134fa6b1f88abde314a, type: 3}
 --- !u!114 &4275242363681609234 stripped
@@ -4369,6 +4385,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1659221099537459914, guid: ecc6a818b968742498f55ef2c3cac4bb, type: 3}
+      propertyPath: _onHealthChange
+      value: 
+      objectReference: {fileID: 11400000, guid: 326b102090cce654f906f667d4be0ab5, type: 2}
+    - target: {fileID: 1659221099537459914, guid: ecc6a818b968742498f55ef2c3cac4bb, type: 3}
+      propertyPath: _onStaminaChange
+      value: 
+      objectReference: {fileID: 11400000, guid: 30a02bc0eeddebf4ab689aeb9fbee785, type: 2}
     - target: {fileID: 5280542561922567722, guid: ecc6a818b968742498f55ef2c3cac4bb, type: 3}
       propertyPath: sounds
       value: 
