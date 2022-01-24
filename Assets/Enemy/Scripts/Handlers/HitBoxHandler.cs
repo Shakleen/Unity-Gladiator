@@ -8,11 +8,9 @@ public class HitBoxHandler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (HasWeaponTag(other))
+        if (other.gameObject.TryGetComponent<MeleeWeaponHandler>(out MeleeWeaponHandler weapon))
         {
-            MeleeWeaponHandler weapon = other.GetComponent<MeleeWeaponHandler>();
-
-            if (weapon != null && weapon.canDamage && DoesPlayerWieldWeapon(weapon))
+            if (weapon.canDamage && weapon.Wielder.TryGetComponent<Player>(out Player _))
             {
                 weapon.PlayHitSound();
                 _aiAgent.InteractionHandler.TakeDamage(weapon.DamagePerHit);
@@ -20,8 +18,4 @@ public class HitBoxHandler : MonoBehaviour
             }
         }
     }
-
-    private static bool HasWeaponTag(Collider other) => other.gameObject.tag == "Weapon";
-
-    private static bool DoesPlayerWieldWeapon(MeleeWeaponHandler weapon) => weapon.Wielder.GetComponent<Player>() != null;
 }

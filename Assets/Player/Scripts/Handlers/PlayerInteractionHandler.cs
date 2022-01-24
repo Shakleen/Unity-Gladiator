@@ -27,11 +27,9 @@ public class PlayerInteractionHandler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (HasWeaponTag(other))
+        if (other.gameObject.TryGetComponent<MeleeWeaponHandler>(out MeleeWeaponHandler weapon))
         {
-            MeleeWeaponHandler weapon = other.GetComponent<MeleeWeaponHandler>();
-
-            if (weapon != null && weapon.canDamage && DoesEnemyWieldWeapon(weapon))
+            if (weapon.canDamage && weapon.Wielder.TryGetComponent<AIAgent>(out AIAgent _))
             {
                 weapon.PlayHitSound();
                 _player.StatusHandler.TakeDamage(weapon.DamagePerHit);
@@ -39,8 +37,4 @@ public class PlayerInteractionHandler : MonoBehaviour
             }
         }
     }
-
-    private static bool HasWeaponTag(Collider other) => other.gameObject.tag == "Weapon";
-
-    private static bool DoesEnemyWieldWeapon(MeleeWeaponHandler weapon) => weapon.Wielder.GetComponent<AIAgent>() != null;
 }

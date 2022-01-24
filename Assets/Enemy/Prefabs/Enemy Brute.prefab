@@ -3349,7 +3349,7 @@ GameObject:
   - component: {fileID: -5369460594775990742}
   m_Layer: 0
   m_Name: Enemy Brute
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4031,7 +4031,7 @@ PrefabInstance:
     - target: {fileID: 3725605260525956139, guid: b3826f6779cd6c14eb062bc4dd7a8835, type: 3}
       propertyPath: _wielder
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8488407349786544375}
     - target: {fileID: 3725605260525956139, guid: b3826f6779cd6c14eb062bc4dd7a8835, type: 3}
       propertyPath: _rigidBody
       value: 
@@ -4042,7 +4042,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3725605260525956139, guid: b3826f6779cd6c14eb062bc4dd7a8835, type: 3}
       propertyPath: _damagePerHit
-      value: 0
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 8032765951118384975, guid: b3826f6779cd6c14eb062bc4dd7a8835, type: 3}
       propertyPath: m_Name
