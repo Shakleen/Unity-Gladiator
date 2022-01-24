@@ -8,6 +8,7 @@ public class EnemyChaseState : BaseState<Enemy>
     public override void ExecuteState(Enemy context) 
     {
         context.AnimationHandler.SetParameterMovementSpeed(context.Locomotion.Velocity());
+        context.Locomotion.RotateTowardsPlayer();
     }
 
     public override void OnEnterState(Enemy context) => context.Locomotion.SetNavMeshAgentState(true);

@@ -9,6 +9,7 @@ public class EnemyLocomotion : MonoBehaviour
     [SerializeField] private Transform _playerTransform;
 
     private WaitForSeconds _pathUpdateWaitTime;
+    private Vector3 _lookVector;
 
     private void Start() => StartCoroutine(UpdatePath());
 
@@ -26,6 +27,17 @@ public class EnemyLocomotion : MonoBehaviour
     }
 
     public float Velocity() => _navMeshAgent.velocity.magnitude;
+
+    public void RotateTowardsPlayer()
+    {
+        _lookVector = _playerTransform.position - transform.position;
+        _lookVector.y = transform.position.y;
+        transform.rotation = Quaternion.Slerp(
+            Quaternion.LookRotation(_lookVector), 
+            transform.rotation, 
+            Time.deltaTime * _enemy.Config.RotationSpeed
+        );
+    }
 
     #region Distance checking
     public bool IsWithInAttackRange() => DistanceFromPlayer() <= Square(_enemy.Config.AttackRange);
