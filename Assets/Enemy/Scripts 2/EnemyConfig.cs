@@ -6,6 +6,10 @@ public class EnemyConfig : ScriptableObject
     [Tooltip("Time between successive nav mesh path updates")] [SerializeField] private float _timeBetweenUpdates = 0.1f;
     public float TimeBetweenUpdates { get => _timeBetweenUpdates; }
     
+    [Tooltip("Minimum amount of units player should travel in order to update path.")]
+    [SerializeField] private float _minimumUpdateDistance = 5.0f;
+    public float MinimumUpdateDistance { get => _minimumUpdateDistance; }
+    
     [Tooltip("Minimum distance required to attack player")] [SerializeField] private float _attackRange = 2.0f;
     public float AttackRange { get => _attackRange; }
     

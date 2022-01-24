@@ -4,24 +4,23 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    #region Events
-    public static event Action<int> OnWaveNoChange;
-    public static event Action<int> OnTimerChange;
-    public static event Action<int> OnScoreChange;
     public static event Action OnGameOver;
+
+    #region Events
+    [SerializeField] private GameEvent _onWaveNoChange;
+    [SerializeField] private GameEvent _onTimerChange;
+    [SerializeField] private GameEvent _onScoreChange;
+    [SerializeField] private SessionData _session;
     #endregion
 
-    #region Serialize Fields
-    [SerializeField] private int _waveTimeLimit = 180;
-    [SerializeField] private int _nextWaveLoadTime = 30;
-    #endregion
-
-    private int _waveNo, _score, _waveTimer;
     private IEnumerator _timerCoroutine;
+    private WaitForSeconds _timerDelay, _prepareTime;
 
-    #region Getters
-    public int WaveNo { get => _waveNo; }
-    #endregion
+    private void Awake() 
+    {
+        _timerDelay = new WaitForSeconds(1f);
+        _prepareTime = new WaitForSeconds(_session.PrepareTime);
+    }
 
     private void OnEnable()
     {
@@ -37,53 +36,54 @@ public class GameManager : MonoBehaviour
 
     private void Start() 
     {
-        SetWaveTimer(_waveTimeLimit);  
-        IncrementWaveNumber();
-        AddScore(0);
+        _session.BeginWave();
+        StartWaveTimer();
+        _onWaveNoChange.Raise();
+        _onTimerChange.Raise();
+        _onScoreChange.Raise();
     }
 
-    private void SetWaveTimer(int time) 
+    #region Timer count down logic
+    private void StartWaveTimer() 
     {
         if (_timerCoroutine != null)
             StopCoroutine(_timerCoroutine);
-
-        _waveTimer = time;
-        _timerCoroutine = CountDownWaveTimer();
+        
+        _timerCoroutine = TimerCoroutine();
         StartCoroutine(_timerCoroutine);
     }
 
-    private IEnumerator CountDownWaveTimer()
+    private IEnumerator TimerCoroutine()
     {
-        while (_waveTimer > 0)
+        while (_session.TimeRemaining > 0)
         {
-            _waveTimer--;
-            OnTimerChange?.Invoke(_waveTimer);
-            yield return new WaitForSeconds(1);
+            _session.DecrementTime();
+            _onTimerChange.Raise();
+            yield return _timerDelay;
         }
     }
+    #endregion
 
     #region Wave ending
     private void EndWave() => StartCoroutine(LoadNextWave());
 
     private IEnumerator LoadNextWave()
     {
-        SetWaveTimer(_nextWaveLoadTime);
-        yield return new WaitForSeconds(_nextWaveLoadTime);
-        IncrementWaveNumber();
-        SetWaveTimer(_waveTimeLimit);
+        _session.SetTimeToPrepareTime();
+        StartWaveTimer();
+
+        yield return _prepareTime;
+        
+        _session.BeginWave();
+        _onWaveNoChange.Raise();
+        StartWaveTimer();
     }
     #endregion
 
-    private void IncrementWaveNumber()
-    {
-        _waveNo++;
-        OnWaveNoChange?.Invoke(_waveNo);
-    }
-
     public void AddScore(int value)
     {
-        _score += value;
-        OnScoreChange?.Invoke(_score);
+        _session.AddScore(value);
+        _onScoreChange.Raise();
     }
 
     public void GameOver() => OnGameOver?.Invoke();

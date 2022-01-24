@@ -22,18 +22,6 @@ public class EnemySpawner : MonoBehaviour
 
     private void Awake() => CreateClones();
 
-    private void OnEnable()
-    {
-        GameManager.OnWaveNoChange += Spawn;
-        GameManager.OnScoreChange += DecrementEnemiesAlive;
-    }
-
-    private void OnDisable()
-    {
-        GameManager.OnWaveNoChange -= Spawn;
-        GameManager.OnScoreChange -= DecrementEnemiesAlive;
-    }
-
     private void DecrementEnemiesAlive(int score)
     {
         _enemiesSpawned -= 1;

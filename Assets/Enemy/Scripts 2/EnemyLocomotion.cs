@@ -21,7 +21,9 @@ public class EnemyLocomotion : MonoBehaviour
 
         while (!_enemy.Config.Health.IsEmpty())
         {
-            _navMeshAgent.destination = _playerTransform.position;
+            if (PlayerPositionChange() >= Square(_enemy.Config.MinimumUpdateDistance) && _navMeshAgent.enabled)
+                _navMeshAgent.destination = _playerTransform.position;
+
             yield return _pathUpdateWaitTime;
         }
     }
@@ -41,6 +43,8 @@ public class EnemyLocomotion : MonoBehaviour
 
     #region Distance checking
     public bool IsWithInAttackRange() => DistanceFromPlayer() <= Square(_enemy.Config.AttackRange);
+
+    public float PlayerPositionChange() => (_playerTransform.position - _navMeshAgent.destination).sqrMagnitude;
 
     private float DistanceFromPlayer() => (_playerTransform.position - transform.position).sqrMagnitude;
 

@@ -7,27 +7,15 @@ public class UIHandlerPauseMenu : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeField] private TextMeshProUGUI _waveText;
-
-    private void Awake() 
-    {
-        GameManager.OnWaveNoChange += SetWaveText;
-        GameManager.OnScoreChange += SetScoreText;
-    }
+    [SerializeField] private SessionData _session;
 
     private void OnEnable() => Cursor.lockState = CursorLockMode.None;
 
     private void OnDisable() => Cursor.lockState = CursorLockMode.Locked;
 
-    private void OnDestroy() 
-    {
-        Cursor.lockState = CursorLockMode.None;
-        GameManager.OnWaveNoChange -= SetWaveText;
-        GameManager.OnScoreChange -= SetScoreText;
-    }
+    private void SetWaveText() => _waveText.text = _session.Wave.ToString("D2");
 
-    private void SetWaveText(int value) => _waveText.text = value.ToString("D2");
-
-    private void SetScoreText(int value) => _scoreText.text = value.ToString();
+    private void SetScoreText() => _scoreText.text = _session.Score.ToString();
 
     public void MainMenuButton() => SceneManager.LoadScene(0);
 

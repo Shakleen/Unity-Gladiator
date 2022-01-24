@@ -6,15 +6,16 @@ public class HUDDetailManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeField] private TextMeshProUGUI _waveNoText;
     [SerializeField] private TextMeshProUGUI _timeRemainingText;
+    [SerializeField] private SessionData _session;
 
-    public void SetScoreText(int score) => _scoreText.text = $"{score}";
+    public void SetScoreText() => _scoreText.text = $"{_session.Score}";
 
-    public void SetWaveNumberText(int wave) => _waveNoText.text = wave.ToString("D2");
+    public void SetWaveNumberText() => _waveNoText.text = _session.Wave.ToString("D2");
 
-    public void SetTimeRemainingText(int remainingTime) 
+    public void SetTimeRemainingText() 
     {
-        int minutes = (int) (remainingTime / 60);
-        int seconds = (int) (remainingTime % 60);
+        int minutes = (int) (_session.TimeRemaining / 60);
+        int seconds = (int) (_session.TimeRemaining % 60);
         _timeRemainingText.text = $"{minutes:D2}:{seconds:D2}";
     }
 }

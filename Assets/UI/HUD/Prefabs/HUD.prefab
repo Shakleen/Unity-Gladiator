@@ -212,7 +212,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3487217731014788624}
-  - component: {fileID: 806602055360752598}
+  - component: {fileID: 599439903}
   m_Layer: 5
   m_Name: HUD
   m_TagString: Untagged
@@ -241,7 +241,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &806602055360752598
+--- !u!114 &599439903
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -253,11 +253,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b3f76a6dffc6944cb6c008e73bf9b8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthBar: {fileID: 3487217729713438044}
-  _staminaBar: {fileID: 2854988330899029085}
-  _details: {fileID: 2102000877176752093}
-  _statusHandler: {fileID: 0}
-  _gameManager: {fileID: 0}
 --- !u!1 &3487217731259371322
 GameObject:
   m_ObjectHideFlags: 0
@@ -670,6 +665,9 @@ GameObject:
   m_Component:
   - component: {fileID: 9147446144162392140}
   - component: {fileID: 2102000877176752093}
+  - component: {fileID: 921409065}
+  - component: {fileID: 921409064}
+  - component: {fileID: 921409062}
   m_Layer: 5
   m_Name: Top Details
   m_TagString: Untagged
@@ -714,6 +712,91 @@ MonoBehaviour:
   _scoreText: {fileID: 3487217731259371204}
   _waveNoText: {fileID: 5842128605404786632}
   _timeRemainingText: {fileID: 3830017753095458725}
+  _session: {fileID: 11400000, guid: 8c083b00bc7e4e940a00dbb8edef1563, type: 2}
+--- !u!114 &921409065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7760573735566990723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a85e5611b19555a4c933dc329d0c84a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 6b90aa6f4580dd440a01071733f20d36, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2102000877176752093}
+        m_TargetAssemblyTypeName: HUDDetailManager, Assembly-CSharp
+        m_MethodName: SetTimeRemainingText
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &921409064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7760573735566990723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a85e5611b19555a4c933dc329d0c84a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: cdd010d6fbc52934d8bd8ab5fa8a442c, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2102000877176752093}
+        m_TargetAssemblyTypeName: HUDDetailManager, Assembly-CSharp
+        m_MethodName: SetWaveNumberText
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &921409062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7760573735566990723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a85e5611b19555a4c933dc329d0c84a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 80b07437d4021e94d8417824f9849ef4, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2102000877176752093}
+        m_TargetAssemblyTypeName: HUDDetailManager, Assembly-CSharp
+        m_MethodName: SetScoreText
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &2854988330791232492
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -729,6 +812,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1728224257436098224, guid: 8215312210717d749be32e3128643792, type: 3}
+      propertyPath: _status
+      value: 
+      objectReference: {fileID: 11400000, guid: 00547c89bfe305e4594a95f53cfa0a5f, type: 2}
     - target: {fileID: 1728224257436098238, guid: 8215312210717d749be32e3128643792, type: 3}
       propertyPath: m_Name
       value: Health Bar
@@ -825,6 +912,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8018021361377396807, guid: 8215312210717d749be32e3128643792, type: 3}
+      propertyPath: Event
+      value: 
+      objectReference: {fileID: 11400000, guid: 326b102090cce654f906f667d4be0ab5, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8215312210717d749be32e3128643792, type: 3}
 --- !u!224 &3487217729713438035 stripped
@@ -832,17 +923,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1728224257436098239, guid: 8215312210717d749be32e3128643792, type: 3}
   m_PrefabInstance: {fileID: 2854988330791232492}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3487217729713438044 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1728224257436098224, guid: 8215312210717d749be32e3128643792, type: 3}
-  m_PrefabInstance: {fileID: 2854988330791232492}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 209789f665752744ebe780dbc74798d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &3487217729573626605
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -870,6 +950,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.036698885
       objectReference: {fileID: 0}
+    - target: {fileID: 1728224257436098224, guid: 8215312210717d749be32e3128643792, type: 3}
+      propertyPath: _status
+      value: 
+      objectReference: {fileID: 11400000, guid: 399339405019b934787932ad53ddad2b, type: 2}
     - target: {fileID: 1728224257436098238, guid: 8215312210717d749be32e3128643792, type: 3}
       propertyPath: m_Name
       value: Stamina
@@ -994,6 +1078,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -99
       objectReference: {fileID: 0}
+    - target: {fileID: 8018021361377396807, guid: 8215312210717d749be32e3128643792, type: 3}
+      propertyPath: Event
+      value: 
+      objectReference: {fileID: 11400000, guid: 30a02bc0eeddebf4ab689aeb9fbee785, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8215312210717d749be32e3128643792, type: 3}
 --- !u!224 &2854988330899029074 stripped
@@ -1001,14 +1089,3 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1728224257436098239, guid: 8215312210717d749be32e3128643792, type: 3}
   m_PrefabInstance: {fileID: 3487217729573626605}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2854988330899029085 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1728224257436098224, guid: 8215312210717d749be32e3128643792, type: 3}
-  m_PrefabInstance: {fileID: 3487217729573626605}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 209789f665752744ebe780dbc74798d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
