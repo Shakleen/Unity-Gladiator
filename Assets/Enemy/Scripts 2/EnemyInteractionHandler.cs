@@ -13,9 +13,6 @@ public class EnemyInteractionHandler : MonoBehaviour
             {
                 _enemy.Health.Take(weapon.DamagePerHit);
                 _onHealthChange.Raise();
-
-                if (_enemy.Health.IsEmpty())
-                    _enemy.AnimationHandler.SetAnimationValueIsDead(true);
             }
         }
     }
