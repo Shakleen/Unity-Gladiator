@@ -5,15 +5,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private StatusConfig _health;
     public StatusConfig Health { get => _health; }
 
-    [SerializeField] private BarManager _bar;
-    private BaseStatus status;
-
-    private void Start() 
-    {
-        status = new BaseStatus(_health.maxCapacity);
-        _bar.InitializeBar(status);
-        _bar.UpdateBar(status);
-    }
+    [SerializeField] private GameEvent _onHealthChange;
 
     private void OnTriggerEnter(Collider other) 
     {
@@ -22,8 +14,7 @@ public class Enemy : MonoBehaviour
             if (weapon.canDamage && weapon.Wielder.TryGetComponent<Player>(out Player _))
             {
                 _health.Take(weapon.DamagePerHit);
-                status.Take(weapon.DamagePerHit);
-                _bar.UpdateBar(status);
+                _onHealthChange.Raise();
             }
         }
     }

@@ -7,8 +7,16 @@ public class BarManager : MonoBehaviour
     [SerializeField] private Slider _rightSlider;
     [SerializeField] private Slider _leftSlider;
     [SerializeField] private TextMeshProUGUI _value;
+    [SerializeField] private StatusConfig _status;
 
     private bool _initialized = false;
+
+    public void UpdateBarValue()
+    {
+        BaseStatus status = new BaseStatus(_status.maxCapacity);
+        status.Take(_status.maxCapacity - _status.initialCapacity);
+        UpdateBar(status);
+    }
     
     public void UpdateBar(BaseStatus status)
     {
