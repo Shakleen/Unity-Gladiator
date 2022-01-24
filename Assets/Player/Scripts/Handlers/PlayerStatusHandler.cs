@@ -20,6 +20,12 @@ public class PlayerStatusHandler : MonoBehaviour
     
     private void Awake() => _player = GetComponent<Player>();
 
+    private void Start() 
+    {
+        _onHealthChange.Raise();
+        _onStaminaChange.Raise();    
+    }
+
     public void TakeDamage(float damage)
     {
         _player.Config.health.Take(damage);

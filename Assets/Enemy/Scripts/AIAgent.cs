@@ -15,7 +15,7 @@ public class AIAgent : MonoBehaviour
     private GameManager _gameManager;
     private Transform _playerTransform;
     private AIStateMachine _stateMachine;
-    private BaseStatus _health;
+    // private BaseStatus _health;
     private bool _hasDied = false;
     #endregion
 
@@ -27,7 +27,7 @@ public class AIAgent : MonoBehaviour
     public AILocomotion locomotion { get => _aiLocomotion; }
     public AIInteractionHandler InteractionHandler { get => _interactionHandler; }
     public AIStateEnum CurrentState { get => _currentStateType; set => _currentStateType = value; }
-    public BaseStatus Health { get => _health; }
+    // public BaseStatus Health { get => _health; }
     #endregion
 
     private void Awake() 
@@ -35,7 +35,7 @@ public class AIAgent : MonoBehaviour
         _gameManager = FindObjectOfType<GameManager>();
         _playerTransform = FindObjectOfType<Player>().transform;
         _stateMachine = new AIStateMachine(this); 
-        _health = new BaseStatus(_config.Health);
+        // _health = new BaseStatus(_config.Health);
     }
 
     private void Start() => Init();
@@ -48,7 +48,7 @@ public class AIAgent : MonoBehaviour
         _interactionHandler.enabled = true;
         _interactionHandler.ShowHealthBarAndWeapon(true);
         _ragDollHandler.SetRagDollStatus(false);
-        _health.Reset();
+        // _health.Reset();
         _interactionHandler.SetActiveHealthBarUI(true);
     }
 

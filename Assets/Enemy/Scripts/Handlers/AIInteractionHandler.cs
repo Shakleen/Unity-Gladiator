@@ -16,11 +16,11 @@ public class AIInteractionHandler : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        _aiAgent.Health.Take(damage);
+        // _aiAgent.Config.Health.Take(damage);
         // _healthBar.UpdateValue(_aiAgent.Health);
 
-        if (_aiAgent.Health.IsEmpty())
-            _aiAgent.Die();
+        // if (_aiAgent.Config.Health.IsEmpty())
+            // _aiAgent.Die();
     }
 
     #region Handling Death

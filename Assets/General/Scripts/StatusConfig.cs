@@ -23,17 +23,17 @@ public class StatusConfig : ScriptableObject
     [Tooltip("Status depletion rate upon usage")] [SerializeField] private float _depletePerSec;
     #endregion
 
-    private void Awake() => _currentCapacity = _maxCapacity;
+    private void OnEnable() => currentCapacity = _maxCapacity;
     
-    public void Add(float value) => _currentCapacity += value;
+    public void Add(float value) => currentCapacity += value;
 
-    public void Take(float value) => _currentCapacity -= value;
+    public void Take(float value) => currentCapacity -= value;
 
-    public void Reset() => _currentCapacity = _maxCapacity;
+    public void Reset() => currentCapacity = _maxCapacity;
 
-    public bool IsEmpty() => _currentCapacity <= THRESH; 
+    public bool IsEmpty() => currentCapacity <= THRESH; 
 
-    public bool IsFull() => _currentCapacity >= _maxCapacity; 
+    public bool IsFull() => currentCapacity >= _maxCapacity; 
 
     public void Regenerate() => Add(_regenPerSec * Time.deltaTime);
 

@@ -3259,50 +3259,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8374677771169576336, guid: 65dd7dc177cfcfe4585391c138d39bca, type: 3}
   m_PrefabInstance: {fileID: 1802719144}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1915384342 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7288201318101221042, guid: 4cf6b93bdfb1ed244945e84545726603, type: 3}
-  m_PrefabInstance: {fileID: 7883758381324085691}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1915384345 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7288201318101221052, guid: 4cf6b93bdfb1ed244945e84545726603, type: 3}
-  m_PrefabInstance: {fileID: 7883758381324085691}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1915384342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 209789f665752744ebe780dbc74798d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1915384346
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1915384342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a85e5611b19555a4c933dc329d0c84a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Event: {fileID: 11400000, guid: 5df87a3a63ad69746850d18a38542d36, type: 2}
-  Response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1915384345}
-        m_TargetAssemblyTypeName: BarManager, Assembly-CSharp
-        m_MethodName: UpdateBarValue
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!4 &1937310830 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8374677771169576336, guid: 65dd7dc177cfcfe4585391c138d39bca, type: 3}
@@ -4161,14 +4117,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1893315834988803940, guid: 4cf6b93bdfb1ed244945e84545726603, type: 3}
-      propertyPath: _bar
-      value: 
-      objectReference: {fileID: 1915384345}
-    - target: {fileID: 1893315834988803940, guid: 4cf6b93bdfb1ed244945e84545726603, type: 3}
-      propertyPath: _onHealthChange
-      value: 
-      objectReference: {fileID: 11400000, guid: 5df87a3a63ad69746850d18a38542d36, type: 2}
     - target: {fileID: 7288201316115266895, guid: 4cf6b93bdfb1ed244945e84545726603, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -4185,10 +4133,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7288201318101221052, guid: 4cf6b93bdfb1ed244945e84545726603, type: 3}
-      propertyPath: _status
-      value: 
-      objectReference: {fileID: 11400000, guid: 71d4481efe1a68f4c8dcabc8058d6367, type: 2}
     - target: {fileID: 8588035472720502488, guid: 4cf6b93bdfb1ed244945e84545726603, type: 3}
       propertyPath: m_Name
       value: Enemy

@@ -2463,6 +2463,8 @@ GameObject:
   - component: {fileID: 3063899904217194008}
   - component: {fileID: 7342417003915324311}
   - component: {fileID: 1893315834988803940}
+  - component: {fileID: 1874438569}
+  - component: {fileID: 8222518230886263473}
   m_Layer: 0
   m_Name: Enemy 1
   m_TagString: Untagged
@@ -2532,7 +2534,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 922179fdaab23be42bc447c3394d0f13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interactionHandler: {fileID: 1874438569}
+  _animationHandler: {fileID: 8222518230886263473}
   _health: {fileID: 11400000, guid: 71d4481efe1a68f4c8dcabc8058d6367, type: 2}
+--- !u!114 &1874438569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8588035472720502488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 918d53e3d357f764c94c8045e4ecb53a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemy: {fileID: 1893315834988803940}
+  _onHealthChange: {fileID: 11400000, guid: 5df87a3a63ad69746850d18a38542d36, type: 2}
+--- !u!114 &8222518230886263473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8588035472720502488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a14e1b7fb4904d9176204026ffe28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemy: {fileID: 1893315834988803940}
+  _animator: {fileID: 3063899904217194008}
 --- !u!1 &8599138837668719830
 GameObject:
   m_ObjectHideFlags: 0
@@ -2911,6 +2943,10 @@ PrefabInstance:
       propertyPath: _target
       value: 
       objectReference: {fileID: 4454101003348609207}
+    - target: {fileID: 597949615544484701, guid: 835c8943b2f5e5145a2785618605fa44, type: 3}
+      propertyPath: _status
+      value: 
+      objectReference: {fileID: 11400000, guid: 71d4481efe1a68f4c8dcabc8058d6367, type: 2}
     - target: {fileID: 4146404178199046098, guid: 835c8943b2f5e5145a2785618605fa44, type: 3}
       propertyPath: m_Name
       value: Health canvas
@@ -3018,3 +3054,47 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4146404178199046099, guid: 835c8943b2f5e5145a2785618605fa44, type: 3}
   m_PrefabInstance: {fileID: 7883758380503317985}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7288201318101221042 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 597949615544484691, guid: 835c8943b2f5e5145a2785618605fa44, type: 3}
+  m_PrefabInstance: {fileID: 7883758380503317985}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7288201318101221052 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 597949615544484701, guid: 835c8943b2f5e5145a2785618605fa44, type: 3}
+  m_PrefabInstance: {fileID: 7883758380503317985}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7288201318101221042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 209789f665752744ebe780dbc74798d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1915384346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7288201318101221042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a85e5611b19555a4c933dc329d0c84a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 5df87a3a63ad69746850d18a38542d36, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7288201318101221052}
+        m_TargetAssemblyTypeName: BarManager, Assembly-CSharp
+        m_MethodName: UpdateBarValue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

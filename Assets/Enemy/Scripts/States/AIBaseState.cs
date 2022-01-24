@@ -18,7 +18,7 @@ public abstract class AIBaseState : BaseStateClass
             _stateMachine.SwitchState(_transition);
     }
 
-    protected bool IsDead() => _aiAgent.Health.IsEmpty();
+    protected bool IsDead() => true; //_aiAgent.Health.IsEmpty();
     protected bool IsInAwareness() => _aiAgent.locomotion.IsInRadius(_aiAgent.Config.AwarenessRadius);
     protected bool IsInReach() => _aiAgent.locomotion.IsInRadius(_aiAgent.Config.AttackRadius);
 }
