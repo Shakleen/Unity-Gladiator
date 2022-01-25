@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerStatusHandler : MonoBehaviour
 {
     public static event Action OnDeath;
-    [SerializeField] private GameEvent _onHealthChange;
-    [SerializeField] private GameEvent _onStaminaChange;
+    [SerializeField] private GameEvent_Status _onHealthChange;
+    [SerializeField] private GameEvent_Status _onStaminaChange;
 
     #region references
     private Player _player;
@@ -16,35 +16,39 @@ public class PlayerStatusHandler : MonoBehaviour
 
     #region getters
     public bool IsDead { get => _isDead; set => _isDead = value; }
+    public Status Health { get; private set; }
+    public Status Stamina { get; private set; }
     #endregion
     
     private void Awake() => _player = GetComponent<Player>();
 
     private void Start() 
     {
-        _onHealthChange.Raise();
-        _onStaminaChange.Raise();    
+        Health = new Status(_player.Config.health);
+        Stamina = new Status(_player.Config.stamina);
+        _onHealthChange.Raise(Health);
+        _onStaminaChange.Raise(Stamina);
     }
 
     public void TakeDamage(float damage)
     {
-        _player.Config.health.Take(damage);
-        _onHealthChange.Raise();
+        Health.Take(damage);
+        _onHealthChange.Raise(Health);
     }
 
     #region Stamina consumption
     public void DepleteStamina()
     {
         ResetStaminaRegenDelay();
-        _player.Config.stamina.Deplete();
-        _onStaminaChange.Raise();
+        Stamina.Deplete();
+        _onStaminaChange.Raise(Stamina);
     }
 
     public void UseStamina(float value)
     {
         ResetStaminaRegenDelay();
-        _player.Config.stamina.Take(value);
-        _onStaminaChange.Raise();
+        Stamina.Take(value);
+        _onStaminaChange.Raise(Stamina);
     }
 
     private void ResetStaminaRegenDelay() => _staminaRegenDelay = _player.Config.stamina.regenDelay;
@@ -54,23 +58,23 @@ public class PlayerStatusHandler : MonoBehaviour
     public void Regenerate()
     {
         _healthRegenDelay = RegenerateStatus(
-            _player.Config.health, 
+            Health, 
             _healthRegenDelay, 
             _onHealthChange
         );
         _staminaRegenDelay = RegenerateStatus(
-            _player.Config.stamina, 
+            Stamina, 
             _staminaRegenDelay, 
             _onStaminaChange
         );
     }
 
-    private float RegenerateStatus(StatusConfig status, float regenDelay, GameEvent OnChange)
+    private float RegenerateStatus(Status status, float regenDelay, GameEvent_Status OnChange)
     {
         if (!status.IsFull() && regenDelay <= 0f)
         {
             status.Regenerate();
-            OnChange.Raise();
+            OnChange.Raise(status);
         }
         else
             regenDelay = CountDownTimer(regenDelay);

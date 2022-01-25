@@ -74,7 +74,7 @@ public class PlayerAttackHandler : MonoBehaviour
 
     private bool CanInitiateNextAttack()
     {
-        bool hasStamina = !_player.Config.stamina.IsEmpty();
+        bool hasStamina = !_player.StatusHandler.Stamina.IsEmpty();
         return _attackEnded && !IsNextAttackQueued() && IsWithInComboTime() && hasStamina;
     }
 
