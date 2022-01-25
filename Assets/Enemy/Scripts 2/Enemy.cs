@@ -8,6 +8,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private EnemyStateMachine _stateMachine;
     [SerializeField] private EnemyLocomotion _locomotion;
     public EnemyLocomotion Locomotion { get => _locomotion; }
+    [SerializeField] private AudioSource _audioSource;
+    public AudioSource audioSource { get => _audioSource; }
     [SerializeField] private EnemyConfig _config;
     public EnemyConfig Config { get => _config; }
 

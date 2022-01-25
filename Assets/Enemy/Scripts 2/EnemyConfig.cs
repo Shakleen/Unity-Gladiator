@@ -16,6 +16,9 @@ public class EnemyConfig : ScriptableObject
     [Tooltip("Speed at which enemy rotates to face player")] [SerializeField] private float _rotationSpeed = 3.0f;
     public float RotationSpeed { get => _rotationSpeed; }
 
+    [Tooltip("Sound collection to be used by the enemy")] [ SerializeField] private Sounds _sound;
+    public Sounds Sound { get => _sound; }
+
     [SerializeField] private StatusConfig _health;
     public StatusConfig Health { get => _health; }   
 }

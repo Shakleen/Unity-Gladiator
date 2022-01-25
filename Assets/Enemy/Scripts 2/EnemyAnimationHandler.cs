@@ -25,4 +25,6 @@ public class EnemyAnimationHandler : MonoBehaviour
     public void SetAnimatorActiveStatus(bool status) => _animator.enabled = status;
 
     public bool IsAnimationPlaying() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f;
+
+    public void AnimationEventFootDown() => _enemy.audioSource.PlayOneShot(_enemy.Config.Sound.GetRandomFootStepSound());
 }
