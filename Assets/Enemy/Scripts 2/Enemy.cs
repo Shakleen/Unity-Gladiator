@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     public EnemyAnimationHandler AnimationHandler { get => _animationHandler; }
 
     [SerializeField] private EnemyStateMachine _stateMachine;
+    public EnemyStateMachine StateMachine { get => _stateMachine; }
 
     [SerializeField] private EnemyLocomotion _locomotion;
     public EnemyLocomotion Locomotion { get => _locomotion; }

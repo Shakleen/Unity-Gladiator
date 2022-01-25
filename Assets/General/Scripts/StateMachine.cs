@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class StateMachine<T> : MonoBehaviour 
 {
-    [SerializeField] private T _context;
-    [SerializeField] private BaseState<T> _currentState;
+    [SerializeField] protected T _context;
+    [SerializeField] protected BaseState<T> _currentState;
 
     public void Execute()
     {

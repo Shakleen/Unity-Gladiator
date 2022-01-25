@@ -10,21 +10,33 @@ public class EnemyAnimationHandler : MonoBehaviour
     #region Animation parameter hashes
     private int _hashIsDead;
     private int _hashMovementSpeed;
+    private int _hashIsTaunting;
     #endregion
+
+    public bool IsTaunting { get; private set; }
 
     private void Awake()
     {
         _hashIsDead = Animator.StringToHash("isDead");
         _hashMovementSpeed = Animator.StringToHash("movementSpeed");
+        _hashIsTaunting = Animator.StringToHash("isTaunting");
     }
 
     public void SetParameterIsDead(bool value) => _animator.SetBool(_hashIsDead, value);
 
     public void SetParameterMovementSpeed(float value) => _animator.SetFloat(_hashMovementSpeed, value);
+
+    public void SetParameterIsTaunting(bool value) 
+    {
+        _animator.SetBool(_hashIsTaunting, value);
+        IsTaunting = value;
+    }
     
     public void SetAnimatorActiveStatus(bool status) => _animator.enabled = status;
 
     public bool IsAnimationPlaying() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f;
 
     public void AnimationEventFootDown() => _enemy.audioSource.PlayOneShot(_enemy.Config.Sound.GetRandomFootStepSound());
+
+    public void AnimationEventTauntEnd() => SetParameterIsTaunting(false);
 }

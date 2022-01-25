@@ -15,6 +15,9 @@ public class EnemyConfig : ScriptableObject
     
     [Tooltip("Speed at which enemy rotates to face player")] [SerializeField] private float _rotationSpeed = 3.0f;
     public float RotationSpeed { get => _rotationSpeed; }
+    
+    [Tooltip("Minimum amount of time that must elapse between two taunts")] [SerializeField] private float _tauntCoolDown = 7.0f;
+    public float TauntCoolDown { get => _tauntCoolDown; }
 
     [Tooltip("Sound collection to be used by the enemy")] [ SerializeField] private Sounds _sound;
     public Sounds Sound { get => _sound; }

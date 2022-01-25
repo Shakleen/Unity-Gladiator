@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8eb23c2df1dc9684d80268904396b724, type: 3}
-  m_Name: enemy_idle_state
+  m_Script: {fileID: 11500000, guid: d4a6dbcf9a1be184587b2d22d17184f9, type: 3}
+  m_Name: enemy_taunt_state
   m_EditorClassIdentifier: 
   _destinationStates:
+  - {fileID: 11400000, guid: 7c30ae8673e159549a6812cc61c0a005, type: 2}
   - {fileID: 11400000, guid: 3c01b924d04dbfa41aa76d62a3ac82a8, type: 2}
   - {fileID: 11400000, guid: f55f5c9467954fc47be72f3aff6d0166, type: 2}
-  - {fileID: 11400000, guid: 963cb1c473b2281499f97dda9a5ecf5b, type: 2}

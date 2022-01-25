@@ -3,11 +3,17 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyIdleState", menuName = "Gladiator/Enemy States/Idle", order = 0)]
 public class EnemyIdleState : BaseState<Enemy>
 {
-    public override bool EntryCondition(Enemy context) => context.Locomotion.IsWithInAttackRange();
+    private bool _isWithInRange, _isTaunting;
+
+    public override bool EntryCondition(Enemy context) 
+    {
+        _isWithInRange = context.Locomotion.IsWithInAttackRange();
+        _isTaunting = context.AnimationHandler.IsTaunting;
+        return !_isTaunting && _isWithInRange;
+    }
 
     public override void ExecuteState(Enemy context) 
     {
-        context.AnimationHandler.SetParameterMovementSpeed(0f);
         context.Locomotion.RotateTowardsPlayer();
     }
 
