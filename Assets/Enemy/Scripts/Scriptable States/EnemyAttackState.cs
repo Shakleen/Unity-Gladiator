@@ -7,7 +7,11 @@ public class EnemyAttackState : BaseState<Enemy>
 
     public override void ExecuteState(Enemy context) {}
 
-    public override void OnEnterState(Enemy context) {}
+    public override void OnEnterState(Enemy context) => context.InteractionHandler.SetWeaponDamageStatus(true);
 
-    public override void OnExitState(Enemy context) => context.StateMachine.ResetAttackTimer();
+    public override void OnExitState(Enemy context) 
+    {
+        context.StateMachine.ResetAttackTimer();
+        context.InteractionHandler.SetWeaponDamageStatus(false);
+    }
 }

@@ -4,6 +4,7 @@ public class EnemyInteractionHandler : MonoBehaviour
 {
     [SerializeField] private Enemy _enemy;
     [SerializeField] private GameEvent _onHealthChange;
+    [SerializeField] private MeleeWeaponHandler _weapon;
 
     private void OnEnable() => _onHealthChange.Raise();
 
@@ -19,4 +20,6 @@ public class EnemyInteractionHandler : MonoBehaviour
             }
         }
     }
+
+    public void SetWeaponDamageStatus(bool status) => _weapon.canDamage = status;
 }

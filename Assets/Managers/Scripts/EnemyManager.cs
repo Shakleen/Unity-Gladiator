@@ -36,7 +36,6 @@ public class EnemyManager : MonoBehaviour
             if (_enemy != null)
             {
                 _enemy.AnimationHandler.SetParameterIsAttacking(true);
-                Debug.Log($"{_enemy.gameObject.name} attacking");
                 yield return _delayBetweenAttacks;
             }
             else
