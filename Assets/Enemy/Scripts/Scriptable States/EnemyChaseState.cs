@@ -3,11 +3,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyChaseState", menuName = "Gladiator/Enemy States/Chase", order = 2)]
 public class EnemyChaseState : BaseState<Enemy>
 {
-    private bool _isWithInAttackRange;
+    private bool _isWithInRange, _isTaunting, _isAttacking;
+
     public override bool EntryCondition(Enemy context) 
     {
-        _isWithInAttackRange = context.Locomotion.IsWithInAttackRange();
-        return !_isWithInAttackRange && !context.AnimationHandler.IsTaunting;
+        _isWithInRange = context.Locomotion.IsWithInAttackRange();
+        _isTaunting = context.AnimationHandler.IsTaunting;
+        _isAttacking = context.AnimationHandler.IsAttacking;
+        return !_isTaunting && !_isAttacking && !_isWithInRange;
     }
 
     public override void ExecuteState(Enemy context) 

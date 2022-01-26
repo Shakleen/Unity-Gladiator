@@ -11,15 +11,18 @@ public class EnemyAnimationHandler : MonoBehaviour
     private int _hashIsDead;
     private int _hashMovementSpeed;
     private int _hashIsTaunting;
+    private int _hashIsAttacking;
     #endregion
 
     public bool IsTaunting { get; private set; }
+    public bool IsAttacking { get; private set; }
 
     private void Awake()
     {
         _hashIsDead = Animator.StringToHash("isDead");
         _hashMovementSpeed = Animator.StringToHash("movementSpeed");
         _hashIsTaunting = Animator.StringToHash("isTaunting");
+        _hashIsAttacking = Animator.StringToHash("isAttacking");
     }
 
     public void SetParameterIsDead(bool value) => _animator.SetBool(_hashIsDead, value);
@@ -30,6 +33,12 @@ public class EnemyAnimationHandler : MonoBehaviour
     {
         _animator.SetBool(_hashIsTaunting, value);
         IsTaunting = value;
+    }
+
+    public void SetParameterIsAttacking(bool value) 
+    {
+        _animator.SetBool(_hashIsAttacking, value);
+        IsAttacking = value;
     }
     
     public void SetAnimatorActiveStatus(bool status) => _animator.enabled = status;
