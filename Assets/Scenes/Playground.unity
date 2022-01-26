@@ -934,11 +934,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 518275529}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!82 &553320132 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 1531663815188582583, guid: ecc6a818b968742498f55ef2c3cac4bb, type: 3}
-  m_PrefabInstance: {fileID: 9148160691960593041}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &599439903 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 599439903, guid: 9b370d72b2be4134fa6b1f88abde314a, type: 3}
@@ -1553,6 +1548,8 @@ GameObject:
   - component: {fileID: 929934370}
   - component: {fileID: 929934372}
   - component: {fileID: 929934373}
+  - component: {fileID: 929934374}
+  - component: {fileID: 929934375}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1575,6 +1572,7 @@ MonoBehaviour:
   _onWaveNoChange: {fileID: 11400000, guid: cdd010d6fbc52934d8bd8ab5fa8a442c, type: 2}
   _onTimerChange: {fileID: 11400000, guid: 6b90aa6f4580dd440a01071733f20d36, type: 2}
   _onScoreChange: {fileID: 11400000, guid: 80b07437d4021e94d8417824f9849ef4, type: 2}
+  _onGameOver: {fileID: 11400000, guid: 78960d1379fa7a7478b7fa741c6b9cef, type: 2}
   _session: {fileID: 11400000, guid: 8c083b00bc7e4e940a00dbb8edef1563, type: 2}
 --- !u!4 &929934371
 Transform:
@@ -1624,6 +1622,62 @@ MonoBehaviour:
       - m_Target: {fileID: 929934370}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: AddScore
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &929934374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 929934369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a85e5611b19555a4c933dc329d0c84a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 78960d1379fa7a7478b7fa741c6b9cef, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 929934372}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: HandleOnGameOver
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &929934375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 929934369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a85e5611b19555a4c933dc329d0c84a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: a57c54760ef74814bbeeeeb65a822a62, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 929934372}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: HandleOnPause
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3824,18 +3878,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 93632447}
     m_Modifications:
-    - target: {fileID: 6881399806446071407, guid: e6bbd9e856d371749875cc2c16147d80, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 2796356890110556273}
-    - target: {fileID: 6881399806446071407, guid: e6bbd9e856d371749875cc2c16147d80, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: MainMenuButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 6881399806446071407, guid: e6bbd9e856d371749875cc2c16147d80, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UIHandlerPauseMenu, Assembly-CSharp
-      objectReference: {fileID: 0}
     - target: {fileID: 6881399806691440896, guid: e6bbd9e856d371749875cc2c16147d80, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3924,34 +3966,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pause Menu
       objectReference: {fileID: 0}
-    - target: {fileID: 6881399806691440897, guid: e6bbd9e856d371749875cc2c16147d80, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6881399807319084904, guid: e6bbd9e856d371749875cc2c16147d80, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 2796356890110556273}
-    - target: {fileID: 6881399807319084904, guid: e6bbd9e856d371749875cc2c16147d80, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: RestartButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 6881399807319084904, guid: e6bbd9e856d371749875cc2c16147d80, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UIHandlerPauseMenu, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 6881399807319084906, guid: e6bbd9e856d371749875cc2c16147d80, type: 3}
-      propertyPath: m_Name
-      value: Restart
-      objectReference: {fileID: 0}
-    - target: {fileID: 6881399807797024891, guid: e6bbd9e856d371749875cc2c16147d80, type: 3}
-      propertyPath: m_text
-      value: Restart
-      objectReference: {fileID: 0}
-    - target: {fileID: 6939243494436931747, guid: e6bbd9e856d371749875cc2c16147d80, type: 3}
-      propertyPath: _gameManager
-      value: 
-      objectReference: {fileID: 929934370}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e6bbd9e856d371749875cc2c16147d80, type: 3}
 --- !u!114 &2796356890110556273 stripped
@@ -4121,6 +4135,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 93632447}
     m_Modifications:
+    - target: {fileID: 2021003996, guid: 7264b30441b6cc147b4efb6fecdc92b8, type: 3}
+      propertyPath: _session
+      value: 
+      objectReference: {fileID: 11400000, guid: 8c083b00bc7e4e940a00dbb8edef1563, type: 2}
     - target: {fileID: 2021003996, guid: 7264b30441b6cc147b4efb6fecdc92b8, type: 3}
       propertyPath: _gameManager
       value: 
@@ -4485,18 +4503,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1659221099537459914, guid: ecc6a818b968742498f55ef2c3cac4bb, type: 3}
-      propertyPath: _onHealthChange
-      value: 
-      objectReference: {fileID: 11400000, guid: 326b102090cce654f906f667d4be0ab5, type: 2}
-    - target: {fileID: 1659221099537459914, guid: ecc6a818b968742498f55ef2c3cac4bb, type: 3}
-      propertyPath: _onStaminaChange
-      value: 
-      objectReference: {fileID: 11400000, guid: 30a02bc0eeddebf4ab689aeb9fbee785, type: 2}
-    - target: {fileID: 5280542561922567722, guid: ecc6a818b968742498f55ef2c3cac4bb, type: 3}
-      propertyPath: sounds
-      value: 
-      objectReference: {fileID: 11400000, guid: 03cdc3651c9322c4c956024af16d24e2, type: 2}
     - target: {fileID: 6381897685518841004, guid: ecc6a818b968742498f55ef2c3cac4bb, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -4545,17 +4551,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Rig
       objectReference: {fileID: 0}
-    - target: {fileID: 6381897685518841005, guid: ecc6a818b968742498f55ef2c3cac4bb, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8377465612215751054, guid: ecc6a818b968742498f55ef2c3cac4bb, type: 3}
-      propertyPath: audioSource
-      value: 
-      objectReference: {fileID: 553320132}
-    - target: {fileID: 8377465612215751054, guid: ecc6a818b968742498f55ef2c3cac4bb, type: 3}
-      propertyPath: _audioSource
-      value: 
-      objectReference: {fileID: 553320132}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ecc6a818b968742498f55ef2c3cac4bb, type: 3}

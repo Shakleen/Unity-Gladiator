@@ -396,7 +396,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scoreText: {fileID: 6096705324217559920}
   _waveText: {fileID: 6096705323850987471}
-  _gameManager: {fileID: 0}
+  _session: {fileID: 11400000, guid: 8c083b00bc7e4e940a00dbb8edef1563, type: 2}
 --- !u!1 &6096705323850987457
 GameObject:
   m_ObjectHideFlags: 0

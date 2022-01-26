@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static event Action OnGameOver;
-
     #region Events
     [SerializeField] private GameEvent _onWaveNoChange;
     [SerializeField] private GameEvent _onTimerChange;
     [SerializeField] private GameEvent _onScoreChange;
+    [SerializeField] private GameEvent _onGameOver;
     [SerializeField] private SessionData _session;
     #endregion
 
@@ -86,5 +85,5 @@ public class GameManager : MonoBehaviour
         _onScoreChange.Raise();
     }
 
-    public void GameOver() => OnGameOver?.Invoke();
+    public void GameOver() => _onGameOver.Raise();
 }

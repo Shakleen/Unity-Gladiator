@@ -1287,6 +1287,7 @@ MonoBehaviour:
   _attackHandler: {fileID: -4151840130963236351}
   _currentStateType: 0
   _interactionhandler: {fileID: 8516524952545769873}
+  audioSource: {fileID: 9148160691960593043}
   _config: {fileID: -6702171214168988658}
 --- !u!114 &-5108919237471451617
 MonoBehaviour:
@@ -1312,6 +1313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f257fe19d1065254d937323647b9d189, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _onPausePressed: {fileID: 11400000, guid: a57c54760ef74814bbeeeeb65a822a62, type: 2}
   _inputMoveVector: {x: 0, y: 0}
   _inputLookVector: {x: 0, y: 0}
   _isInputActiveMovement: 0
@@ -1342,6 +1344,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43fea056af2d79e428722af5d23fa8b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _onHealthChange: {fileID: 11400000, guid: 326b102090cce654f906f667d4be0ab5, type: 2}
+  _onStaminaChange: {fileID: 11400000, guid: 30a02bc0eeddebf4ab689aeb9fbee785, type: 2}
 --- !u!114 &-4151840130963236351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1354,6 +1358,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2791a791f0833bd4f87dc6d0b8a479b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _comboCounter: 0
+  _comboTimer: 0
+  _attackStarted: 0
+  _attacking: 0
+  _attackEnded: 0
 --- !u!114 &8516524952545769873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1382,12 +1391,11 @@ MonoBehaviour:
   run: {fileID: 11400000, guid: fa926c187effece47824b4714122a78c, type: 2}
   health: {fileID: 11400000, guid: 00547c89bfe305e4594a95f53cfa0a5f, type: 2}
   stamina: {fileID: 11400000, guid: 399339405019b934787932ad53ddad2b, type: 2}
-  mana: {fileID: 11400000, guid: 3c2def986f5e57d4fbc8f8de834de13a, type: 2}
   animationSpeed: {fileID: 11400000, guid: eebb367d80d4a2b4cb4658fe1ec75402, type: 2}
   staminaCost: {fileID: 11400000, guid: fca58321b7e6b6745974811e17180573, type: 2}
   misc: {fileID: 11400000, guid: 46af4611e9ac3bc448a43532d8d4b6e8, type: 2}
   attack: {fileID: 11400000, guid: 68298aa6c8a906349a51becb83f375f8, type: 2}
-  sound: {fileID: 0}
+  sounds: {fileID: 11400000, guid: 03cdc3651c9322c4c956024af16d24e2, type: 2}
 --- !u!1 &3709890224719960217
 GameObject:
   m_ObjectHideFlags: 0

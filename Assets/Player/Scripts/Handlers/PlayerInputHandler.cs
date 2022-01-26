@@ -10,7 +10,7 @@ public class PlayerInputHandler : MonoBehaviour
     public static event Action OnDodgePressed;
     public static event Action OnRunPressed;
     public static event Action OnMovePressed;
-    public static event Action<bool> OnPausePressed;
+    [SerializeField] private GameEvent _onPausePressed;
     #endregion
     
     private PlayerInput _playerInput;
@@ -141,7 +141,7 @@ public class PlayerInputHandler : MonoBehaviour
     private void InputCallbackPause(InputAction.CallbackContext context) 
     {
         _isPaused = !_isPaused;
-        OnPausePressed?.Invoke(_isPaused);
+        _onPausePressed.Raise();
     }
     #endregion
 
