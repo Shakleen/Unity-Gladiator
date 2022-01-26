@@ -2676,6 +2676,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemy: {fileID: 1893315834988803940}
   _onHealthChange: {fileID: 11400000, guid: 1602b870bc7c7aa4aa633817bf049760, type: 2}
+  _onDeath: {fileID: 11400000, guid: 0abd04ff62dd0ba44966af53e82f86aa, type: 2}
 --- !u!114 &8222518230886263473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2718,7 +2719,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemy: {fileID: 1893315834988803940}
   _navMeshAgent: {fileID: 1874438568}
-  _playerTransform: {fileID: 0}
 --- !u!1 &8599138837668719830
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,7 +19,11 @@ public class Enemy : MonoBehaviour
     [SerializeField] private EnemyConfig _config;
     public EnemyConfig Config { get => _config; }
 
+    [SerializeField] private CapsuleCollider _collider;
+
     public Status Health { get; private set; }
+
+    public bool IsDead { get; private set; }
 
     private void Awake()
     {
@@ -27,7 +31,33 @@ public class Enemy : MonoBehaviour
         Init();
     }
 
-    public void Init() => Health.Reset();
+    public void Init() 
+    { 
+        Health.Reset(); 
+        IsDead = false;
+        SetComponentEnabled(true);
+    }
 
-    private void Update() => _stateMachine.Execute();
+    private void Update() 
+    {
+        if (IsDead) return;
+        _stateMachine.Execute();
+    }
+
+    public void HasDied()
+    {
+        if (IsDead) return;
+
+        IsDead = true;
+        SetComponentEnabled(false);
+    }
+
+    private void SetComponentEnabled(bool status)
+    {
+        _interactionHandler.enabled = status;
+        _animationHandler.enabled = status;
+        _locomotion.enabled = status;
+        _audioSource.enabled = status;
+        _collider.enabled = status;
+    }
 }

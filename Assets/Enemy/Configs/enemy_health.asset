@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1fc624462263aad4a8bb2c3b246db951, type: 3}
-  m_Name: brute_health
+  m_Name: enemy_health
   m_EditorClassIdentifier: 
   _maxCapacity: 100
   _currentCapacity: 100

@@ -80,9 +80,9 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    public void AddScore(int value)
+    public void AddScore()
     {
-        _session.AddScore(value);
+        _session.AddScore(10);
         _onScoreChange.Raise();
     }
 

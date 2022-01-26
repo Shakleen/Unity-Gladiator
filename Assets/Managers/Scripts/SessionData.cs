@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "SessionData", menuName = "Gladiator/General/Session Data", order = 0)]
