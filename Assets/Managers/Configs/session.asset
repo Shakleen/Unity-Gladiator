@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: session
   m_EditorClassIdentifier: 
   _waveTime: 180
-  _prepareTime: 30
+  _prepareTime: 5

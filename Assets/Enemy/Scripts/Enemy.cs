@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -20,22 +21,37 @@ public class Enemy : MonoBehaviour
     public EnemyConfig Config { get => _config; }
 
     [SerializeField] private CapsuleCollider _collider;
+    [SerializeField] private GameEvent _onDeath;
 
     public Status Health { get; private set; }
 
     public bool IsDead { get; private set; }
 
+    private WaitForSeconds _deactivationDelay;
+
     private void Awake()
     {
+        _deactivationDelay = new WaitForSeconds(Config.DeactivationDelay);
         Health = new Status(_config.Health);
-        Init();
     }
 
-    public void Init() 
+    public void OnEnable() 
     { 
-        Health.Reset(); 
         IsDead = false;
+        Health.Reset(); 
         SetComponentEnabled(true);
+    }
+
+    public void OnDisable() => SetComponentEnabled(false);
+
+    private void SetComponentEnabled(bool status)
+    {
+        _interactionHandler.enabled = status;
+        _animationHandler.enabled = status;
+        _locomotion.enabled = status;
+        _audioSource.enabled = status;
+        _collider.enabled = status;
+        _stateMachine.enabled = status;
     }
 
     private void Update() 
@@ -49,15 +65,13 @@ public class Enemy : MonoBehaviour
         if (IsDead) return;
 
         IsDead = true;
-        SetComponentEnabled(false);
+        _onDeath.Raise();
+        StartCoroutine(Deactivate());
     }
 
-    private void SetComponentEnabled(bool status)
+    private IEnumerator Deactivate() 
     {
-        _interactionHandler.enabled = status;
-        _animationHandler.enabled = status;
-        _locomotion.enabled = status;
-        _audioSource.enabled = status;
-        _collider.enabled = status;
+        yield return _deactivationDelay;
+        gameObject.SetActive(false);
     }
 }

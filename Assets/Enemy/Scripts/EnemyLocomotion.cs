@@ -11,17 +11,19 @@ public class EnemyLocomotion : MonoBehaviour
     private WaitForSeconds _pathUpdateWaitTime;
     private Vector3 _lookVector;
 
-    private void Awake() => _player = FindObjectOfType<Player>();
+    private void Awake() 
+    {
+        _pathUpdateWaitTime = new WaitForSeconds(_enemy.Config.TimeBetweenUpdates);
+        _player = FindObjectOfType<Player>();
+    }
 
-    private void Start() => StartCoroutine(UpdatePath());
+    private void OnEnable() => StartCoroutine(UpdatePath());
 
     public void SetNavMeshAgentState(bool status) => _navMeshAgent.enabled = status;
 
     private IEnumerator UpdatePath()
     {
-        _pathUpdateWaitTime = new WaitForSeconds(_enemy.Config.TimeBetweenUpdates);
-
-        while (!_enemy.Health.IsEmpty())
+        while (!_enemy.IsDead)
         {
             if (PlayerPositionChange() >= Square(_enemy.Config.MinimumUpdateDistance) && _navMeshAgent.enabled)
                 _navMeshAgent.destination = _player.transform.position;

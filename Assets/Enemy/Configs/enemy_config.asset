@@ -17,5 +17,6 @@ MonoBehaviour:
   _attackRange: 2
   _rotationSpeed: 2
   _tauntCoolDown: 7
+  _deactivationDelay: 2
   _sound: {fileID: 11400000, guid: 03cdc3651c9322c4c956024af16d24e2, type: 2}
   _health: {fileID: 11400000, guid: 71d4481efe1a68f4c8dcabc8058d6367, type: 2}

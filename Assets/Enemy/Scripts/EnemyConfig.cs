@@ -19,6 +19,9 @@ public class EnemyConfig : ScriptableObject
     [Tooltip("Minimum amount of time that must elapse between two taunts")] [SerializeField] private float _tauntCoolDown = 7.0f;
     public float TauntCoolDown { get => _tauntCoolDown; }
 
+    [Tooltip("Seconds after which a dead enemy is deactivated.")] [SerializeField] private float _deactivationDelay = 5.0f;
+    public float DeactivationDelay { get => _deactivationDelay; }
+
     [Tooltip("Sound collection to be used by the enemy")] [ SerializeField] private Sounds _sound;
     public Sounds Sound { get => _sound; }
 

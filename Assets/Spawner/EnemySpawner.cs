@@ -57,7 +57,6 @@ public class EnemySpawner : MonoBehaviour
                 _enemyClones[i].transform.position = _spawnLocations[GetRandomSpawnPoint()].position;
                 _enemyClones[i].transform.rotation = Quaternion.identity;
                 _enemyClones[i].gameObject.SetActive(true);
-                _enemyClones[i].Init();
                 yield return _spawnDelayWFS;
             }
         }

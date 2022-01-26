@@ -4,6 +4,9 @@ public class StateMachine<T> : MonoBehaviour
 {
     [SerializeField] protected T _context;
     [SerializeField] protected BaseState<T> _currentState;
+    [SerializeField] private BaseState<T> _startState;
+
+    private void OnEnable() => _currentState = _startState;
 
     public void Execute()
     {

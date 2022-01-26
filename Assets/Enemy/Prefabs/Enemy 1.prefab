@@ -2663,6 +2663,7 @@ MonoBehaviour:
   _audioSource: {fileID: 303343065658851148}
   _config: {fileID: 11400000, guid: e9b325a2d0ceed5469fb6ede0ee2b119, type: 2}
   _collider: {fileID: 7342417003915324311}
+  _onDeath: {fileID: 11400000, guid: 0abd04ff62dd0ba44966af53e82f86aa, type: 2}
 --- !u!114 &1874438569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2677,7 +2678,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemy: {fileID: 1893315834988803940}
   _onHealthChange: {fileID: 11400000, guid: 1602b870bc7c7aa4aa633817bf049760, type: 2}
-  _onDeath: {fileID: 11400000, guid: 0abd04ff62dd0ba44966af53e82f86aa, type: 2}
 --- !u!114 &8222518230886263473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2706,6 +2706,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _context: {fileID: 1893315834988803940}
   _currentState: {fileID: 11400000, guid: 7c30ae8673e159549a6812cc61c0a005, type: 2}
+  _startState: {fileID: 11400000, guid: 7c30ae8673e159549a6812cc61c0a005, type: 2}
 --- !u!114 &3207693226470202134
 MonoBehaviour:
   m_ObjectHideFlags: 0
