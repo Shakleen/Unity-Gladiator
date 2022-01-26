@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public static event Action WaveEnd;
-    
     #region Serialize Field properties
+    [SerializeField] private GameEvent _onWaveEnd;
+    [SerializeField] private SessionData _session;
     [Tooltip("Enemy prefab to spawn")] [SerializeField] private Enemy _enemyPrefab;
     [Tooltip("Maximum number of clones to create and reuse for spawning")] [SerializeField] private int _maxClones = 10;
     [Tooltip("Time gap between successive sapwns")] [SerializeField] private float _spawnDelay = 0.5f;
@@ -14,20 +14,23 @@ public class EnemySpawner : MonoBehaviour
     [Tooltip("Object that will keep the enemies")] [SerializeField] private Transform _cloneParent;
     #endregion
 
-    [SerializeField] private int _enemiesSpawned;
-
-    public int EnemiesALive { get => _enemiesSpawned; set => _enemiesSpawned = value; }
-
+    private int _enemiesSpawned;
     private Enemy[] _enemyClones;
+    private WaitForSeconds _spawnDelayWFS;
 
-    private void Awake() => CreateClones();
+    private void Awake()
+    {
+        CreateClones();
+        _spawnDelayWFS = new WaitForSeconds(_spawnDelay);
+    }
+        
 
-    private void DecrementEnemiesAlive(int score)
+    public void DecrementEnemiesAlive()
     {
         _enemiesSpawned -= 1;
 
         if (_enemiesSpawned == 0)
-            WaveEnd?.Invoke();
+            _onWaveEnd.Raise();
     }
 
     private void CreateClones()
@@ -41,11 +44,11 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    private void Spawn(int waveNo) => StartCoroutine(SpawnEnemies(waveNo));
+    public void Spawn() => StartCoroutine(SpawnEnemies());
 
-    private IEnumerator SpawnEnemies(int waveNo)
+    private IEnumerator SpawnEnemies()
     {
-        _enemiesSpawned = waveNo + 3;
+        _enemiesSpawned = _session.Wave + 3;
 
         for (int i = 0; i < _enemiesSpawned; ++i)
         {
@@ -55,7 +58,7 @@ public class EnemySpawner : MonoBehaviour
                 _enemyClones[i].transform.rotation = Quaternion.identity;
                 _enemyClones[i].gameObject.SetActive(true);
                 _enemyClones[i].Init();
-                yield return new WaitForSeconds(_spawnDelay);
+                yield return _spawnDelayWFS;
             }
         }
     }

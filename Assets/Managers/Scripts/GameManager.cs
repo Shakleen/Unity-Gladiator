@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -8,6 +7,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameEvent _onWaveNoChange;
     [SerializeField] private GameEvent _onTimerChange;
     [SerializeField] private GameEvent _onScoreChange;
+    [SerializeField] private GameEvent _onWaveBegin;
     [SerializeField] private GameEvent _onGameOver;
     [SerializeField] private SessionData _session;
     #endregion
@@ -19,25 +19,22 @@ public class GameManager : MonoBehaviour
     {
         _timerDelay = new WaitForSeconds(1f);
         _prepareTime = new WaitForSeconds(_session.PrepareTime);
+        _timerCoroutine = TimerCoroutine();
     }
 
     private void OnEnable()
     {
         PlayerStatusHandler.OnDeath += GameOver;
-        EnemySpawner.WaveEnd += EndWave;
     }
 
     private void OnDisable()
     {
         PlayerStatusHandler.OnDeath -= GameOver;
-        EnemySpawner.WaveEnd -= EndWave;
     }
 
     private void Start() 
     {
-        _session.BeginWave();
-        StartWaveTimer();
-        _onWaveNoChange.Raise();
+        StartWave();
         _onTimerChange.Raise();
         _onScoreChange.Raise();
     }
@@ -48,7 +45,6 @@ public class GameManager : MonoBehaviour
         if (_timerCoroutine != null)
             StopCoroutine(_timerCoroutine);
         
-        _timerCoroutine = TimerCoroutine();
         StartCoroutine(_timerCoroutine);
     }
 
@@ -64,20 +60,24 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Wave ending
-    private void EndWave() => StartCoroutine(LoadNextWave());
+    public void EndWave() => StartCoroutine(LoadNextWave());
 
     private IEnumerator LoadNextWave()
     {
         _session.SetTimeToPrepareTime();
         StartWaveTimer();
-
         yield return _prepareTime;
-        
-        _session.BeginWave();
-        _onWaveNoChange.Raise();
-        StartWaveTimer();
+        StartWave();
     }
     #endregion
+
+    private void StartWave()
+    {
+        _session.BeginWave();
+        _onWaveNoChange.Raise();
+        _onWaveBegin.Raise();
+        StartWaveTimer();
+    }
 
     public void AddScore()
     {
