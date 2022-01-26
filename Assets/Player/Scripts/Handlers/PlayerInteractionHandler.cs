@@ -29,7 +29,7 @@ public class PlayerInteractionHandler : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent<MeleeWeaponHandler>(out MeleeWeaponHandler weapon))
         {
-            if (weapon.canDamage && weapon.Wielder.TryGetComponent<AIAgent>(out AIAgent _))
+            if (weapon.canDamage && weapon.Wielder.TryGetComponent<Enemy>(out Enemy _))
             {
                 weapon.PlayHitSound();
                 _player.StatusHandler.TakeDamage(weapon.DamagePerHit);

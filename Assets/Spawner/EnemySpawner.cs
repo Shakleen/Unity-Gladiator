@@ -7,7 +7,7 @@ public class EnemySpawner : MonoBehaviour
     public static event Action WaveEnd;
     
     #region Serialize Field properties
-    [Tooltip("Enemy prefab to spawn")] [SerializeField] private AIAgent _enemyPrefab;
+    [Tooltip("Enemy prefab to spawn")] [SerializeField] private Enemy _enemyPrefab;
     [Tooltip("Maximum number of clones to create and reuse for spawning")] [SerializeField] private int _maxClones = 10;
     [Tooltip("Time gap between successive sapwns")] [SerializeField] private float _spawnDelay = 0.5f;
     [Tooltip("Places where enemies will be spawned")] [SerializeField] private Transform[] _spawnLocations;
@@ -18,7 +18,7 @@ public class EnemySpawner : MonoBehaviour
 
     public int EnemiesALive { get => _enemiesSpawned; set => _enemiesSpawned = value; }
 
-    private AIAgent[] _enemyClones;
+    private Enemy[] _enemyClones;
 
     private void Awake() => CreateClones();
 
@@ -32,7 +32,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void CreateClones()
     {
-        _enemyClones = new AIAgent[_maxClones];
+        _enemyClones = new Enemy[_maxClones];
 
         for (int i = 0; i < _maxClones; ++i)
         {

@@ -27,7 +27,7 @@ public class Enemy : MonoBehaviour
         Init();
     }
 
-    private void Init() => Health.Reset();
+    public void Init() => Health.Reset();
 
     private void Update() => _stateMachine.Execute();
 }
