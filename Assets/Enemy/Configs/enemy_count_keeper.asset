@@ -9,9 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a955d7c4a189955408d9cd10013601ec, type: 3}
-  m_Name: session
+  m_Script: {fileID: 11500000, guid: 08af6e6448d5a0442bdd04b6e9922cc9, type: 3}
+  m_Name: enemy_count_keeper
   m_EditorClassIdentifier: 
-  _waveTime: 180
-  _prepareTime: 5
-  _enemyAttackInterregnum: 3

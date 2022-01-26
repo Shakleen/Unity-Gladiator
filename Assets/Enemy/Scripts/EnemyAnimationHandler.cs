@@ -48,4 +48,6 @@ public class EnemyAnimationHandler : MonoBehaviour
     public void AnimationEventFootDown() => _enemy.audioSource.PlayOneShot(_enemy.Config.Sound.GetRandomFootStepSound());
 
     public void AnimationEventTauntEnd() => SetParameterIsTaunting(false);
+
+    public void AnimationEventMeleeAttackEnd() => SetParameterIsAttacking(false);
 }

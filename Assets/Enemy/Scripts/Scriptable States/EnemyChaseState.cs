@@ -21,5 +21,9 @@ public class EnemyChaseState : BaseState<Enemy>
 
     public override void OnEnterState(Enemy context) => context.Locomotion.SetNavMeshAgentState(true);
 
-    public override void OnExitState(Enemy context) => context.Locomotion.SetNavMeshAgentState(false);
+    public override void OnExitState(Enemy context) 
+    {
+        context.AnimationHandler.SetParameterMovementSpeed(0f);
+        context.Locomotion.SetNavMeshAgentState(false);
+    }
 }

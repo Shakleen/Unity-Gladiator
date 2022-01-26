@@ -2469,6 +2469,7 @@ GameObject:
   - component: {fileID: 8222518230886263473}
   - component: {fileID: 5721681028845475331}
   - component: {fileID: 3207693226470202134}
+  - component: {fileID: 4457041904934179901}
   m_Layer: 0
   m_Name: Enemy 1
   m_TagString: Untagged
@@ -2721,6 +2722,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemy: {fileID: 1893315834988803940}
   _navMeshAgent: {fileID: 1874438568}
+--- !u!114 &4457041904934179901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8588035472720502488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8c1a0c0dd139bc4f8c7d447009ac180, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _countKeeper: {fileID: 11400000, guid: 261e276bb7453bd468913c658012943b, type: 2}
+  _enemy: {fileID: 1893315834988803940}
 --- !u!1 &8599138837668719830
 GameObject:
   m_ObjectHideFlags: 0
@@ -3079,6 +3094,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8963575505173726306}
     m_Modifications:
+    - target: {fileID: 597949614644854958, guid: 835c8943b2f5e5145a2785618605fa44, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 597949614644854958, guid: 835c8943b2f5e5145a2785618605fa44, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 597949615262769850, guid: 835c8943b2f5e5145a2785618605fa44, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 597949615262769850, guid: 835c8943b2f5e5145a2785618605fa44, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 597949615544484524, guid: 835c8943b2f5e5145a2785618605fa44, type: 3}
       propertyPath: _owner
       value: 

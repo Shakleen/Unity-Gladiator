@@ -1495,10 +1495,12 @@ GameObject:
   - component: {fileID: 929934371}
   - component: {fileID: 929934370}
   - component: {fileID: 929934372}
+  - component: {fileID: 929934377}
   - component: {fileID: 929934373}
   - component: {fileID: 929934374}
   - component: {fileID: 929934375}
   - component: {fileID: 929934376}
+  - component: {fileID: 929934378}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1609,6 +1611,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 929934377}
+        m_TargetAssemblyTypeName: EnemyManager, Assembly-CSharp
+        m_MethodName: StopEnemyAttacks
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &929934375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1656,6 +1670,60 @@ MonoBehaviour:
       - m_Target: {fileID: 929934370}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: EndWave
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 929934377}
+        m_TargetAssemblyTypeName: EnemyManager, Assembly-CSharp
+        m_MethodName: StopEnemyAttacks
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &929934377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 929934369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 940795faa559ef544be47b748a9e67b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _session: {fileID: 11400000, guid: 8c083b00bc7e4e940a00dbb8edef1563, type: 2}
+  _enemyCountKeeper: {fileID: 11400000, guid: 261e276bb7453bd468913c658012943b, type: 2}
+--- !u!114 &929934378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 929934369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a85e5611b19555a4c933dc329d0c84a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 0d061034d638f714687a58c05cd64d7c, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 929934377}
+        m_TargetAssemblyTypeName: EnemyManager, Assembly-CSharp
+        m_MethodName: BeginEnemyAttacks
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

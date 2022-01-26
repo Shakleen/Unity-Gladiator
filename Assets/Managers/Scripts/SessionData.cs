@@ -5,6 +5,8 @@ public class SessionData : ScriptableObject
 {
     [Tooltip("Seconds within which enemies must be cleared out.")] [SerializeField] private int _waveTime = 180;
     [Tooltip("Seconds between the end and starting of a wave")] [SerializeField] private int _prepareTime = 30;
+    [Tooltip("Duration between attacks executed by any enemy")] [SerializeField] private float _enemyAttackInterregnum = 5.0f;
+    public float EnemyAttackInterregnum { get => _enemyAttackInterregnum; }
     public int PrepareTime { get => _prepareTime; }
     public int Wave { get; private set; }
     public int Score { get; private set; }
