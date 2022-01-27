@@ -14,6 +14,7 @@ public class EnemyInteractionHandler : MonoBehaviour
         {
             if (weapon.canDamage && weapon.Wielder.TryGetComponent<Player>(out Player _))
             {
+                weapon.PlayHitSound();
                 _enemy.Health.Take(weapon.DamagePerHit);
                 _enemy.audioSource.PlayOneShot(_enemy.Config.Sound.GetRandomPainSound());
                 _onHealthChange.Raise();
