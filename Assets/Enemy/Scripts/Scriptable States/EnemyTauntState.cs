@@ -11,7 +11,11 @@ public class EnemyTauntState : BaseState<Enemy>
         return _isWithInRange && context.StateMachine.IsTimerDone(context.StateMachine.TauntTimer);
     }
 
-    public override void ExecuteState(Enemy context) {}
+    public override void ExecuteState(Enemy context) 
+    {
+        if (!context.AnimationHandler.IsAnimationPlaying())
+            context.AnimationHandler.SetParameterIsTaunting(false);
+    }
 
     public override void OnEnterState(Enemy context) => context.AnimationHandler.SetParameterIsTaunting(true);
 

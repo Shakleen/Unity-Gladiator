@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _destinationStates:
   - {fileID: 11400000, guid: 7c30ae8673e159549a6812cc61c0a005, type: 2}
-  - {fileID: 11400000, guid: 3c01b924d04dbfa41aa76d62a3ac82a8, type: 2}
   - {fileID: 11400000, guid: f55f5c9467954fc47be72f3aff6d0166, type: 2}
+  - {fileID: 11400000, guid: 3c01b924d04dbfa41aa76d62a3ac82a8, type: 2}

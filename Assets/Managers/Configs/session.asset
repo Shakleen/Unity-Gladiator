@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _waveTime: 180
   _prepareTime: 5
-  _enemyAttackInterregnum: 3
+  _enemyAttackInterregnum: 1

@@ -5,7 +5,11 @@ public class EnemyAttackState : BaseState<Enemy>
 {
     public override bool EntryCondition(Enemy context) => context.AnimationHandler.IsAttacking;
 
-    public override void ExecuteState(Enemy context) {}
+    public override void ExecuteState(Enemy context) 
+    {
+        if (!context.AnimationHandler.IsAnimationPlaying())
+            context.AnimationHandler.SetParameterIsAttacking(false);
+    }
 
     public override void OnEnterState(Enemy context) => context.InteractionHandler.SetWeaponDamageStatus(true);
 
